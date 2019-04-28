@@ -1,0 +1,1 @@
+aptitude search '~i!~M' > packages/listPackages
