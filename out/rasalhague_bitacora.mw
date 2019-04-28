@@ -11,3 +11,306 @@ Mi portátil equipa una tarjeta ''Nvidia Geforce GT540M'' que resulta pertenecer
 
 Esta tarjeta provoca todo tipo de problemas de sobrecalientamiento, no importa que versión de Linux uses.
 
+= Programas básicos =
+
+== Linux Mint ==
+
+Linux Mint incluye <code>sudo</code> <ref>ya no incluye gksu pero tampoco es imprescindible</ref> y las aplicaciones que uso habitualmente para gestión de paquetes por defecto (''aptitude'' y ''synaptic'').
+
+Tampoco voy a enredar nada con los orígenes del software (de momento)
+
+== Firmware ==
+
+Instalamos el paquete <code>intel-microcode</code> desde el gestor de drivers.
+
+Instalamos el driver recomendado de nvidia desde el gestor de drivers del ''Linux Mint''. Ahora mismo es el ''nvidia-driver-390''
+
+Configuramos desde el interfaz del driver para activar la tarjeta intel.
+
+Como a pesar de eso seguimos teniendo problemas de calentamiento:
+
+<pre>apt install tlp
+tlp start
+apt install lm-sensors hddtemp
+apt install linux-tools-common linux-tools-generic
+cpupower frequency-set -g powersave
+apt install cpufrequtils</pre>
+Referencias:
+
+* https://itsfoss.com/reduce-overheating-laptops-linux/
+* http://www.webupd8.org/2014/04/prevent-your-laptop-from-overheating.html
+
+Después de un reinicio '''frio''' <ref>puede que haya un ''bug'' que hace fallar el sensor de temperatura si el portatil no arranca frio</ref> todo parece funcionar de nuevo.
+
+== Parámetros de disco duro ==
+
+Tengo un disco duro ssd.
+
+Añadimos el parámetro <code>noatime</code> para las particiones de <code>root</code> y <code>/home</code>.
+
+<pre># /etc/fstab: static file system information.
+#
+# Use 'blkid' to print the universally unique identifier for a
+# device; this may be used with UUID= as a more robust way to name devices
+# that works even if disks are added and removed. See fstab(5).
+#
+# &lt;file system&gt; &lt;mount point&gt;   &lt;type&gt;  &lt;options&gt;       &lt;dump&gt;  &lt;pass&gt;
+# / was on /dev/sda5 during installation
+UUID=d96a5501-75b9-4a25-8ecb-c84cd4a3fff5 /               ext4    noatime,errors=remount-ro 0       1
+# /home was on /dev/sda7 during installation
+UUID=8fcde9c5-d694-4417-adc0-8dc229299f4c /home           ext4    defaults,noatime        0       2
+# /store was on /dev/sdc7 during installation
+UUID=0f0892e0-9183-48bd-aab4-9014dc1bd03a /store          ext4    defaults        0       2
+# swap was on /dev/sda6 during installation
+UUID=ce11ccb0-a67d-4e8b-9456-f49a52974160 none            swap    sw              0       0
+# swap was on /dev/sdc5 during installation
+UUID=11090d84-ce98-40e2-b7be-dce3f841d7b4 none            swap    sw              0       0</pre>
+Una vez modificado el <code>/etc/fstab</code> no hace falta arrancar:
+
+<pre>mount -o remount /
+mount -o remount /home
+mount</pre>
+En el printado de <code>mount</code> ya veremos si ha cargado el parámetro.
+
+Pasamos el <code>fstrim</code> desde weekly a daily.
+
+Seguimos instrucciones de [https://easylinuxtipsproject.blogspot.com/p/ssd.html aquí].
+
+Más concretamente de [https://easylinuxtipsproject.blogspot.com/p/ssd.html#ID8.2 aquí]
+
+y cambiamos el parámetro de ''swapiness'' a 1.
+
+== Fuentes adicionales ==
+
+Instalamos algunas fuentes desde los orígenes de software:
+
+<pre>sudo apt install ttf-mscorefonts-installer
+sudo apt install fonts-noto</pre>
+Y la fuente [https://robey.lag.net/2010/06/21/mensch-font.html Mensch] la bajamos directamente al directorio <code>~/.local/share/fonts</code>
+
+== Firewall ==
+
+<code>ufw</code> y <code>gufw</code> vienen instalados por defecto, pero no activados.
+
+<pre>aptitude install ufw
+ufw default deny
+ufw enable
+ufw status verbose
+aptitude install gufw</pre>
+== Control de configuraciones con git ==
+
+=== Instalación de <code>etckeeper</code> ===
+
+<pre>sudo su -
+git config --global user.email xxxxx@whatever.com
+git config --global user.name &quot;Name Surname&quot;
+apt install etckeeper</pre>
+''etckeeper'' hara un control automático de tus ficheros de configuración en <code>/etc</code>
+
+Para echar una mirada a los ''commits'' creados puedes ejecutar:
+
+<pre>cd /etc
+sudo git log</pre>
+=== Controlar dotfiles con git ===
+
+Vamos a crear un repo de git para controlar nuestros ficheros personales de configuración.
+
+Creamos el repo donde queramos
+
+<pre>mkdir usrcfg
+cd usrcfg
+git init
+git config core.worktree &quot;/home/salvari&quot;</pre>
+Y ya lo tenemos, un repo que tiene el directorio de trabajo apuntando a nuestro ''$HOME''.
+
+Podemos añadir los ficheros de configuración que queramos al repo:
+
+<pre>git add .bashrc
+git add .zshrc
+git commit -m &quot;Add some dotfiles&quot;</pre>
+Una vez que he añadido los ficheros que quiero tener controlados he puesto un <code>*</code> en el fichero <code>.git/info/exclude</code> de mi repo para que ignore todos los ficheros de mi <code>$HOME</code>.
+
+Cuando instalo algún programa nuevo añado a mano los ficheros de configuración al repo.
+
+== Aplicaciones variadas ==
+
+'''Nota''': Ya no instalamos ''menulibre'', Linux Mint tiene una utilidad de edición de menús.
+
+; Keepass2
+: Para mantener nuestras contraseñas a buen recaudo
+; Gnucash
+: Programa de contabilidad
+; Deluge
+: Programa de descarga de torrents (acuérdate de configurar tus cortafuegos)
+; Chromium
+: Como Chrome pero libre
+; rsync, grsync
+: Para hacer backups de nuestros ficheros
+; Descompresores variados
+: Para lidiar con los distintos formatos de ficheros comprimidos
+
+<pre>sudo apt install keepass2 gnucash deluge rsync grsync rar unrar \
+zip unzip unace bzip2 lzop p7zip p7zip-full p7zip-rar chromium-browser</pre>
+== Programas de terminal ==
+
+Dos imprescindibles:
+
+<pre>sudo apt install guake terminator</pre>
+'''TODO:''' asociar ''Guake'' a una combinación apropiada de teclas.
+
+== Dropbox ==
+
+Lo instalamos desde el software manager.
+
+== Chrome ==
+
+Instalado desde [https://www.google.com/chrome/ la página web de Chrome]
+
+== Varias aplicaciones instaladas de binarios ==
+
+Lo recomendable en un sistema POSIX es instalar los programas adicionales en <code>/usr/local</code> o en <code>/opt</code>. Yo soy más chapuzas y suelo instalar en <code>~/apt</code> por que el portátil es personal e intrasferible. En un ordenador compartido es mejor usar <code>/opt</code>.
+
+=== Freeplane ===
+
+Para hacer mapas mentales, presentaciones, resúmenes, apuntes… La versión incluida en LinuxMint está un poco anticuada.
+
+# descargamos desde [http://freeplane.sourceforge.net/wiki/index.php/Home la web].
+# Descomprimimos en <code>~/apps/freeplane</code>
+# Creamos enlace simbólico
+# Añadimos a los menús
+
+=== Telegram Desktop ===
+
+Cliente de Telegram, descargado desde la [https://desktop.telegram.org/ página web].
+
+=== Tor browser ===
+
+Descargamos desde la [https://www.torproject.org/ página oficial del proyecto] Descomprimimos en <code>~/apps/</code> y ejecutamos desde terminal:
+
+<pre>cd ~/apps/tor-browser
+./start-tor-browser.desktop --register-app</pre>
+=== TiddlyDesktop ===
+
+Descargamos desde la [https://github.com/Jermolene/TiddlyDesktop página web], descomprimimos y generamos la entrada en el menú.
+
+== Terminal y Shell ==
+
+Por defecto tenemos instalado <code>bash</code>.
+
+=== bash-git-promt ===
+
+Seguimos las instrucciones de [https://github.com/magicmonty/bash-git-prompt este github]
+
+=== zsh ===
+
+Nos adelantamos a los acontecimientos, pero conviene tener instaladas las herramientas de entornos virtuales de python antes de instalar ''zsh'' con el plugin para ''virtualenvwrapper''.
+
+<pre>apt install python-all-dev
+apt install python3-all-dev
+apt install python-pip python-virtualenv virtualenv python3-pip</pre>
+''zsh'' viene por defecto en mi instalación, en caso contrario:
+
+<pre>apt install zsh</pre>
+Para ''zsh'' vamos a usar [https://github.com/zsh-users/antigen antigen], así que nos lo clonamos en <code>~/apps/</code>
+
+<pre>cd ~/apps
+git clone https://github.com/zsh-users/antigen</pre>
+También vamos a usar [https://github.com/olivierverdier/zsh-git-prompt zsh-git-prompt], así que lo clonamos también:
+
+<pre>cd ~/apps
+git clone https://github.com/olivierverdier/zsh-git-prompt)</pre>
+Y editamos el fichero <code>~/.zshrc</code> para que contenga:
+
+<pre># This line loads .profile, it's experimental
+[[ -e ~/.profile ]] &amp;&amp; emulate sh -c 'source ~/.profile'
+
+source ~/apps/zsh-git-prompt/zshrc.sh
+source ~/apps/antigen/antigen.zsh
+
+# Load the oh-my-zsh's library.
+antigen use oh-my-zsh
+
+# Bundles from the default repo (robbyrussell's oh-my-zsh).
+antigen bundle git
+antigen bundle command-not-found
+
+# must install autojump for this
+#antigen bundle autojump
+
+# extracts every kind of compressed file
+antigen bundle extract
+
+# jump to dir used frequently
+antigen bundle z
+
+#antigen bundle pip
+
+antigen bundle common-aliases
+
+antigen bundle robbyrussell/oh-my-zsh plugins/virtualenvwrapper
+
+antigen bundle zsh-users/zsh-completions
+
+# Syntax highlighting bundle.
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle zsh-users/zsh-history-substring-search ./zsh-history-substring-search.zsh
+
+# Arialdo Martini git needs awesome terminal font
+#antigen bundle arialdomartini/oh-my-git
+#antigen theme arialdomartini/oh-my-git-themes oppa-lana-style
+
+# autosuggestions
+antigen bundle tarruda/zsh-autosuggestions
+
+#antigen theme agnoster
+antigen theme gnzh
+
+# Tell antigen that you're done.
+antigen apply
+
+# Correct rm alias from common-alias bundle
+unalias rm
+alias rmi='rm -i'</pre>
+Antigen ya se encarga de descargar todos los plugins que queramos utilizar en zsh. Todos el software se descarga en <code>~/.antigen</code>
+
+Para configurar el [https://github.com/olivierverdier/zsh-git-prompt zsh-git-prompt], que inspiró el bash-git-prompt, he modificado el fichero <code>~/.zshrc</code> y el fichero del tema en <code>~/.antigen/bundles/robbyrussell/oh-my-zsh/themes/gnzh.zsh-theme</code>
+
+=== fish ===
+
+'''Nota''': No he instalado ''fish'' dejo por aquí las notas del antiguo linux mint por si le interesa a alguien.
+
+Instalamos ''fish'':
+
+<pre>sudo aptitude install fish</pre>
+Instalamos oh-my-fish
+
+<pre>curl -L https://github.com/oh-my-fish/oh-my-fish/raw/master/bin/install &gt; install
+fish install
+rm install</pre>
+Si queremos que fish sea nuestro nuevo shell:
+
+<pre>chsh -s `which fish`</pre>
+Los ficheros de configuración de ''fish'' se encuentran en <code>~/config/fish</code>.
+
+Los ficheros de ''Oh-my-fish'' en mi portátil quedan en <code>~/.local/share/omf</code>
+
+Para tener la info de git en el prompt de fish al estilo de [https://github.com/magicmonty/bash-git-prompt bash-git-prompt], copiamos:
+
+<pre>cp ~/.bash-git-prompt/gitprompt.fish ~/.config/fish/functions/fish_prompt.fish</pre>
+'''NOTA''': ''fish'' es un shell estupendo supercómodo con un montón de funcionalidades. Pero no es POSIX. Mucho ojo con esto, usa ''fish'' pero aségurate de saber a que renuncias, o las complicaciones a las que vas a enfrentarte.
+
+=== tmux ===
+
+Esto no tiene mucho que ver con los shell, lo he instalado para aprender a usarlo.
+
+<pre>sudo apt install tmux</pre>
+== Utilidades ==
+
+''Agave'' y ''pdftk'' ya no existen, nos pasamos a ''gpick'' y ''poppler-utils'':
+
+Instalamos ''gpick'' con <code>sudo apt install gpick</code>
+
+== Codecs ==
+
+<pre>sudo apt-get install mint-meta-codecs</pre>
+<references />

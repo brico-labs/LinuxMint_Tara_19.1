@@ -104,4 +104,479 @@ pertenecer a una rama muerta en el árbol de desarrollo de Nvidia.
 Esta tarjeta provoca todo tipo de problemas de sobrecalientamiento, no
 importa que versión de Linux uses.
 
+\hypertarget{programas-buxe1sicos}{%
+\section{Programas básicos}\label{programas-buxe1sicos}}
+
+\hypertarget{linux-mint}{%
+\subsection{Linux Mint}\label{linux-mint}}
+
+Linux Mint incluye \texttt{sudo} \footnote{ya no incluye gksu pero
+  tampoco es imprescindible} y las aplicaciones que uso habitualmente
+para gestión de paquetes por defecto (\emph{aptitude} y
+\emph{synaptic}).
+
+Tampoco voy a enredar nada con los orígenes del software (de momento)
+
+\hypertarget{firmware}{%
+\subsection{Firmware}\label{firmware}}
+
+Instalamos el paquete \texttt{intel-microcode} desde el gestor de
+drivers.
+
+Instalamos el driver recomendado de nvidia desde el gestor de drivers
+del \emph{Linux Mint}. Ahora mismo es el \emph{nvidia-driver-390}
+
+Configuramos desde el interfaz del driver para activar la tarjeta intel.
+
+Como a pesar de eso seguimos teniendo problemas de calentamiento:
+
+\begin{verbatim}
+apt install tlp
+tlp start
+apt install lm-sensors hddtemp
+apt install linux-tools-common linux-tools-generic
+cpupower frequency-set -g powersave
+apt install cpufrequtils
+\end{verbatim}
+
+Referencias:
+
+\begin{itemize}
+\tightlist
+\item
+  \url{https://itsfoss.com/reduce-overheating-laptops-linux/}
+\item
+  \url{http://www.webupd8.org/2014/04/prevent-your-laptop-from-overheating.html}
+\end{itemize}
+
+Después de un reinicio \textbf{frio} \footnote{puede que haya un
+  \emph{bug} que hace fallar el sensor de temperatura si el portatil no
+  arranca frio} todo parece funcionar de nuevo.
+
+\hypertarget{paruxe1metros-de-disco-duro}{%
+\subsection{Parámetros de disco
+duro}\label{paruxe1metros-de-disco-duro}}
+
+Tengo un disco duro ssd.
+
+Añadimos el parámetro \texttt{noatime} para las particiones de
+\texttt{root} y \texttt{/home}.
+
+\begin{verbatim}
+# /etc/fstab: static file system information.
+#
+# Use 'blkid' to print the universally unique identifier for a
+# device; this may be used with UUID= as a more robust way to name devices
+# that works even if disks are added and removed. See fstab(5).
+#
+# <file system> <mount point>   <type>  <options>       <dump>  <pass>
+# / was on /dev/sda5 during installation
+UUID=d96a5501-75b9-4a25-8ecb-c84cd4a3fff5 /               ext4    noatime,errors=remount-ro 0       1
+# /home was on /dev/sda7 during installation
+UUID=8fcde9c5-d694-4417-adc0-8dc229299f4c /home           ext4    defaults,noatime        0       2
+# /store was on /dev/sdc7 during installation
+UUID=0f0892e0-9183-48bd-aab4-9014dc1bd03a /store          ext4    defaults        0       2
+# swap was on /dev/sda6 during installation
+UUID=ce11ccb0-a67d-4e8b-9456-f49a52974160 none            swap    sw              0       0
+# swap was on /dev/sdc5 during installation
+UUID=11090d84-ce98-40e2-b7be-dce3f841d7b4 none            swap    sw              0       0
+\end{verbatim}
+
+Una vez modificado el \texttt{/etc/fstab} no hace falta arrancar:
+
+\begin{verbatim}
+mount -o remount /
+mount -o remount /home
+mount
+\end{verbatim}
+
+En el printado de \texttt{mount} ya veremos si ha cargado el parámetro.
+
+Pasamos el \texttt{fstrim} desde weekly a daily.
+
+Seguimos instrucciones de
+\href{https://easylinuxtipsproject.blogspot.com/p/ssd.html}{aquí}.
+
+Más concretamente de
+\href{https://easylinuxtipsproject.blogspot.com/p/ssd.html\#ID8.2}{aquí}
+
+y cambiamos el parámetro de \emph{swapiness} a 1.
+
+\hypertarget{fuentes-adicionales}{%
+\subsection{Fuentes adicionales}\label{fuentes-adicionales}}
+
+Instalamos algunas fuentes desde los orígenes de software:
+
+\begin{verbatim}
+sudo apt install ttf-mscorefonts-installer
+sudo apt install fonts-noto
+\end{verbatim}
+
+Y la fuente
+\href{https://robey.lag.net/2010/06/21/mensch-font.html}{Mensch} la
+bajamos directamente al directorio
+\texttt{\textasciitilde{}/.local/share/fonts}
+
+\hypertarget{firewall}{%
+\subsection{Firewall}\label{firewall}}
+
+\texttt{ufw} y \texttt{gufw} vienen instalados por defecto, pero no
+activados.
+
+\begin{verbatim}
+aptitude install ufw
+ufw default deny
+ufw enable
+ufw status verbose
+aptitude install gufw
+\end{verbatim}
+
+\hypertarget{control-de-configuraciones-con-git}{%
+\subsection{Control de configuraciones con
+git}\label{control-de-configuraciones-con-git}}
+
+\hypertarget{instalaciuxf3n-de-etckeeper}{%
+\subsubsection{\texorpdfstring{Instalación de
+\texttt{etckeeper}}{Instalación de etckeeper}}\label{instalaciuxf3n-de-etckeeper}}
+
+\begin{verbatim}
+sudo su -
+git config --global user.email xxxxx@whatever.com
+git config --global user.name "Name Surname"
+apt install etckeeper
+\end{verbatim}
+
+\emph{etckeeper} hara un control automático de tus ficheros de
+configuración en \texttt{/etc}
+
+Para echar una mirada a los \emph{commits} creados puedes ejecutar:
+
+\begin{verbatim}
+cd /etc
+sudo git log
+\end{verbatim}
+
+\hypertarget{controlar-dotfiles-con-git}{%
+\subsubsection{Controlar dotfiles con
+git}\label{controlar-dotfiles-con-git}}
+
+Vamos a crear un repo de git para controlar nuestros ficheros personales
+de configuración.
+
+Creamos el repo donde queramos
+
+\begin{verbatim}
+mkdir usrcfg
+cd usrcfg
+git init
+git config core.worktree "/home/salvari"
+\end{verbatim}
+
+Y ya lo tenemos, un repo que tiene el directorio de trabajo apuntando a
+nuestro \emph{\$HOME}.
+
+Podemos añadir los ficheros de configuración que queramos al repo:
+
+\begin{verbatim}
+git add .bashrc
+git add .zshrc
+git commit -m "Add some dotfiles"
+\end{verbatim}
+
+Una vez que he añadido los ficheros que quiero tener controlados he
+puesto un \texttt{*} en el fichero \texttt{.git/info/exclude} de mi repo
+para que ignore todos los ficheros de mi \texttt{\$HOME}.
+
+Cuando instalo algún programa nuevo añado a mano los ficheros de
+configuración al repo.
+
+\hypertarget{aplicaciones-variadas}{%
+\subsection{Aplicaciones variadas}\label{aplicaciones-variadas}}
+
+\textbf{Nota}: Ya no instalamos \emph{menulibre}, Linux Mint tiene una
+utilidad de edición de menús.
+
+\begin{description}
+\item[Keepass2]
+Para mantener nuestras contraseñas a buen recaudo
+\item[Gnucash]
+Programa de contabilidad
+\item[Deluge]
+Programa de descarga de torrents (acuérdate de configurar tus
+cortafuegos)
+\item[Chromium]
+Como Chrome pero libre
+\item[rsync, grsync]
+Para hacer backups de nuestros ficheros
+\item[Descompresores variados]
+Para lidiar con los distintos formatos de ficheros comprimidos
+\end{description}
+
+\begin{verbatim}
+sudo apt install keepass2 gnucash deluge rsync grsync rar unrar \
+zip unzip unace bzip2 lzop p7zip p7zip-full p7zip-rar chromium-browser
+\end{verbatim}
+
+\hypertarget{programas-de-terminal}{%
+\subsection{Programas de terminal}\label{programas-de-terminal}}
+
+Dos imprescindibles:
+
+\begin{verbatim}
+sudo apt install guake terminator
+\end{verbatim}
+
+\textbf{TODO:} asociar \emph{Guake} a una combinación apropiada de
+teclas.
+
+\hypertarget{dropbox}{%
+\subsection{Dropbox}\label{dropbox}}
+
+Lo instalamos desde el software manager.
+
+\hypertarget{chrome}{%
+\subsection{Chrome}\label{chrome}}
+
+Instalado desde \href{https://www.google.com/chrome/}{la página web de
+Chrome}
+
+\hypertarget{varias-aplicaciones-instaladas-de-binarios}{%
+\subsection{Varias aplicaciones instaladas de
+binarios}\label{varias-aplicaciones-instaladas-de-binarios}}
+
+Lo recomendable en un sistema POSIX es instalar los programas
+adicionales en \texttt{/usr/local} o en \texttt{/opt}. Yo soy más
+chapuzas y suelo instalar en \texttt{\textasciitilde{}/apt} por que el
+portátil es personal e intrasferible. En un ordenador compartido es
+mejor usar \texttt{/opt}.
+
+\hypertarget{freeplane}{%
+\subsubsection{Freeplane}\label{freeplane}}
+
+Para hacer mapas mentales, presentaciones, resúmenes, apuntes\ldots{} La
+versión incluida en LinuxMint está un poco anticuada.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  descargamos desde
+  \href{http://freeplane.sourceforge.net/wiki/index.php/Home}{la web}.
+\item
+  Descomprimimos en \texttt{\textasciitilde{}/apps/freeplane}
+\item
+  Creamos enlace simbólico
+\item
+  Añadimos a los menús
+\end{enumerate}
+
+\hypertarget{telegram-desktop}{%
+\subsubsection{Telegram Desktop}\label{telegram-desktop}}
+
+Cliente de Telegram, descargado desde la
+\href{https://desktop.telegram.org/}{página web}.
+
+\hypertarget{tor-browser}{%
+\subsubsection{Tor browser}\label{tor-browser}}
+
+Descargamos desde la \href{https://www.torproject.org/}{página oficial
+del proyecto} Descomprimimos en \texttt{\textasciitilde{}/apps/} y
+ejecutamos desde terminal:
+
+\begin{verbatim}
+cd ~/apps/tor-browser
+./start-tor-browser.desktop --register-app
+\end{verbatim}
+
+\hypertarget{tiddlydesktop}{%
+\subsubsection{TiddlyDesktop}\label{tiddlydesktop}}
+
+Descargamos desde la
+\href{https://github.com/Jermolene/TiddlyDesktop}{página web},
+descomprimimos y generamos la entrada en el menú.
+
+\hypertarget{terminal-y-shell}{%
+\subsection{Terminal y Shell}\label{terminal-y-shell}}
+
+Por defecto tenemos instalado \texttt{bash}.
+
+\hypertarget{bash-git-promt}{%
+\subsubsection{bash-git-promt}\label{bash-git-promt}}
+
+Seguimos las instrucciones de
+\href{https://github.com/magicmonty/bash-git-prompt}{este github}
+
+\hypertarget{zsh}{%
+\subsubsection{zsh}\label{zsh}}
+
+Nos adelantamos a los acontecimientos, pero conviene tener instaladas
+las herramientas de entornos virtuales de python antes de instalar
+\emph{zsh} con el plugin para \emph{virtualenvwrapper}.
+
+\begin{verbatim}
+apt install python-all-dev
+apt install python3-all-dev
+apt install python-pip python-virtualenv virtualenv python3-pip
+\end{verbatim}
+
+\emph{zsh} viene por defecto en mi instalación, en caso contrario:
+
+\begin{verbatim}
+apt install zsh
+\end{verbatim}
+
+Para \emph{zsh} vamos a usar
+\href{https://github.com/zsh-users/antigen}{antigen}, así que nos lo
+clonamos en \texttt{\textasciitilde{}/apps/}
+
+\begin{verbatim}
+cd ~/apps
+git clone https://github.com/zsh-users/antigen
+\end{verbatim}
+
+También vamos a usar
+\href{https://github.com/olivierverdier/zsh-git-prompt}{zsh-git-prompt},
+así que lo clonamos también:
+
+\begin{verbatim}
+cd ~/apps
+git clone https://github.com/olivierverdier/zsh-git-prompt)
+\end{verbatim}
+
+Y editamos el fichero \texttt{\textasciitilde{}/.zshrc} para que
+contenga:
+
+\begin{verbatim}
+# This line loads .profile, it's experimental
+[[ -e ~/.profile ]] && emulate sh -c 'source ~/.profile'
+
+source ~/apps/zsh-git-prompt/zshrc.sh
+source ~/apps/antigen/antigen.zsh
+
+# Load the oh-my-zsh's library.
+antigen use oh-my-zsh
+
+# Bundles from the default repo (robbyrussell's oh-my-zsh).
+antigen bundle git
+antigen bundle command-not-found
+
+# must install autojump for this
+#antigen bundle autojump
+
+# extracts every kind of compressed file
+antigen bundle extract
+
+# jump to dir used frequently
+antigen bundle z
+
+#antigen bundle pip
+
+antigen bundle common-aliases
+
+antigen bundle robbyrussell/oh-my-zsh plugins/virtualenvwrapper
+
+antigen bundle zsh-users/zsh-completions
+
+# Syntax highlighting bundle.
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle zsh-users/zsh-history-substring-search ./zsh-history-substring-search.zsh
+
+# Arialdo Martini git needs awesome terminal font
+#antigen bundle arialdomartini/oh-my-git
+#antigen theme arialdomartini/oh-my-git-themes oppa-lana-style
+
+# autosuggestions
+antigen bundle tarruda/zsh-autosuggestions
+
+#antigen theme agnoster
+antigen theme gnzh
+
+# Tell antigen that you're done.
+antigen apply
+
+# Correct rm alias from common-alias bundle
+unalias rm
+alias rmi='rm -i'
+\end{verbatim}
+
+Antigen ya se encarga de descargar todos los plugins que queramos
+utilizar en zsh. Todos el software se descarga en
+\texttt{\textasciitilde{}/.antigen}
+
+Para configurar el
+\href{https://github.com/olivierverdier/zsh-git-prompt}{zsh-git-prompt},
+que inspiró el bash-git-prompt, he modificado el fichero
+\texttt{\textasciitilde{}/.zshrc} y el fichero del tema en
+\texttt{\textasciitilde{}/.antigen/bundles/robbyrussell/oh-my-zsh/themes/gnzh.zsh-theme}
+
+\hypertarget{fish}{%
+\subsubsection{fish}\label{fish}}
+
+\textbf{Nota}: No he instalado \emph{fish} dejo por aquí las notas del
+antiguo linux mint por si le interesa a alguien.
+
+Instalamos \emph{fish}:
+
+\begin{verbatim}
+sudo aptitude install fish
+\end{verbatim}
+
+Instalamos oh-my-fish
+
+\begin{verbatim}
+curl -L https://github.com/oh-my-fish/oh-my-fish/raw/master/bin/install > install
+fish install
+rm install
+\end{verbatim}
+
+Si queremos que fish sea nuestro nuevo shell:
+
+\begin{verbatim}
+chsh -s `which fish`
+\end{verbatim}
+
+Los ficheros de configuración de \emph{fish} se encuentran en
+\texttt{\textasciitilde{}/config/fish}.
+
+Los ficheros de \emph{Oh-my-fish} en mi portátil quedan en
+\texttt{\textasciitilde{}/.local/share/omf}
+
+Para tener la info de git en el prompt de fish al estilo de
+\href{https://github.com/magicmonty/bash-git-prompt}{bash-git-prompt},
+copiamos:
+
+\begin{verbatim}
+cp ~/.bash-git-prompt/gitprompt.fish ~/.config/fish/functions/fish_prompt.fish
+\end{verbatim}
+
+\textbf{NOTA}: \emph{fish} es un shell estupendo supercómodo con un
+montón de funcionalidades. Pero no es POSIX. Mucho ojo con esto, usa
+\emph{fish} pero aségurate de saber a que renuncias, o las
+complicaciones a las que vas a enfrentarte.
+
+\hypertarget{tmux}{%
+\subsubsection{tmux}\label{tmux}}
+
+Esto no tiene mucho que ver con los shell, lo he instalado para aprender
+a usarlo.
+
+\begin{verbatim}
+sudo apt install tmux
+\end{verbatim}
+
+\hypertarget{utilidades}{%
+\subsection{Utilidades}\label{utilidades}}
+
+\emph{Agave} y \emph{pdftk} ya no existen, nos pasamos a \emph{gpick} y
+\emph{poppler-utils}:
+
+Instalamos \emph{gpick} con \texttt{sudo\ apt\ install\ gpick}
+
+\hypertarget{codecs}{%
+\subsection{Codecs}\label{codecs}}
+
+\begin{verbatim}
+sudo apt-get install mint-meta-codecs
+\end{verbatim}
+
 \end{document}
