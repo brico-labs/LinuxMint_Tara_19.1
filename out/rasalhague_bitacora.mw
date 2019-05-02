@@ -313,4 +313,702 @@ Instalamos ''gpick'' con <code>sudo apt install gpick</code>
 == Codecs ==
 
 <pre>sudo apt-get install mint-meta-codecs</pre>
+= Utilidades =
+
+== htop ==
+
+<pre>sudo apt install htop</pre>
+== gparted ==
+
+Instalamos ''gparted'' para poder formatear memorias usb
+
+<code>sudo apt install gparted</code>
+
+== wkhtmltopdf ==
+
+<pre>sudo apt install wkhtmltopdf</pre>
+= Internet =
+
+= Rclone =
+
+Instalamos desde la página web, siempre que te fies obviamente.
+
+<pre>curl https://rclone.org/install.sh | sudo bash</pre>
+== Recetas rclone ==
+
+Copiar directorio local en la nube:
+
+<pre>rclone copy /localdir hubic:backup -vv</pre>
+Si queremos ver el directorio en la web de Hubic tenemos que copiarlo en ''default'':
+
+<pre>rclone copy /localdir hubic:default/backup -vv</pre>
+Sincronizar una carpeta remota en local:
+
+<pre>rclone sync hubic:directorio_remoto /home/salvari/directorio_local -vv</pre>
+== Referencias ==
+
+* [https://elblogdelazaro.gitlab.io//articles/rclone-sincroniza-ficheros-en-la-nube/ Como usar rclone (blogdelazaro)]
+* [https://elblogdelazaro.gitlab.io//articles/rclone-cifrado-de-ficheros-en-la-nube/ y con cifrado (blogdelazaro)]
+* [https://rclone.org/docs/ Documentación]
+
+= Tareas =
+
+== hamster-indicator ==
+
+Tan fácil como:
+
+<pre>sudo apt install hamster-indicator</pre>
+= Documentación =
+
+== Vanilla LaTeX ==
+
+El LaTeX de Debian está un poquillo anticuado, si se quiere usar una versión reciente hay que aplicar este truco.
+
+<pre>cd ~
+mkdir tmp
+cd tmp
+wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
+tar xzf install-tl-unx.tar.gz
+cd install-tl-xxxxxx</pre>
+La parte xxxxxx varía en función del estado de la última versión de LaTeX disponible.
+
+<pre>sudo ./install-tl</pre>
+Una vez lanzada la instalación podemos desmarcar las opciones que instalan la documentación y las fuentes. Eso nos obligará a consultar la documentación on line pero ahorrará practicamente el 50% del espacio necesario. En mi caso sin doc ni src ocupa 2,3Gb
+
+<pre>mkdir -p /opt/texbin
+sudo ln -s /usr/local/texlive/2018/bin/x86_64-linux/* /opt/texbin</pre>
+Por último para acabar la instalación añadimos <code>/opt/texbin</code> al ''PATH''. Para ''bash'' y ''zsh'' basta con añadir al fichero <code>~/.profile</code> las siguientes lineas:
+
+<pre># adds texlive to my PATH
+if [ -d &quot;/opt/texbin&quot; ] ; then
+    PATH=&quot;$PATH:/opt/texbin&quot;
+fi</pre>
+En cuanto a ''fish'' (si es que lo usas, claro) tendremos que modificar (o crear) el fichero <code>~/.config/fish/config.fish</code> y añadir la siguiente linea:
+
+<pre>set PATH $PATH /opt/texbin</pre>
+=== Falsificando paquetes ===
+
+Ya tenemos el ''texlive'' instalado, ahora necesitamos que el gestor de paquetes sepa que ya lo tenemos instalado.
+
+<pre>sudo apt install equivs --no-install-recommends
+mkdir -p /tmp/tl-equivs &amp;&amp; cd /tmp/tl-equivs
+equivs-control texlive-local</pre>
+Alternativamente para hacerlo más fácil podemos descargarnos un fichero <code>texlive-local</code>ya preparado, ejecutando:
+
+<pre>wget http://www.tug.org/texlive/files/debian-equivs-2018-ex.txt
+/bin/cp -f debian-equivs-2018-ex.txt texlive-local</pre>
+Editamos la versión (si queremos) y procedemos a generar el paquete ''deb''.
+
+<pre>equivs-build texlive-local</pre>
+El paquete que hemos generado tiene una dependencia: ''freeglut3'', hay que instalarla previamente.
+
+<pre>sudo apt install freeglut3
+sudo dpkg -i texlive-local_2018-1_all.deb</pre>
+Todo listo, ahora podemos instalar cualquier paquete debian que dependa de ''texlive'' sin problemas de dependencias, aunque no hayamos instalado el ''texlive'' de Debian.
+
+=== Fuentes ===
+
+Para dejar disponibles las fuentes opentype y truetype que vienen con texlive para el resto de aplicaciones:
+
+<pre>sudo cp $(kpsewhich -var-value TEXMFSYSVAR)/fonts/conf/texlive-fontconfig.conf /etc/fonts/conf.d/09-texlive.conf
+gksudo gedit /etc/fonts/conf.d/09-texlive.conf</pre>
+Borramos la linea:
+
+<pre>&lt;dir&gt;/usr/local/texlive/2018/texmf-dist/fonts/type1&lt;/dir&gt;</pre>
+Y ejecutamos:
+
+<pre>sudo fc-cache -fsv</pre>
+Actualizaciones Para actualizar nuestro ''latex'' a la última versión de todos los paquetes:
+
+<pre>sudo /opt/texbin/tlmgr update --self
+sudo /opt/texbin/tlmgr update --all</pre>
+También podemos lanzar el instalador gráfico con:
+
+<pre>sudo /opt/texbin/tlmgr --gui</pre>
+Para usar el instalador gráfico hay que instalar previamente:
+
+<pre>sudo apt-get install perl-tk --no-install-recommends</pre>
+Lanzador para el actualizador de ''texlive'':
+
+<pre>mkdir -p ~/.local/share/applications
+/bin/rm ~/.local/share/applications/tlmgr.desktop
+cat &gt; ~/.local/share/applications/tlmgr.desktop &lt;&lt; EOF
+[Desktop Entry]
+Version=1.0
+Name=TeX Live Manager
+Comment=Manage TeX Live packages
+GenericName=Package Manager
+Exec=gksu -d -S -D &quot;TeX Live Manager&quot; '/opt/texbin/tlmgr -gui'
+Terminal=false
+Type=Application
+Icon=system-software-update
+EOF</pre>
+== Tipos de letra ==
+
+Creamos el directorio de usuario para tipos de letra:
+
+<pre>mkdir ~/.local/share/fonts</pre>
+== Fuentes Adicionales ==
+
+Un par de fuentes las he descargado de internet y las he almacenado en el directorio de usuario para los tipos de letra: <code>~/.local/share/fonts</code>
+
+* [https://design.ubuntu.com/font/ Ubuntu] (La uso en documentación)
+* [https://robey.lag.net/downloads/mensch.ttf Mensch] (Esta es la que yo uso para programar.)
+
+Además he clonado el repo [https://github.com/ProgrammingFonts/ProgrammingFonts ''Programming Fonts''] y enlazado algunas fuentes (Hack y Menlo)
+
+<pre>cd ~/wherever
+git clone https://github.com/ProgrammingFonts/ProgrammingFonts
+cd ~/.local/share/fonts
+ln -s ~/wherever/ProgrammingFonts/Hack .
+ln -s ~/wherever/ProgrammingFonts/Menlo .</pre>
+== Pandoc ==
+
+''Pandoc'' es un traductor entre formatos de documento. Está escrito en Python y es increiblemente útil. De hecho este documento está escrito con ''Pandoc''.
+
+Instalado el ''Pandoc'' descargando paquete deb desde [http://pandoc.org/installing.html la página web del proyecto].
+
+Además descargamos plantillas adicionales desde [https://github.com/jgm/pandoc-templates este repo] ejecutando los siguientes comandos:
+
+<pre>mkdir ~/.pandoc
+cd ~/.pandoc
+git clone https://github.com/jgm/pandoc-templates templates</pre>
+== Calibre ==
+
+La mejor utilidad para gestionar tu colección de libros electrónicos.
+
+Ejecutamos lo que manda la página web:
+
+<pre>sudo -v &amp;&amp; wget -nv -O- https://raw.githubusercontent.com/kovidgoyal/calibre/master/setup/linux-installer.py \
+| sudo python -c &quot;import sys; main=lambda:sys.stderr.write('Download failed\n'); exec(sys.stdin.read()); main()&quot;</pre>
+Para usar el calibre con el Kobo Glo:
+
+* Desactivamos todos los plugin de Kobo menos el Kobo Touch Extended
+* Creamos una columna MyShelves con identificativo #myshelves
+* En las opciones del plugin:
+** En la opción Collection columns añadimos las columnas series,#myshelves
+** Marcamos las opciones Create collections y Delete empy collections
+** Marcamos ''Modify CSS''
+** Update metadata on device y Set series information
+
+Algunos enlaces útiles:
+
+* (https://github.com/jgoguen/calibre-kobo-driver)
+* (http://www.lectoreselectronicos.com/foro/showthread.php?15116-Manual-de-instalaci%C3%B3n-y-uso-del-plugin-Kobo-Touch-Extended-para-Calibre)
+* (http://www.redelijkheid.com/blog/2013/7/25/kobo-glo-ebook-library-management-with-calibre)
+* (https://www.netogram.com/kobo.htm)
+
+== Scribus ==
+
+Scribus es un programa libre de composición de documentos. con Scribus puedes elaborar desde los folletos de una exposición hasta una revista o un poster.
+
+Para tener una versión más actualizada instalamos:
+
+<pre>sudo add-apt-repository ppa:scribus/ppa
+sudo apt update
+sudo apt install scribus scribus-ng scribus-template scribus-ng-doc</pre>
+=== Cambiados algunos valores por defecto ===
+
+He cambiado los siguientes valores en las dos versiones, non están exactamente en el mismo menú pero no son díficiles de encontrar:
+
+* Lenguaje por defecto: '''English'''
+* Tamaño de documento: '''A4'''
+* Unidades por defecto: '''milimeters'''
+* Show Page Grid: '''Activado'''
+* Dimensiones de la rejilla:
+** Mayor: '''30 mm'''
+** Menor: '''6mm'''
+* En opciones de salida de ''pdf'' indicamos que queremos salida a impresora y no a pantalla. Y también que no queremos ''spot colors'' (que serían solo para ciertas impresoras industriales).
+
+Siempre se puede volver a los valores por defecto sin mucho problema (hay una opción para ello)
+
+Referencia [https://www.youtube.com/watch?v=3sEoYZGABQM&list=PL3kOqLpV3a67b13TY3WxYVzErYUOLYekI aquí]
+
+=== Solucionados problemas de ''hyphenation'' ===
+
+''Scribus'' no hacia correctamente la separación silábica en castellano, he instalado los paquetes:
+
+* hyphen-es
+* hyphen-gl
+
+Y ahora funciona correctamente.
+
+= Desarrollo software =
+
+== Paquetes esenciales ==
+
+Estos son los paquetes esenciales para empezar a desarrollar software en Linux.
+
+<pre>sudo apt install build-essential checkinstall make automake cmake autoconf git git-core dpkg wget</pre>
+== Git ==
+
+Control de versiones distribuido. Imprescindible. Para ''Linux Mint'' viene instalado por defecto.
+
+Configuración básica de git:
+
+<pre>git config --global ui.color auto
+git config --global user.name &quot;Pepito Pérez&quot;
+git config --global user.email &quot;pperez@mikasa.com&quot;
+
+git config --global alias.cl clone
+
+git config --global alias.st &quot;status -sb&quot;
+git config --global alias.last &quot;log -1 --stat&quot;
+git config --global alias.lg &quot;log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %Cblue&lt;%an&gt;%Creset' --abbrev-commit --date=relative --all&quot;
+git config --global alias.dc &quot;diff --cached&quot;
+
+git config --global alias.unstage &quot;reset HEAD --&quot;
+
+git config --global alias.ci commit
+git config --global alias.ca &quot;commit -a&quot;
+
+git config --global alias.ri &quot;rebase -i&quot;
+git config --global alias.ria &quot;rebase -i --autosquash&quot;
+git config --global alias.fix &quot;commit --fixup&quot;
+git config --global alias.squ &quot;commit --squash&quot;
+
+git config --global alias.cp cherry-pick
+git config --global alias.co checkout
+git config --global alias.br branch
+git config --global core.editor emacs</pre>
+== Emacs ==
+
+Instalado emacs desde los repos:
+
+<pre>sudo aptitude install emacs</pre>
+* Configuramos la fuente por defecto del editor y salvamos las opciones. Con esto generamos el fichero <code>~/.emacs</code>
+* '''Importante''': Configuramos la ''face'' para la ''region'' con un color que nos guste. Parece que viene configurado por defecto igual que el texto normal y nunca veremos la ''region'' resaltada aunque queramos.
+* Editamos el fichero <code>.emacs</code> y añadimos los depósitos de paquetes (nunca he conseguido que ''Marmalade'' funcione)
+
+Esta es la sección donde configuramos los depósitos de paquetes:
+
+<pre>;;----------------------------------------------------------------------
+;; MELPA and others
+(when (&gt;= emacs-major-version 24)
+  (require 'package)
+  (package-initialize)
+  (add-to-list 'package-archives '(&quot;melpa&quot; . &quot;http://melpa.org/packages/&quot;) t)
+  (add-to-list 'package-archives '(&quot;gnu&quot; . &quot;http://elpa.gnu.org/packages/&quot;) t)
+;;  (add-to-list 'package-archives '(&quot;marmalade&quot; . &quot;https://marmalade-repo.org/packages/&quot;) t)
+  )</pre>
+GNU Elpa es el depósito oficial, tiene menos paquetes y son todos con licencia FSF.
+
+Melpa y Marmalade son paquetes de terceros. Tienen mucha más variedad pero con calidades dispares.
+
+Desde Melpa con el menú de gestión de paquetes de emacs, instalamos los siguientes paquetes:
+
+* ''markdown-mode''
+* ''pandoc-mode''
+* ''auto-complete''
+* ''ac-dcd''
+* ''d-mode''
+* ''flycheck''
+* ''flycheck-dmd-dub''
+* ''flycheck-d-unittest''
+* ''elpy''
+* ''jedi''
+
+Después de probar ''flymake'' y ''flycheck'' al final me ha gustado más ''flycheck'' Hay una sección de configuración en el fichero <code>.emacs</code> para cada uno de ellos, pero la de ''flymake'' está comentada.
+
+Configuramos el fichero <code>.emacs</code> definimos algunas preferencias, algunas funciones útiles y añadimos orígenes extra de paquetes.
+
+<pre>(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(show-paren-mode t))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
+;;------------------------------------------------------------
+;; Some settings
+(setq inhibit-startup-message t) ; Eliminate FSF startup msg
+(setq frame-title-format &quot;%b&quot;)   ; Put filename in titlebar
+;(setq visible-bell t)           ; Flash instead of beep
+(set-scroll-bar-mode 'right)     ; Scrollbar placement
+(show-paren-mode t)              ; Blinking cursor shows matching parentheses
+(setq column-number-mode t)      ; Show column number of current cursor location
+(mouse-wheel-mode t)             ; wheel-mouse support
+
+(setq fill-column 78)
+(setq auto-fill-mode t)          ; Set line width to 78 columns...
+
+(setq-default indent-tabs-mode nil)       ; Insert spaces instead of tabs
+(global-set-key &quot;\r&quot; 'newline-and-indent) ; turn autoindenting on
+;(set-default 'truncate-lines t)          ; Truncate lines for all buffers
+;(require 'iso-transl)                    ; doesn't seems to be needed in debian
+
+
+;;------------------------------------------------------------
+;; Some useful key definitions
+(define-key global-map [M-S-down-mouse-3] 'imenu)
+(global-set-key [C-tab] 'hippie-expand)                    ; expand
+(global-set-key [C-kp-subtract] 'undo)                     ; [Undo]
+(global-set-key [C-kp-multiply] 'goto-line)                ; goto line
+(global-set-key [C-kp-add] 'toggle-truncate-lines)         ; goto line
+(global-set-key [C-kp-divide] 'delete-trailing-whitespace) ; delete trailing whitespace
+(global-set-key [C-kp-decimal] 'completion-at-point)       ; complete at point
+(global-set-key [C-M-prior] 'next-buffer)                  ; next-buffer
+(global-set-key [C-M-next] 'previous-buffer)               ; previous-buffer
+
+;;------------------------------------------------------------
+;; Set encoding
+(prefer-coding-system 'utf-8)
+(setq coding-system-for-read 'utf-8)
+(setq coding-system-for-write 'utf-8)
+
+;;------------------------------------------------------------
+;; Maximum colors
+(cond ((fboundp 'global-font-lock-mode)        ; Turn on font-lock (syntax highlighting)
+       (global-font-lock-mode t)               ; in all modes that support it
+       (setq font-lock-maximum-decoration t))) ; Maximum colors
+
+;;------------------------------------------------------------
+;; Use % to match various kinds of brackets...
+;; See: http://www.lifl.fr/~hodique/uploads/Perso/patches.el
+
+(global-set-key &quot;%&quot; 'match-paren)               ; % key match parents
+(defun match-paren (arg)
+  &quot;Go to the matching paren if on a paren; otherwise insert %.&quot;
+  (interactive &quot;p&quot;)
+  (let ((prev-char (char-to-string (preceding-char)))
+        (next-char (char-to-string (following-char))))
+    (cond ((string-match &quot;[[{(&lt;]&quot; next-char) (forward-sexp 1))
+          ((string-match &quot;[\]})&gt;]&quot; prev-char) (backward-sexp 1))
+          (t (self-insert-command (or arg 1))))))
+
+;;------------------------------------------------------------
+;; The wonderful bubble-buffer
+(defvar LIMIT 1)
+(defvar time 0)
+(defvar mylist nil)
+
+(defun time-now ()
+   (car (cdr (current-time))))
+
+(defun bubble-buffer ()
+   (interactive)
+   (if (or (&gt; (- (time-now) time) LIMIT) (null mylist))
+       (progn (setq mylist (copy-alist (buffer-list)))
+          (delq (get-buffer &quot; *Minibuf-0*&quot;) mylist)
+          (delq (get-buffer &quot; *Minibuf-1*&quot;) mylist)))
+   (bury-buffer (car mylist))
+   (setq mylist (cdr mylist))
+   (setq newtop (car mylist))
+   (switch-to-buffer (car mylist))
+   (setq rest (cdr (copy-alist mylist)))
+   (while rest
+     (bury-buffer (car rest))
+     (setq rest (cdr rest)))
+   (setq time (time-now)))
+
+(global-set-key [f8] 'bubble-buffer)    ; win-tab switch the buffer
+
+(defun geosoft-kill-buffer ()
+   ;; Kill default buffer without the extra emacs questions
+   (interactive)
+   (kill-buffer (buffer-name))
+   (set-name))
+(global-set-key [C-delete] 'geosoft-kill-buffer)
+
+;;----------------------------------------------------------------------
+;; MELPA and others
+(when (&gt;= emacs-major-version 24)
+  (require 'package)
+  (package-initialize)
+  (add-to-list 'package-archives '(&quot;melpa&quot; . &quot;http://melpa.org/packages/&quot;) t)
+  (add-to-list 'package-archives '(&quot;gnu&quot; . &quot;http://elpa.gnu.org/packages/&quot;) t)
+  (add-to-list 'package-archives '(&quot;marmalade&quot; . &quot;https://marmalade-repo.org/packages/&quot;) t)
+  )
+
+; (add-to-list 'load-path &quot;~/.emacs.d/&quot;)
+
+;;----------------------------------------------------------------------
+;; Packages installed via package
+;;------------------------------
+
+;;----------------------------------------------------------------------
+;; flymake and flycheck installed from package
+;; I think you have to choose only one
+
+;; (require 'flymake)
+;; ;;(global-set-key (kbd &quot;C-c d&quot;) 'flymake-display-err-menu-for-current-line)
+;; (global-set-key (kbd &quot;C-c d&quot;) 'flymake-popup-current-error-menu)
+;; (global-set-key (kbd &quot;C-c n&quot;) 'flymake-goto-next-error)
+;; (global-set-key (kbd &quot;C-c p&quot;) 'flymake-goto-prev-error)
+
+(add-hook 'after-init-hook #'global-flycheck-mode)
+(global-set-key  (kbd &quot;C-c C-p&quot;) 'flycheck-previous-error)
+(global-set-key  (kbd &quot;C-c C-n&quot;) 'flycheck-next-error)
+
+;; Define d-mode addons
+;; Activate flymake or flycheck for D
+;; Activate auto-complete-mode
+;; Activate yasnippet minor mode if available
+;; Activate dcd-server
+(require 'ac-dcd)
+(add-hook 'd-mode-hook
+          (lambda()
+            ;;(flymake-d-load)
+            (flycheck-dmd-dub-set-variables)
+            (require 'flycheck-d-unittest)
+            (setup-flycheck-d-unittest)
+            (auto-complete-mode t)
+            (when (featurep 'yasnippet)
+              (yas-minor-mode-on))
+            (ac-dcd-maybe-start-server)
+            (ac-dcd-add-imports)
+            (add-to-list 'ac-sources 'ac-source-dcd)
+            (define-key d-mode-map (kbd &quot;C-c ?&quot;) 'ac-dcd-show-ddoc-with-buffer)
+            (define-key d-mode-map (kbd &quot;C-c .&quot;) 'ac-dcd-goto-definition)
+            (define-key d-mode-map (kbd &quot;C-c ,&quot;) 'ac-dcd-goto-def-pop-marker)
+            (define-key d-mode-map (kbd &quot;C-c s&quot;) 'ac-dcd-search-symbol)
+            (when (featurep 'popwin)
+              (add-to-list 'popwin:special-display-config
+                           `(,ac-dcd-error-buffer-name :noselect t))
+              (add-to-list 'popwin:special-display-config
+                           `(,ac-dcd-document-buffer-name :position right :width 80))
+              (add-to-list 'popwin:special-display-config
+                           `(,ac-dcd-search-symbol-buffer-name :position bottom :width 5)))))
+
+;; Define diet template mode (this is not installed from package)
+(add-to-list 'auto-mode-alist '(&quot;\\.dt$&quot; . whitespace-mode))
+(add-hook 'whitespace-mode-hook
+          (lambda()
+            (setq tab-width 2)
+            (setq whitespace-line-column 250)
+            (setq indent-tabs-mode nil)
+            (setq indent-line-function 'insert-tab)))
+
+;;----------------------------------------------------------------------
+;; elpy
+(elpy-enable)</pre>
+== Lenguaje de programación D (D programming language) ==
+
+El lenguaje de programación D es un lenguaje de programación de sistemas con una sintaxis similar a la de C y con tipado estático. Combina eficiencia, control y potencia de modelado con seguridad y productividad.
+
+=== D-apt e instalación de programas ===
+
+Configurado ''d-apt'', instalados todos los programas incluidos
+
+<pre>sudo wget http://master.dl.sourceforge.net/project/d-apt/files/d-apt.list -O /etc/apt/sources.list.d/d-apt.list
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys  EBCF975E5BA24D5E
+sudo apt update</pre>
+Instalamos todos los programas asociados excepto ''textadept'' que falla por problemas de librerias.
+
+<pre>sudo apt install dmd-compiler dmd-tools dub dcd dfix dfmt dscanner</pre>
+=== DCD ===
+
+Una vez instalado el DCD tenemos que configurarlo creando el fichero <code>~/.config/dcd/dcd.conf</code> con el siguiente contenido:
+
+<pre>/usr/include/dmd/druntime/import
+/usr/include/dmd/phobos</pre>
+Podemos probarlo con:
+
+<pre>dcd-server &amp;
+echo | dcd-client --search toImpl</pre>
+=== gdc ===
+
+Instalado con:
+
+<pre>sudo aptitude install gdc</pre>
+=== ldc ===
+
+Instalado con:
+
+<pre>sudo aptitude install ldc</pre>
+Para poder ejecutar aplicaciones basadas en Vibed, necesitamos instalar:
+
+<pre>sudo apt-get install -y libssl-dev libevent-dev</pre>
+=== Emacs para editar D ===
+
+Instalados los siguientes paquetes desde Melpa
+
+* d-mode
+* flymake-d
+* flycheck
+* flycheck-dmd-dub
+* flychek-d-unittest
+* auto-complete (desde melpa)
+* ac-dcd
+
+Referencias * (https://github.com/atilaneves/ac-dcd) * (https://github.com/Hackerpilot/DCD)
+
+== Processing ==
+
+Bajamos los paquetes de las respectivas páginas web, descomprimimimos en <code>~/apps/</code>, en las nuevas versiones incorpora un script de instalación que ya se encarga de crear el fichero ''desktop''.
+
+== Python ==
+
+De partida tenemos instalado dos versiones: ''python'' y ''python3''
+
+<pre class="{bash}">python -V
+Python 2.7.12
+
+python3 -V
+Python 3.5.2</pre>
+=== Paquetes de desarrollo ===
+
+Para que no haya problemas a la hora de instalar paquetes en el futuro conviene que instalemos los paquetes de desarrollo:
+
+<pre>sudo apt install python-dev
+sudo apt install python3-dev</pre>
+=== pip, virtualenv, virtualenvwrapper, virtualfish ===
+
+Los he instalado a nivel de sistema.
+
+''pip'' es un gestor de paquetes para '''Python''' que facilita la instalación de librerías y utilidades.
+
+Para poder usar los entornos virtuales instalaremos también ''virtualenv''.
+
+Instalamos los dos desde aptitude:
+
+<pre class="{bash}">sudo apt install python-pip python-virtualenv virtualenv python3-pip</pre>
+''virtualenv'' es una herramienta imprescindible en Python, pero da un poco de trabajo, así que se han desarrollado algunos frontends para simplificar su uso, para ''bash'' y ''zsh'' usaremos ''virtualenvwrapper'', y para ''fish'' el ''virtualfish''. Como veremos son todos muy parecidos.
+
+Instalamos el virtualwrapper:
+
+<pre class="{bash}">sudo apt install virtualenvwrapper -y</pre>
+Para usar ''virtualenvwrapper'' tenemos que hacer:
+
+<pre class="{bash}">source /usr/share/virtualenvwrapper/virtualenvwrapper.sh</pre>
+O añadir esa linea a nuestros ficheros ''.bashrc'' y/o ''.zshrc''
+
+Definimos la variable de entorno ''WORKON_HOME'' para que apunte al directorio por defecto, <code>~/.local/share/virtualenvs</code>. En ese directorio es donde se guardarán nuestros entornos virtuales.
+
+En el fichero <code>.profile</code> añadimos:
+
+<pre># WORKON_HOME for virtualenvwrapper
+if [ -d &quot;$HOME/.local/share/virtualenvs&quot; ] ; then
+    WORKON_HOME=&quot;$HOME/.local/share/virtualenvs&quot;
+fi</pre>
+[http://virtualenvwrapper.readthedocs.io/en/latest/command_ref.html Aquí] tenemos la referencia de comandos de ''virtualenvwrapper''
+
+Por último, si queremos tener utilidades parecidas en nuestro ''fish shell'' instalamos ''virtualfish'':
+
+<pre class="{bash}">sudo pip install virtualfish</pre>
+[http://virtualfish.readthedocs.io/en/latest/index.html Aquí] tenemos la documentación de ''virtualfish'' y la descripción de todos los comandos y plugins disponibles.
+
+=== pipenv ===
+
+No lo he instalado, pero en caso de instalación mejor lo instalamos a nivel de usuario con:
+
+<pre class="{bash}">pip install --user pipenv</pre>
+=== Instalación de bpython y ptpython ===
+
+''bpython'' instalado desde repos <code>sudo apt install bpython bpython3</code>
+
+''ptpython'' instalado en un virtualenv para probarlo
+
+=== Emacs para programar python ===
+
+Para instalar <code>elpy</code>
+
+<pre>sudo apt install python-jedi python3-jedi
+# flake8 for code checks
+sudo apt install flake8 python-flake8 python3-flake8
+# and autopep8 for automatic PEP8 formatting
+sudo apt install python-autopep8
+# and yapf for code formatting
+sudo apt install yapf yapf3</pre>
+Añadimos la sección
+
+<pre class="{lisp}">;;----------------------------------------------------------------------
+;; elpy
+(elpy-enable)
+(setq elpy-rpc-backend &quot;jedi&quot;)
+
+(add-hook 'python-mode-hook 'jedi:setup)
+(setq jedi:complete-on-dot t)</pre>
+Desde ''Emacs'' ejecutamos: <code>alt-x jedi:install-server</code>
+
+==== TODO ====
+
+Estudiar esto con calma https://elpy.readthedocs.io/en/latest
+
+=== Jupyter ===
+
+Una instalación para pruebas.
+
+<pre>mkvirtualenv -p /usr/bin/python3 jupyter
+python -m pip install jupyter </pre>
+== neovim ==
+
+Vamos a probar ''neovim'':
+
+<pre>sudo apt-add-repository ppa:neovim-ppa/stable
+sudo apt-get update
+sudo apt-get install neovim</pre>
+Para instalar los módulos de python <ref>aun no lo hice</ref>:
+
+<pre>sudo pip install --upgrade neovim
+sudo pip3 install --upgrade neovim</pre>
+Revisar [https://neovim.io/doc/user/provider.html#provider-python esto]
+
+Para actualizar las alternativas:
+
+<pre>sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60
+sudo update-alternatives --config vi
+sudo update-alternatives --install /usr/bin/vim vim /usr/bin/nvim 60
+sudo update-alternatives --config vim</pre>
+==== Install ''vim-plug'' ====
+
+Ejecutamos:
+
+<pre>curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim</pre>
+Configuramos el fichero de configuración de ''nvim'' (<code>~/.config/nvim/init.vim</code>):
+
+<pre>&quot; Specify a directory for plugins
+&quot; - For Neovim: ~/.local/share/nvim/plugged
+&quot; - Avoid using standard Vim directory names like 'plugin'
+call plug#begin('~/.local/share/nvim/plugged')
+
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+let g:deoplete#enable_at_startup = 1
+
+
+Plug 'zchee/deoplete-jedi'
+
+&quot; Initialize plugin system
+call plug#end()</pre>
+La primera vez que abramos ''nvim'' tenemos que instalar los plugin por comando ejecutando: <code>:PlugInstall</code>
+
+'''Instalación de <code>dein</code>'''
+
+Solo hay que instalar uno de los dos o ''dein'' o ''plug-vim''. Yo uso ''plug-vim'' así que esto es sólo una referencia.
+
+https://github.com/Shougo/dein.vim
+
+<pre>&quot; Add the dein installation directory into runtimepath
+set runtimepath+=~/.config/nvim/dein/repos/github.com/Shougo/dein.vim
+
+if dein#load_state('~/.config/nvim/dein')
+  call dein#begin('~/.config/nvim/dein')
+
+  call dein#add('~/.config/nvim/dein/repos/github.com/Shougo/dein.vim')
+  call dein#add('Shougo/deoplete.nvim')
+  call dein#add('Shougo/denite.nvim')
+  if !has('nvim')
+    call dein#add('roxma/nvim-yarp')
+    call dein#add('roxma/vim-hug-neovim-rpc')
+  endif
+
+  call dein#end()
+  call dein#save_state()
+endif
+
+filetype plugin indent on
+syntax enable</pre>
 <references />
