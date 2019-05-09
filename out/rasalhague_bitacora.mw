@@ -1011,4 +1011,179 @@ endif
 
 filetype plugin indent on
 syntax enable</pre>
+= Desarrollo hardware =
+
+== Arduino IDE ==
+
+Bajamos los paquetes de la página [https://www.arduino.cc web], descomprimimimos en ''~/apps/arduino''.
+
+La distribución del IDE incluye ahora un fichero que se encarga de hacer la integración del IDE en los menús de Linux.
+
+Hay que añadir nuestro usuario al grupo <code>dialout</code>:
+
+<pre>sudo gpasswd --add &lt;usrname&gt; dialout</pre>
+=== Añadir biblioteca de soporte para Makeblock ===
+
+Clonamos el [https://github.com/Makeblock-official/Makeblock-Libraries repo oficial en github].
+
+Una vez que descarguemos las librerias es necesario copiar el directorio <code>Makeblock-Libraries/makeblock</code> en nuestro directorio de bibliotecas de Arduino. En mi caso <code>~/Arduino/libraries/</code>.
+
+Una vez instaladas las bibliotecas es necesario reiniciar el IDE Arduino si estaba arrancado. Podemos ver si se ha instalado correctamente simplemente echando un ojo al menú de ejemplos en el IDE, tendríamos que ver los ejemplos de ''Makeblock''.
+
+Un detalle importante para programar el Auriga-Me es necesario seleccionar el micro Arduino Mega 2560 en el IDE Arduino.
+
+== Pinguino IDE ==
+
+{|
+| '''Nota''': Pendiente de instalar
+|}
+
+Tenemos el paquete de instalación disponible en su página [http://pinguino.cc/download.php web]
+
+Ejecutamos el programa de instalación. El programa descargará los paquetes Debian necesarios para dejar el IDE y los compiladores instalados.
+
+Al acabar la instalación he tenido que crear el directorio ''~/Pinguino/v11'', parece que hay algún problema con el programa de instalación y no lo crea automáticamente.
+
+El programa queda correctamente instalado en ''/opt'' y arranca correctamente, habrá que probarlo con los micros.
+
+== KiCAD ==
+
+En la [http://kicad-pcb.org/download/linux-mint/ página web del proyecto] nos recomiendan el ppa a usar para instalar la última versión estable:
+
+<pre>sudo add-apt-repository --yes ppa:js-reynaud/kicad-5
+sudo apt-get update
+sudo apt-get install kicad
+sudo apt install kicad-footprints kicad-libraries kicad-packages3d kicad-symbols kicad-templates</pre>
+Paciencia, el paquete <code>kicad-packages3d</code> tarda un buen rato en descargarse.
+
+Algunas librerías alternativas:
+
+* [https://github.com/freetronics/freetronics_kicad_library Freetronics] una libreria que no solo incluye Shield para Arduino sino una completa colección de componentes que nos permitirá hacer proyectos completos. [http://www.freetronics.com Freetronics] es una especie de BricoGeek australiano, publica tutoriales, vende componentes, y al parecer mantiene una biblioteca para KiCAD. La biblioteca de Freetronics se mantiene en un repo de github. Lo suyo es incorporarla a cada proyecto, por que si la actualizas se pueden romper los proyectos que estes haciendo.
+* [http://meta-blog.eklablog.com/kicad-librairie-arduino-pretty-p930786 eklablog] Esta biblioteca de componentes está incluida en el github de KiCAD, así que teoricamente no habría que instalarla en nuestro disco duro.
+
+== Analizador lógico ==
+
+Mi analizador es un OpenBench de Seedstudio, [http://dangerousprototypes.com/docs/Open_Bench_Logic_Sniffer aquí hay mas info]
+
+=== Sigrok ===
+
+Instalamos '''Sigrok''', simplemente desde los repos de Debian:
+
+<pre class="{bash}">sudo aptitude install sigrok</pre>
+Al instalar '''Sigrok''' instalamos también '''Pulseview'''.
+
+Si al conectar el analizador, echamos un ojo al fichero ''syslog'' vemos que al conectarlo se mapea en un puerto tty.
+
+Si arrancamos '''Pulseview''' (nuestro usuario tiene que estar incluido en el grupo ''dialout''), en la opción ''File::Connect to device'', escogemos la opción ''Openbench'' y le pasamos el puerto. Al pulsar la opción ''Scan for devices'' reconoce el analizador correctamente como un ''Sump Logic Analyzer''.
+
+=== Sump logic analyzer ===
+
+Este es el software recomendado para usar con el analizador.
+
+Descargamos el paquete de la [https://www.sump.org página del proyecto], o más concretamente de [https://www.sump.org/projects/analyzer/ esta página] y descomprimimos en ''~/apps''.
+
+Instalamos las dependencias:
+
+<pre class="{bash}">sudo apt install librxtx-java</pre>
+Editamos el fichero ''~/apps/Logic Analyzer/client/run.sh'' y lo dejamos así:
+
+<pre>#!/bin/bash
+
+# java -jar analyzer.jar $*
+java -cp /usr/share/java/RXTXcomm.jar:analyzer.jar org.sump.analyzer.Loader</pre>
+Y ya funciona.
+
+=== OLS ===
+
+{|
+| '''Nota''': Pendiente de instalar
+|}
+
+[https://www.lxtreme.nl/ols/ Página oficial]
+
+== IceStudio ==
+
+Instalamos dependencias con <code>sudo apt install xclip</code>
+
+Bajamos el ''AppImage'' desde el [https://github.com/FPGAwars/icestudio github de IceStudio] y lo dejamos en <code>~/apps/icestudio</code>
+
+== PlatformIO ==
+
+Nos bajamos el paquete para instalar el [https://atom.io/ Atom IDE]
+
+Instalamos el paquete <code>.deb</code> que nos hemos bajado:
+
+<pre>sudo apt deb atom-amd64.deb</pre>
+Instalamos <code>clang</code> (una dependencia de PlatformIO)
+
+<pre>sudo apt install clang</pre>
+Completamos la instalación del paquete desde el Atom siguiendo las instrucciones [https://platformio.org/get-started/ide?install=atom aquí].
+
+Para poder usar ''platformio'' sin usar ''Atom'' añadimos la siguiente linea al fichero <code>.profile</code>:
+
+<pre>export PATH=$PATH:~/.platformio/penv/bin</pre>
+* [https://docs.platformio.org/en/latest/installation.html#piocore-install-shell-commands Referencia]
+
+== RepRap ==
+
+=== OpenScad ===
+
+El OpenSCAD disponible en los orígenes de software parece ser la última estable. Así que instalamos con <code>apt</code>:
+
+<pre>sudo apt install openscad</pre>
+=== Slic3r ===
+
+Descargamos la estable desde la [https://dl.slic3r.org página web] y como de costumbre descomprimimos en <code>~/apps</code> y creamos un lanzador con ''MenuLibre''
+
+=== Slic3r Prusa Edition ===
+
+Una nueva versión del clásico ''Slic3r'' con muchas mejoras. Descargamos la ''appimage'' desde la [https://www.prusa3d.com/slic3r-prusa-edition/ página web] y ya sabeis, descomprimir en <code>~/apps</code> y dar permisos de ejecución.
+
+=== ideaMaker ===
+
+Una aplicación más para generar gcode con muy buena pinta, tenemos el paquete ''deb'' disponible en su [https://www.raise3d.com/pages/ideamaker página web]. Instalamos con el gestor de software.
+
+=== Ultimaker Cura ===
+
+Descargamos el ''AppImage'' desde la [https://github.com/mypaint/mypaint/releases página web]
+
+=== Pronterface ===
+
+Seguimos las instrucciones para Ubuntu Bionic:
+
+Instalamos las dependencias:
+
+<pre>sudo apt install python3-serial python3-numpy cython3 python3-libxml2 \
+python3-gi python3-dbus python3-psutil python3-cairosvg libpython3-dev \
+python3-appdirs python3-wxgtk4.0</pre>
+Seguimos [https://github.com/kliment/Printrun/tree/master#running-from-source las instrucciones] para instalar desde los fuentes:
+
+Clonamos el github:
+
+<pre>cd ~/apps
+git clone https://github.com/kliment/Printrun.git</pre>
+Nos hacemos un ''virtualenv'':
+
+<pre>mkvirtualenv -p /usr/bin/python3 printrun
+
+pip install  -f https://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-16.04  wxPython</pre>
+Instalamos el resto de las dependencias con <code>pip install -r requirements.txt</code>, o si lo hacemos a mano sería:
+
+<pre>pip install Cython
+pip install pyserial
+pip install numpy pyglet
+pip install cffi
+pip install cairocffi
+pip install cairosvg
+pip install psutil
+pip install lxml
+pip install appdirs
+pip install pyreadline
+pip install pyobjc-framework-Cocoa
+pip install dbus-python</pre>
+A mi no me instala el dbus. Teóricamente es para impedir que el pc se suspenda.
+
+Ademas tenemos que ejecutar:
+
+<pre>python setup.py build_ext --inplace</pre>
 <references />

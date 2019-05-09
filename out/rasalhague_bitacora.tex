@@ -51,6 +51,15 @@
   pdfcreator={LaTeX via pandoc}}
 \urlstyle{same} % disable monospaced font for URLs
 \usepackage[a4paper]{geometry}
+\usepackage{longtable,booktabs}
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
 \setlength{\emergencystretch}{3em} % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
@@ -1663,6 +1672,320 @@ endif
 
 filetype plugin indent on
 syntax enable
+\end{verbatim}
+
+\hypertarget{desarrollo-hardware}{%
+\section{Desarrollo hardware}\label{desarrollo-hardware}}
+
+\hypertarget{arduino-ide}{%
+\subsection{Arduino IDE}\label{arduino-ide}}
+
+Bajamos los paquetes de la página \href{https://www.arduino.cc}{web},
+descomprimimimos en \emph{\textasciitilde/apps/arduino}.
+
+La distribución del IDE incluye ahora un fichero que se encarga de hacer
+la integración del IDE en los menús de Linux.
+
+Hay que añadir nuestro usuario al grupo \texttt{dialout}:
+
+\begin{verbatim}
+sudo gpasswd --add <usrname> dialout
+\end{verbatim}
+
+\hypertarget{auxf1adir-biblioteca-de-soporte-para-makeblock}{%
+\subsubsection{Añadir biblioteca de soporte para
+Makeblock}\label{auxf1adir-biblioteca-de-soporte-para-makeblock}}
+
+Clonamos el
+\href{https://github.com/Makeblock-official/Makeblock-Libraries}{repo
+oficial en github}.
+
+Una vez que descarguemos las librerias es necesario copiar el directorio
+\texttt{Makeblock-Libraries/makeblock} en nuestro directorio de
+bibliotecas de Arduino. En mi caso
+\texttt{\textasciitilde{}/Arduino/libraries/}.
+
+Una vez instaladas las bibliotecas es necesario reiniciar el IDE Arduino
+si estaba arrancado. Podemos ver si se ha instalado correctamente
+simplemente echando un ojo al menú de ejemplos en el IDE, tendríamos que
+ver los ejemplos de \emph{Makeblock}.
+
+Un detalle importante para programar el Auriga-Me es necesario
+seleccionar el micro Arduino Mega 2560 en el IDE Arduino.
+
+\hypertarget{pinguino-ide}{%
+\subsection{Pinguino IDE}\label{pinguino-ide}}
+
+\begin{longtable}[]{@{}l@{}}
+\toprule
+\endhead
+\textbf{Nota}: Pendiente de instalar\tabularnewline
+\bottomrule
+\end{longtable}
+
+Tenemos el paquete de instalación disponible en su página
+\href{http://pinguino.cc/download.php}{web}
+
+Ejecutamos el programa de instalación. El programa descargará los
+paquetes Debian necesarios para dejar el IDE y los compiladores
+instalados.
+
+Al acabar la instalación he tenido que crear el directorio
+\emph{\textasciitilde/Pinguino/v11}, parece que hay algún problema con
+el programa de instalación y no lo crea automáticamente.
+
+El programa queda correctamente instalado en \emph{/opt} y arranca
+correctamente, habrá que probarlo con los micros.
+
+\hypertarget{kicad}{%
+\subsection{KiCAD}\label{kicad}}
+
+En la \href{http://kicad-pcb.org/download/linux-mint/}{página web del
+proyecto} nos recomiendan el ppa a usar para instalar la última versión
+estable:
+
+\begin{verbatim}
+sudo add-apt-repository --yes ppa:js-reynaud/kicad-5
+sudo apt-get update
+sudo apt-get install kicad
+sudo apt install kicad-footprints kicad-libraries kicad-packages3d kicad-symbols kicad-templates
+\end{verbatim}
+
+Paciencia, el paquete \texttt{kicad-packages3d} tarda un buen rato en
+descargarse.
+
+Algunas librerías alternativas:
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://github.com/freetronics/freetronics_kicad_library}{Freetronics}
+  una libreria que no solo incluye Shield para Arduino sino una completa
+  colección de componentes que nos permitirá hacer proyectos completos.
+  \href{http://www.freetronics.com}{Freetronics} es una especie de
+  BricoGeek australiano, publica tutoriales, vende componentes, y al
+  parecer mantiene una biblioteca para KiCAD. La biblioteca de
+  Freetronics se mantiene en un repo de github. Lo suyo es incorporarla
+  a cada proyecto, por que si la actualizas se pueden romper los
+  proyectos que estes haciendo.
+\item
+  \href{http://meta-blog.eklablog.com/kicad-librairie-arduino-pretty-p930786}{eklablog}
+  Esta biblioteca de componentes está incluida en el github de KiCAD,
+  así que teoricamente no habría que instalarla en nuestro disco duro.
+\end{itemize}
+
+\hypertarget{analizador-luxf3gico}{%
+\subsection{Analizador lógico}\label{analizador-luxf3gico}}
+
+Mi analizador es un OpenBench de Seedstudio,
+\href{http://dangerousprototypes.com/docs/Open_Bench_Logic_Sniffer}{aquí
+hay mas info}
+
+\hypertarget{sigrok}{%
+\subsubsection{Sigrok}\label{sigrok}}
+
+Instalamos \textbf{Sigrok}, simplemente desde los repos de Debian:
+
+\begin{verbatim}
+sudo aptitude install sigrok
+\end{verbatim}
+
+Al instalar \textbf{Sigrok} instalamos también \textbf{Pulseview}.
+
+Si al conectar el analizador, echamos un ojo al fichero \emph{syslog}
+vemos que al conectarlo se mapea en un puerto tty.
+
+Si arrancamos \textbf{Pulseview} (nuestro usuario tiene que estar
+incluido en el grupo \emph{dialout}), en la opción \emph{File::Connect
+to device}, escogemos la opción \emph{Openbench} y le pasamos el puerto.
+Al pulsar la opción \emph{Scan for devices} reconoce el analizador
+correctamente como un \emph{Sump Logic Analyzer}.
+
+\hypertarget{sump-logic-analyzer}{%
+\subsubsection{Sump logic analyzer}\label{sump-logic-analyzer}}
+
+Este es el software recomendado para usar con el analizador.
+
+Descargamos el paquete de la \href{https://www.sump.org}{página del
+proyecto}, o más concretamente de
+\href{https://www.sump.org/projects/analyzer/}{esta página} y
+descomprimimos en \emph{\textasciitilde/apps}.
+
+Instalamos las dependencias:
+
+\begin{verbatim}
+sudo apt install librxtx-java
+\end{verbatim}
+
+Editamos el fichero \emph{\textasciitilde/apps/Logic
+Analyzer/client/run.sh} y lo dejamos así:
+
+\begin{verbatim}
+#!/bin/bash
+
+# java -jar analyzer.jar $*
+java -cp /usr/share/java/RXTXcomm.jar:analyzer.jar org.sump.analyzer.Loader
+\end{verbatim}
+
+Y ya funciona.
+
+\hypertarget{ols}{%
+\subsubsection{OLS}\label{ols}}
+
+\begin{longtable}[]{@{}l@{}}
+\toprule
+\endhead
+\textbf{Nota}: Pendiente de instalar\tabularnewline
+\bottomrule
+\end{longtable}
+
+\href{https://www.lxtreme.nl/ols/}{Página oficial}
+
+\hypertarget{icestudio}{%
+\subsection{IceStudio}\label{icestudio}}
+
+Instalamos dependencias con \texttt{sudo\ apt\ install\ xclip}
+
+Bajamos el \emph{AppImage} desde el
+\href{https://github.com/FPGAwars/icestudio}{github de IceStudio} y lo
+dejamos en \texttt{\textasciitilde{}/apps/icestudio}
+
+\hypertarget{platformio}{%
+\subsection{PlatformIO}\label{platformio}}
+
+Nos bajamos el paquete para instalar el \href{https://atom.io/}{Atom
+IDE}
+
+Instalamos el paquete \texttt{.deb} que nos hemos bajado:
+
+\begin{verbatim}
+sudo apt deb atom-amd64.deb
+\end{verbatim}
+
+Instalamos \texttt{clang} (una dependencia de PlatformIO)
+
+\begin{verbatim}
+sudo apt install clang
+\end{verbatim}
+
+Completamos la instalación del paquete desde el Atom siguiendo las
+instrucciones
+\href{https://platformio.org/get-started/ide?install=atom}{aquí}.
+
+Para poder usar \emph{platformio} sin usar \emph{Atom} añadimos la
+siguiente linea al fichero \texttt{.profile}:
+
+\begin{verbatim}
+export PATH=$PATH:~/.platformio/penv/bin
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://docs.platformio.org/en/latest/installation.html\#piocore-install-shell-commands}{Referencia}
+\end{itemize}
+
+\hypertarget{reprap}{%
+\subsection{RepRap}\label{reprap}}
+
+\hypertarget{openscad}{%
+\subsubsection{OpenScad}\label{openscad}}
+
+El OpenSCAD disponible en los orígenes de software parece ser la última
+estable. Así que instalamos con \texttt{apt}:
+
+\begin{verbatim}
+sudo apt install openscad
+\end{verbatim}
+
+\hypertarget{slic3r}{%
+\subsubsection{Slic3r}\label{slic3r}}
+
+Descargamos la estable desde la \href{https://dl.slic3r.org}{página web}
+y como de costumbre descomprimimos en \texttt{\textasciitilde{}/apps} y
+creamos un lanzador con \emph{MenuLibre}
+
+\hypertarget{slic3r-prusa-edition}{%
+\subsubsection{Slic3r Prusa Edition}\label{slic3r-prusa-edition}}
+
+Una nueva versión del clásico \emph{Slic3r} con muchas mejoras.
+Descargamos la \emph{appimage} desde la
+\href{https://www.prusa3d.com/slic3r-prusa-edition/}{página web} y ya
+sabeis, descomprimir en \texttt{\textasciitilde{}/apps} y dar permisos
+de ejecución.
+
+\hypertarget{ideamaker}{%
+\subsubsection{ideaMaker}\label{ideamaker}}
+
+Una aplicación más para generar gcode con muy buena pinta, tenemos el
+paquete \emph{deb} disponible en su
+\href{https://www.raise3d.com/pages/ideamaker}{página web}. Instalamos
+con el gestor de software.
+
+\hypertarget{ultimaker-cura}{%
+\subsubsection{Ultimaker Cura}\label{ultimaker-cura}}
+
+Descargamos el \emph{AppImage} desde la
+\href{https://github.com/mypaint/mypaint/releases}{página web}
+
+\hypertarget{pronterface}{%
+\subsubsection{Pronterface}\label{pronterface}}
+
+Seguimos las instrucciones para Ubuntu Bionic:
+
+Instalamos las dependencias:
+
+\begin{verbatim}
+sudo apt install python3-serial python3-numpy cython3 python3-libxml2 \
+python3-gi python3-dbus python3-psutil python3-cairosvg libpython3-dev \
+python3-appdirs python3-wxgtk4.0
+\end{verbatim}
+
+Seguimos
+\href{https://github.com/kliment/Printrun/tree/master\#running-from-source}{las
+instrucciones} para instalar desde los fuentes:
+
+Clonamos el github:
+
+\begin{verbatim}
+cd ~/apps
+git clone https://github.com/kliment/Printrun.git
+\end{verbatim}
+
+Nos hacemos un \emph{virtualenv}:
+
+\begin{verbatim}
+mkvirtualenv -p /usr/bin/python3 printrun
+
+pip install  -f https://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-16.04  wxPython
+\end{verbatim}
+
+Instalamos el resto de las dependencias con
+\texttt{pip\ install\ -r\ requirements.txt}, o si lo hacemos a mano
+sería:
+
+\begin{verbatim}
+pip install Cython
+pip install pyserial
+pip install numpy pyglet
+pip install cffi
+pip install cairocffi
+pip install cairosvg
+pip install psutil
+pip install lxml
+pip install appdirs
+pip install pyreadline
+pip install pyobjc-framework-Cocoa
+pip install dbus-python
+\end{verbatim}
+
+A mi no me instala el dbus. Teóricamente es para impedir que el pc se
+suspenda.
+
+Ademas tenemos que ejecutar:
+
+\begin{verbatim}
+python setup.py build_ext --inplace
 \end{verbatim}
 
 \end{document}

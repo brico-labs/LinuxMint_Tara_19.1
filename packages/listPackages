@@ -121,6 +121,7 @@ i  cups-pk-helper - PolicyKit helper to configure cups with fine-grained privile
 i  cups-ppdc - Common UNIX Printing System(tm) - PPD manipulation utilities
 i  cups-server-common - Common UNIX Printing System(tm) - server common files
 i  curl - command line tool for transferring data with URL syntax
+i  cython3 - C-Extensions for Python 3
 i  darktable - Virtual lighttable and darkroom for photographers
 i  dash - POSIX-compliant shell
 i  dbus - simple interprocess messaging system (daemon and utilities)
@@ -178,7 +179,8 @@ i  ecryptfs-utils - ecryptfs cryptographic filesystem (utilities)
 i  ed - classic UNIX line editor
 i  efibootmgr - Interact with the EFI Boot Manager
 i  eject - ejects CDs and operates CD-Changers under Linux
-i  emacs - GNU Emacs editor (metapackage)
+iB emacs26 - GNU Emacs editor (with GTK+ user interface)
+iB emacs26-el - GNU Emacs editor (uncompiled Elisp files)
 i  emacsen-common - Common facilities for all emacsen
 i  enchant - Wrapper for various spell checker engines (binary programs)
 i  engrampa - archive manager for MATE
@@ -194,6 +196,7 @@ i  exfat-utils - utilities to create, check, label and dump exFAT filesystem
 i  fakeroot - tool for simulating superuser privileges
 i  fancontrol - utility to control the fan speed
 i  fdisk - collection of partitioning utilities
+i  ffmpeg - Tools for transcoding, streaming and playing of multimedia files
 i  file - Recognize the type of data in a file using "magic" numbers
 i  findutils - utilities for finding files--find, xargs
 i  firefox - Safe and easy web browser from Mozilla
@@ -310,6 +313,9 @@ i  fonts-ubuntu - sans-serif font set from Ubuntu
 i  fonts-wqy-microhei - Sans-serif style CJK font derived from Droid
 i  foomatic-db-compressed-ppds - OpenPrinting printer support - Compressed PPDs derived from the database
 i  freecad - Extensible Open Source CAx program
+i  freecad-common - Extensible Open Source CAx program - common files
+i  freecad-python3 - Extensible Open Source CAx program - Python 3 binaries
+i  freecad-runtime - Extensible Open Source CAx program - runtime files
 i  freeglut3 - OpenGL Utility Toolkit
 i  friendly-recovery - Make recovery boot mode more user-friendly
 i  ftp - classical file transfer client
@@ -318,6 +324,7 @@ i  fwts - FirmWare Test Suite
 i  fwupd - Firmware update daemon
 i  fwupdate - Tools to manage UEFI firmware updates
 i  fwupdate-signed - Linux Firmware Updater EFI signed binary
+i  g++ - GNU C++ compiler
 i  gawk - GNU awk, a pattern scanning and processing language
 i  gcc - GNU C compiler
 i  gcc-7 - GNU C compiler
@@ -333,6 +340,7 @@ i  gdbserver - GNU Debugger (remote server)
 i  gdebi - simple tool to view and install deb files - GNOME GUI
 i  gdebi-core - simple tool to install deb files
 i  gdisk - GPT fdisk text-mode partitioning tool
+i  gedit - official text editor of the GNOME desktop environment
 i  genisoimage - Creates ISO-9660 CD-ROM filesystem images
 i  geoclue-2.0 - geoinformation service
 i  geoip-database - IP lookup command line tools that use the GeoIP library (country database)
@@ -433,6 +441,7 @@ i  gpg-wks-server - GNU privacy guard - Web Key Service server
 i  gpgconf - GNU privacy guard - core configuration utilities
 i  gpgsm - GNU privacy guard - S/MIME version
 i  gpgv - GNU privacy guard - signature verification tool
+i  gpick - advanced GTK+ color picker
 i  grep - GNU grep, egrep and fgrep
 i  groff-base - GNU troff text-formatting system (base system components)
 i  growisofs - DVD+-RW/R recorder
@@ -570,6 +579,8 @@ i  language-pack-gnome-en - GNOME translation updates for language English
 i  language-pack-gnome-en-base - GNOME translations for language English
 i  laptop-detect - system chassis type checker
 i  less - pager program similar to more
+i  lib32gcc1 - GCC support library (32 bit Version)
+i  lib32stdc++6 - GNU Standard C++ Library v3 (32 bit Version)
 i  libaa1 - ASCII art library
 i  libabw-0.1-1 - library for reading and writing AbiWord(tm) documents
 i  libaccountsservice0 - query and manipulate user account information - shared libraries
@@ -619,6 +630,8 @@ i  libavahi-common3 - Avahi common library
 i  libavahi-core7 - Avahi's embeddable mDNS/DNS-SD library
 i  libavahi-glib1 - Avahi GLib integration library
 i  libavc1394-0 - control IEEE 1394 audio/video devices
+i  libavcodec-extra - FFmpeg library with extra codecs (metapackage)
+i  libavcodec-extra57 - FFmpeg library with additional de/encoders for audio/video codecs
 i  libavformat57 - FFmpeg library with (de)muxers for multimedia containers - runtime files
 i  libavutil55 - FFmpeg library with functions for simplifying programming - runtime files
 i  libbabeltrace1 - Babeltrace conversion libraries
@@ -1090,6 +1103,7 @@ i  libmtp-common - Media Transfer Protocol (MTP) common files
 i  libmtp-runtime - Media Transfer Protocol (MTP) runtime tools
 i  libmtp9 - Media Transfer Protocol (MTP) library
 i  libmwaw-0.3-3 - import library for some old Mac text documents
+i  libmysqlclient20 - MySQL database client library
 i  libmythes-1.2-0 - simple thesaurus library
 i  libnatpmp1 - portable and fully compliant implementation of NAT-PMP
 i  libncurses5 - shared libraries for terminal handling
@@ -1133,6 +1147,14 @@ i  libnvidia-encode-390:i386 - NVENC Video Encoding runtime library
 i  libnvidia-fbc1-390:i386 - NVIDIA OpenGL-based Framebuffer Capture runtime library
 i  libnvidia-ifr1-390:i386 - NVIDIA OpenGL-based Inband Frame Readback runtime library
 i  liboauth0 - C library implementing OAuth Core 1.0a API (runtime)
+i  libobjc-7-dev - Runtime library for GNU Objective-C applications (development files)
+i  libobjc4 - Runtime library for GNU Objective-C applications
+i  libocct-data-exchange-7.3 - Open CASCADE Technology module for CAD data format interoperability
+i  libocct-foundation-7.3 - OCCT module underlying all other OCCT classes
+i  libocct-modeling-algorithms-7.3 - Open CASCADE Technology geometrical & topological algorithms module
+i  libocct-modeling-data-7.3 - Open CASCADE Technology 2D/3D geometric primitives data structures
+i  libocct-ocaf-7.3 - Open CASCADE Technology application-specific data and functionality
+i  libocct-visualization-7.3 - Open CASCADE Technology graphical data visualization module
 i  libodfgen-0.1-1 - library to generate ODF documents
 i  libogg0 - Ogg bitstream library
 i  liboobs-1-5 - GObject based interface to system-tools-backends - shared library
@@ -1187,6 +1209,7 @@ i  libpkcs11-helper1 - library that simplifies the interaction with PKCS#11
 i  libplist3 - Library for handling Apple binary and XML property lists
 i  libplymouth4 - graphical boot animation and logger - shared libraries
 i  libpng16-16 - PNG library - runtime (version 1.6)
+i  libpng16-16:i386 - PNG library - runtime (version 1.6)
 i  libpolkit-agent-1-0 - PolicyKit Authentication Agent API
 i  libpolkit-backend-1-0 - PolicyKit backend API
 i  libpolkit-gobject-1-0 - PolicyKit Authorization API
@@ -1208,6 +1231,7 @@ i  libpython-stdlib - interactive high-level object-oriented language (default p
 i  libpython2.7 - Shared Python runtime library (version 2.7)
 i  libpython2.7-minimal - Minimal subset of the Python language (version 2.7)
 i  libpython2.7-stdlib - Interactive high-level object-oriented language (standard library, version 2.7)
+i  libpython3-dev - header files and a static library for Python (default)
 i  libpython3-stdlib - interactive high-level object-oriented language (default python3 version)
 i  libpython3.6 - Shared Python runtime library (version 3.6)
 i  libpython3.6-minimal - Minimal subset of the Python language (version 3.6)
@@ -1282,6 +1306,7 @@ i  librsvg2-2 - SAX-based renderer library for SVG files (runtime)
 i  librsvg2-common - SAX-based renderer library for SVG files (extra runtime)
 i  librtmp1 - toolkit for RTMP streams (shared library)
 i  libruby2.5 - Libraries necessary to run Ruby 2.5
+i  librxtx-java - Full Java CommAPI implementation
 i  libsamplerate0 - Audio sample rate conversion library
 i  libsane-common - API library for scanners -- documentation and support files
 i  libsane-hpaio - HP SANE backend for multi-function peripherals
@@ -1774,6 +1799,7 @@ i  python2.7 - Interactive high-level object-oriented language (version 2.7)
 i  python2.7-minimal - Minimal subset of the Python language (version 2.7)
 i  python3 - interactive high-level object-oriented language (default python3 version)
 i  python3-all-dev - package depending on all supported Python 3 development packages
+i  python3-appdirs - determining appropriate platform-specific directories (Python 3)
 i  python3-apport - Python 3 library for Apport crash report handling
 i  python3-apt - Python 3 interface to libapt-pkg
 i  python3-aptdaemon - Python 3 module for the server and client of aptdaemon
@@ -1781,6 +1807,7 @@ i  python3-aptdaemon.gtk3widgets - Python 3 GTK+ 3 widgets to run an aptdaemon c
 i  python3-brlapi - Braille display access via BRLTTY - Python3 bindings
 i  python3-bs4 - error-tolerant HTML parser for Python 3
 i  python3-cairo - Python3 bindings for the Cairo vector graphics library
+i  python3-cairosvg - SVG to PDF/PS/PNG converter based on Cairo (Python3 library)
 i  python3-certifi - root certificates for validating SSL certs and verifying TLS hosts (python3)
 i  python3-chardet - universal character encoding detector for Python3
 i  python3-commandnotfound - Python 3 bindings for command-not-found.
@@ -1799,10 +1826,12 @@ i  python3-httplib2 - comprehensive HTTP client library written for Python3
 i  python3-icu - Python 3 extension wrapping the ICU C++ API
 i  python3-idna - Python IDNA2008 (RFC 5891) handling (Python 3)
 i  python3-jedi - autocompletion tool for Python 3
+i  python3-libxml2 - Python3 bindings for the GNOME XML library
 i  python3-louis - Python bindings for liblouis
 i  python3-mako - fast and lightweight templating for the Python 3 platform
 i  python3-markupsafe - HTML/XHTML/XML string library for Python 3
 i  python3-minimal - minimal subset of the Python language (default python3 version)
+i  python3-numpy - Fast array facility to the Python 3 language
 i  python3-pexpect - Python 3 module for automating interactive applications
 i  python3-pil - Python Imaging Library (Python3)
 i  python3-pip - Python package installer
@@ -1816,6 +1845,7 @@ i  python3-reportlab - ReportLab library to create PDF documents using Python3
 i  python3-reportlab-accel - C coded extension accelerator for the ReportLab Toolkit
 i  python3-requests - elegant and simple HTTP library for Python3, built for human beings
 i  python3-requests-unixsocket - Use requests to talk HTTP via a UNIX domain socket - Python 3.x
+i  python3-serial - pyserial - module encapsulating access for the serial port
 i  python3-setproctitle - Setproctitle implementation for Python 3
 i  python3-six - Python 2 and 3 compatibility library (Python 3 interface)
 i  python3-speechd - Python interface to Speech Dispatcher
@@ -1823,6 +1853,7 @@ i  python3-systemd - Python 3 bindings for systemd
 i  python3-uno - Python-UNO bridge
 i  python3-urllib3 - HTTP library with thread-safe connection pooling for Python3
 i  python3-virtualenv - Python virtual environment creator
+i  python3-wxgtk4.0 - Python 3 interface to the wxWidgets Cross-platform C++ GUI toolkit
 i  python3-xapp - Python 3 XApp library
 i  python3-xdg - Python 3 library to access freedesktop.org standards
 i  python3-xkit - library for the manipulation of xorg.conf files (Python 3)
@@ -1969,7 +2000,7 @@ i  whiptail - Displays user-friendly dialog boxes from shell scripts
 i  wireless-regdb - wireless regulatory database
 i  wireless-tools - Tools for manipulating Linux Wireless Extensions
 i  witalian - Italian dictionary words for /usr/share/dict/
-i  wkhtmltox:i386 - convert HTML to PDF and various image formats using QtWebkit
+i  wkhtmltopdf - Command line utilities to convert html to pdf or image using WebKit
 i  wmctrl - control an EWMH/NetWM compatible X Window Manager
 i  wngerman - New German orthography wordlist
 i  wogerman - Traditional German wordlist
