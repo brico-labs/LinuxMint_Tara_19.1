@@ -1155,35 +1155,118 @@ Instalamos las dependencias:
 
 <pre>sudo apt install python3-serial python3-numpy cython3 python3-libxml2 \
 python3-gi python3-dbus python3-psutil python3-cairosvg libpython3-dev \
-python3-appdirs python3-wxgtk4.0</pre>
-Seguimos [https://github.com/kliment/Printrun/tree/master#running-from-source las instrucciones] para instalar desde los fuentes:
+python3-appdirs python3-wxgtk4.0
 
-Clonamos el github:
+pip3 install --user piglet</pre>
+Clonamos el repo:
 
 <pre>cd ~/apps
 git clone https://github.com/kliment/Printrun.git</pre>
-Nos hacemos un ''virtualenv'':
+Y ya lo tenemos todo listo para ejecutar.
 
-<pre>mkvirtualenv -p /usr/bin/python3 printrun
+= Aplicaciones de gráficos =
 
-pip install  -f https://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-16.04  wxPython</pre>
-Instalamos el resto de las dependencias con <code>pip install -r requirements.txt</code>, o si lo hacemos a mano sería:
+== LibreCAD ==
 
-<pre>pip install Cython
-pip install pyserial
-pip install numpy pyglet
-pip install cffi
-pip install cairocffi
-pip install cairosvg
-pip install psutil
-pip install lxml
-pip install appdirs
-pip install pyreadline
-pip install pyobjc-framework-Cocoa
-pip install dbus-python</pre>
-A mi no me instala el dbus. Teóricamente es para impedir que el pc se suspenda.
+Diseño en 2D
 
-Ademas tenemos que ejecutar:
+<pre>sudo apt install librecad</pre>
+== FreeCAD ==
 
-<pre>python setup.py build_ext --inplace</pre>
+Añadimos el ppa de la última estable:
+
+<pre>sudo add-apt-repository ppa:freecad-maintainers/freecad-stable
+sudo apt update
+sudo install freecad</pre>
+
+-----
+
+'''NOTA:''' the ccx package brings CalculiX support to the FEM workbench, and needs to be installed separately.
+
+
+-----
+
+== Inkscape ==
+
+El programa libre para creación y edición de gráficos vectoriales.
+
+<pre>sudo apt install inkscape</pre>
+== Gimp ==
+
+El programa para edición y retocado de imágenes.
+
+Gimp ya estaba instalado, pero no es la última versión, prefiero tener la última así que:
+
+<pre>sudo apt remove gimp gimp-data
+sudo add-apt-repository ppa:otto-kesselgulasch/gimp
+sudo apt update
+sudo apt upgrade
+sudo apt install gimp-texturize gimp-data-extras \
+gimp-gap gmic gimp-gmic gimp-python</pre>
+=== Plugins de Gimp ===
+
+==== resynthesizer ====
+
+Descargamos el plugin desde [https://github.com/bootchk/resynthesizer aquí] y descomprimimos el fichero en <code>~/.config/GIMP/2.10/plug-ins</code>
+
+Tenemos que asegurarnos que los fichero ''python'' son ejecutables:
+
+<pre>chmod 755 ~/.config/GIMP/2.10/plug-ins/*.py</pre>
+== Krita ==
+
+La versión disponible en orígenes de software está bastante por detrás de la disponible en la web. Basta con descargar el ''Appimage'' desde la [https://krita.org página web]
+
+Lo copiamos a <code>~/apps/krita</code> y creamos un lanzador con <code>Menulibre</code>
+
+== MyPaint ==
+
+Tenemos disponible la versión 1.2.0 en los orígenes de software. 1.2.0, que no difiere mucho de la 1.2.1 disponible en el
+
+Desde el [https://github.com/mypaint/ github] tenemos disponible la última versión en formato ''appimage''. La descargamos la dejamos en <code>~/apps</code> y creamos un acceso con ''Menulibre'', como siempre.
+
+== Alchemy ==
+
+== Shutter ==
+
+Un programa de capturas de pantalla.
+
+<pre>sudo apt install libgoo-canvas-perl
+sudo apt install shutter</pre>
+== dia ==
+
+Un programa para crear diagramas
+
+<pre>sudo apt install dia dia-shapes gsfonts-x11</pre>
+== Blender ==
+
+Bajamos el Blender linkado estáticamente de [https://www.blender.org la página web] y lo descomprimimos en <code>~/apps/blender</code>.
+
+== Structure Synth ==
+
+Instalado desde repos, junto con sunflow para explorar un poco.
+
+<pre>sudo apt install structure-synth sunflow</pre>
+== Heron animation ==
+
+Descargamos el programa desde [https://heronanimation.brunolefevre.net/ su página web] y como siempre descomprimimos en <code>~/apps/heron</code>
+
+== Stopmotion ==
+
+Primero probamos el del repo.
+
+== Instalación del driver digiment para tabletas gráficas Huion ==
+
+Ejecutamos los siguientes pasos:
+
+<pre>sudo git clone https://github.com/DIGImend/digimend-kernel-drivers.git /usr/src/digimend-6
+sudo dkms build digimend/6
+sudo dkms install digimend/6</pre>
+Para comprobar:
+
+<pre>xinput --list
+dkms status</pre>
+Referencia:
+
+* [https://davidrevoy.com/article331/setup-huion-giano-wh1409-tablet-on-linux-mint-18-1-ubuntu-16-04 Aquí]
+
 <references />
