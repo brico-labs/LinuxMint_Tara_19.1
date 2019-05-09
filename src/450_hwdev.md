@@ -229,50 +229,16 @@ Instalamos las dependencias:
 sudo apt install python3-serial python3-numpy cython3 python3-libxml2 \
 python3-gi python3-dbus python3-psutil python3-cairosvg libpython3-dev \
 python3-appdirs python3-wxgtk4.0
+
+pip3 install --user piglet
 ~~~~
 
-Seguimos [las
-instrucciones](https://github.com/kliment/Printrun/tree/master#running-from-source)
-para instalar desde los fuentes:
-
-Clonamos el github:
+Clonamos el repo:
 
 ~~~~
 cd ~/apps
 git clone https://github.com/kliment/Printrun.git
 ~~~~
 
+Y ya lo tenemos todo listo para ejecutar.
 
-Nos hacemos un _virtualenv_:
-
-~~~~
-mkvirtualenv -p /usr/bin/python3 printrun
-
-pip install  -f https://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-16.04  wxPython
-~~~~
-
-Instalamos el resto de las dependencias con `pip install -r
-requirements.txt`, o si lo hacemos a mano sería:
-
-~~~~
-pip install Cython
-pip install pyserial
-pip install numpy pyglet
-pip install cffi
-pip install cairocffi
-pip install cairosvg
-pip install psutil
-pip install lxml
-pip install appdirs
-pip install pyreadline
-pip install pyobjc-framework-Cocoa
-pip install dbus-python
-~~~~
-
-A mi no me instala el dbus. Teóricamente es para impedir que el pc se suspenda.
-
-Ademas tenemos que ejecutar:
-
-~~~~
-python setup.py build_ext --inplace
-~~~~
