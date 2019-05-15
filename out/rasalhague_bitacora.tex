@@ -2048,15 +2048,22 @@ en \texttt{\textasciitilde{}/apps} y creamos un acceso con
 \hypertarget{alchemy}{%
 \subsection{Alchemy}\label{alchemy}}
 
-\hypertarget{shutter}{%
-\subsection{Shutter}\label{shutter}}
+Igual que el \emph{MyPaint} descargamos desde
+\href{http://al.chemy.org}{la página web}, descomprimimos en
+\texttt{\textasciitilde{}/apps} y creamos un accso con \emph{Menulibre}.
 
-Un programa de capturas de pantalla.
+\hypertarget{capturas-de-pantalla}{%
+\subsection{Capturas de pantalla}\label{capturas-de-pantalla}}
 
-\begin{verbatim}
-sudo apt install libgoo-canvas-perl
-sudo apt install shutter
-\end{verbatim}
+Resulta que \emph{Shutter} ya no está disponible. Aunque hay algún
+método para instalarlo he preferido probar las alternativas
+\emph{flameshot} y \emph{knips}.
+
+El \emph{flameshot} cubre el 99\% de mis necesidades:
+\texttt{sudo\ apt\ install\ flameshot}
+
+El \emph{ksnips} por si tenemos que hacer una captura con retardo lo
+instalé con un \emph{appimage}.
 
 \hypertarget{dia}{%
 \subsection{dia}\label{dia}}
@@ -2072,7 +2079,8 @@ sudo apt install dia dia-shapes gsfonts-x11
 
 Bajamos el Blender linkado estáticamente de
 \href{https://www.blender.org}{la página web} y lo descomprimimos en
-\texttt{\textasciitilde{}/apps/blender}.
+\texttt{\textasciitilde{}/apps/blender}. También me he bajado el
+\emph{appimage} de la versión 2.80
 
 \hypertarget{structure-synth}{%
 \subsection{Structure Synth}\label{structure-synth}}
@@ -2093,7 +2101,7 @@ siempre descomprimimos en \texttt{\textasciitilde{}/apps/heron}
 \hypertarget{stopmotion}{%
 \subsection{Stopmotion}\label{stopmotion}}
 
-Primero probamos el del repo.
+Primero probamos el del repo: \texttt{sudo\ apt\ install\ stopmotion}
 
 \hypertarget{instalaciuxf3n-del-driver-digiment-para-tabletas-gruxe1ficas-huion}{%
 \subsection{Instalación del driver digiment para tabletas gráficas
@@ -2121,5 +2129,246 @@ Referencia:
 \item
   \href{https://davidrevoy.com/article331/setup-huion-giano-wh1409-tablet-on-linux-mint-18-1-ubuntu-16-04}{Aquí}
 \end{itemize}
+
+\hypertarget{sound}{%
+\section{Sound}\label{sound}}
+
+\hypertarget{spotify}{%
+\subsection{Spotify}\label{spotify}}
+
+Spotify instalado desde las opciones de Linux Mint
+
+\hypertarget{audacity}{%
+\subsection{Audacity}\label{audacity}}
+
+Añadimos ppa:
+
+\begin{verbatim}
+sudo add-apt-repository ppa:ubuntuhandbook1/audacity
+sudo apt-get update
+sudo apt install audacity
+\end{verbatim}
+
+Instalamos también el plugin
+\href{https://theaudacitytopodcast.com/chriss-dynamic-compressor-plugin-for-audacity/}{Chris's
+Dynamic Compressor plugin}
+
+\hypertarget{clementine}{%
+\subsection{Clementine}\label{clementine}}
+
+\begin{verbatim}
+sudo add-apt-repository ppa:me-davidsansome/clementine
+sudo apt update
+sudo apt install clementine
+\end{verbatim}
+
+\hypertarget{video}{%
+\section{Video}\label{video}}
+
+\hypertarget{shotcut}{%
+\subsection{Shotcut}\label{shotcut}}
+
+Nos bajamos la \emph{AppImage} para Linux desde la
+\href{https://www.shotcut.org/}{página web}.
+
+La dejamos en \texttt{\textasciitilde{}/apps/shotcut} y:
+
+\begin{verbatim}
+cd
+chmod 744 Shotcutxxxxxx.AppImage
+./Shotcutxxxxxx.AppImage
+\end{verbatim}
+
+Al ejecutarla la primera vez ya se encarga la propia aplicación de
+integrarse en nuestro sistema.
+
+\hypertarget{kdenlive}{%
+\subsection{kdenlive}\label{kdenlive}}
+
+Otra más en la que bajamos \emph{appimage}, como siempre descargamos en
+\texttt{\textasciitilde{}/app/kdenlive}, damos permisos de ejecución y
+lo probamos.
+
+Este paquete \emph{appimage} no se integra en el sistema, tendremos que
+crear una entrada de menú con \emph{MenuLibre}.
+
+\hypertarget{grabaciuxf3n-de-screencast}{%
+\subsection{Grabación de screencast}\label{grabaciuxf3n-de-screencast}}
+
+\hypertarget{vokoscreen-y-kazam}{%
+\subsubsection{Vokoscreen y Kazam}\label{vokoscreen-y-kazam}}
+
+Instalados desde los repos oficiales:
+
+\begin{verbatim}
+sudo apt update
+sudo apt install vokoscreen kazam
+\end{verbatim}
+
+\hypertarget{fotografuxeda}{%
+\section{Fotografía}\label{fotografuxeda}}
+
+\hypertarget{rawtherapee}{%
+\subsection{Rawtherapee}\label{rawtherapee}}
+
+Bajamos el AppImage desde la \href{http://rawtherapee.com/}{página web}
+al directorio \texttt{\textasciitilde{}/apps/rawtherapee}.
+
+\begin{verbatim}
+cd
+chmod 744 RawTherapeexxxxxx.AppImage
+./RawTherapeexxxxxx.AppImage
+\end{verbatim}
+
+Al ejecutarla la primera vez ya se encarga la propia aplicación de
+integrarse en nuestro sistema.
+
+\hypertarget{darktable}{%
+\subsection{Darktable}\label{darktable}}
+
+Instalamos ppa:
+
+\begin{verbatim}
+sudo add-apt-repository ppa:pmjdebruijn/darktable-release
+
+sudo apt update && sudo apt install darktable
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\textbf{OJO}: Do not install a more recent version of Lensfun using
+another PPA as it will likely cause issues due the API changes. The
+lensfun package for Xenial on this PPA already has new lenses patched
+in.
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\hypertarget{seguridad}{%
+\section{Seguridad}\label{seguridad}}
+
+\hypertarget{autenticaciuxf3n-en-servidores-por-clave-puxfablica}{%
+\subsection{Autenticación en servidores por clave
+pública}\label{autenticaciuxf3n-en-servidores-por-clave-puxfablica}}
+
+Generar contraseñas para conexión servidores remotos:
+
+\begin{verbatim}
+cd ~
+ssh-keygen -b 4096 [-t dsa | ecdsa | ed25519 | rsa | rsa1]
+cat .ssh/
+\end{verbatim}
+
+Solo resta añadir nuestra clave pública en el fichero
+\texttt{authorized\_keys} del servidor remoto.
+
+\begin{verbatim}
+cat ~/.ssh/id_xxx.pub | ssh user@hostname 'cat >> .ssh/authorized_keys'
+\end{verbatim}
+
+\href{https://www.digitalocean.com/community/tutorials/understanding-the-ssh-encryption-and-connection-process}{¿Cómo
+funciona esto?}
+
+\hypertarget{claves-gpg}{%
+\subsection{Claves gpg}\label{claves-gpg}}
+
+\texttt{gpg\ -\/-gen-key} Para generar nuestra clave.
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Siempre} hay que ponerle una fecha de expiración, la puedes
+  cambiar más tarde.
+\item
+  \textbf{Siempre} hay que escoger la máxima longitud posible
+\end{itemize}
+
+\hypertarget{seahorse}{%
+\subsection{Seahorse}\label{seahorse}}
+
+Para manejar todas nuestras claves con comodidad:
+
+\texttt{sudo\ apt\ install\ seahorse}
+
+\hypertarget{conexiuxf3n-a-github-con-claves-ssh}{%
+\subsection{Conexión a github con claves
+ssh}\label{conexiuxf3n-a-github-con-claves-ssh}}
+
+Usando este método podemos conectarnos a github sin tener que teclear la
+contraseña en cada conexión.
+
+\hypertarget{claves-ssh}{%
+\subsubsection{Claves ssh}\label{claves-ssh}}
+
+Podemos echar un ojo a nuestras claves desde \texttt{seahorse} la
+aplicación de gestión de claves que hemos instalado. También podemos ver
+las claves que tenemos generadas:
+
+\begin{verbatim}
+ls -al ~/.ssh
+\end{verbatim}
+
+En las claves listadas nuestras claves públicas aparecerán con extensión
+\texttt{.pub}
+
+También podemos comprobar que claves hemos añadido ya a nuestro agente
+ssh con:
+
+\begin{verbatim}
+ssh-add -l
+\end{verbatim}
+
+Para generar una nueva pareja de claves ssh:
+
+\begin{verbatim}
+ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+\end{verbatim}
+
+Podremos dar un nombre distintivo a los ficheros de claves generados y
+poner una contraseña adecuada a la clave. Si algún dia queremos cambiar
+la contraseña:
+
+\begin{verbatim}
+ssh-keygen -p
+\end{verbatim}
+
+Ahora tenemos que añadir nuestra clave ssh en nuestra cuenta de github,
+para ello editamos con nuestro editor de texto favorito el fichero
+\texttt{\textasciitilde{}/.ssh/id\_rsa.pub} y copiamos el contenido
+integro. Después pegamos ese contenido en el cuadro de texto de la web
+de github.
+
+Para comprobar que las claves instaladas en github funcionan
+correctamente:
+
+\begin{verbatim}
+ssh -T git@github.com
+Hi salvari! You've successfully authenticated, but GitHub does not provide shell access.
+\end{verbatim}
+
+Este mensaje indica que todo ha ido bien.
+
+Ahora en los repos donde queramos usar ssh debemos cambiar el remote:
+
+\begin{verbatim}
+git remote set-url origin git@github.com:$USER/$REPONAME.git
+\end{verbatim}
+
+\hypertarget{signal}{%
+\subsection{Signal}\label{signal}}
+
+El procedimiento recomendado en la página oficial:
+
+\begin{verbatim}
+curl -s https://updates.signal.org/desktop/apt/keys.asc | sudo apt-key add -
+echo "deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main" | sudo tee -a /etc/apt/sources.list.d/signal-xenial.list
+sudo apt update && sudo apt install signal-desktop
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\textbf{NOTA}: Parece que no funciona. Lo he instalado via
+\emph{flatpack}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
 \end{document}

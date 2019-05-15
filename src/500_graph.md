@@ -83,16 +83,20 @@ Desde el [github](https://github.com/mypaint/) tenemos disponible la
 
 ## Alchemy
 
+Igual que el _MyPaint_ descargamos desde [la página
+web](http://al.chemy.org), descomprimimos en `~/apps` y creamos un
+accso con _Menulibre_.
 
+## Capturas de pantalla
 
-## Shutter
+Resulta que _Shutter_ ya no está disponible. Aunque hay algún método
+para instalarlo he preferido probar las alternativas _flameshot_ y _knips_.
 
-Un programa de capturas de pantalla.
+El _flameshot_ cubre el 99% de mis necesidades: `sudo apt install flameshot`
 
-~~~~
-sudo apt install libgoo-canvas-perl
-sudo apt install shutter
-~~~~
+El _ksnips_ por si tenemos que hacer una captura con retardo lo
+instalé con un _appimage_.
+
 
 ## dia
 
@@ -106,6 +110,7 @@ sudo apt install dia dia-shapes gsfonts-x11
 
 Bajamos el Blender linkado estáticamente de [la página
 web](https://www.blender.org) y lo descomprimimos en `~/apps/blender`.
+También me he bajado el _appimage_ de la versión 2.80
 
 ## Structure Synth
 
@@ -123,7 +128,7 @@ descomprimimos en `~/apps/heron`
 
 ## Stopmotion
 
-Primero probamos el del repo.
+Primero probamos el del repo: `sudo apt install stopmotion`
 
 ## Instalación del driver digiment para tabletas gráficas Huion
 
@@ -142,7 +147,6 @@ xinput --list
 dkms status
 ~~~~
 
-Referencia: 
+Referencia:
 
 * [Aquí](https://davidrevoy.com/article331/setup-huion-giano-wh1409-tablet-on-linux-mint-18-1-ubuntu-16-04)
-

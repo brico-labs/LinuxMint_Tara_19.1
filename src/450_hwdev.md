@@ -216,9 +216,6 @@ gestor de software.
 Descargamos el _AppImage_ desde la [página
 web](https://github.com/mypaint/mypaint/releases)
 
-
-
-
 ### Pronterface
 
 Seguimos las instrucciones para Ubuntu Bionic:

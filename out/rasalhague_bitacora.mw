@@ -1226,12 +1226,16 @@ Desde el [https://github.com/mypaint/ github] tenemos disponible la última vers
 
 == Alchemy ==
 
-== Shutter ==
+Igual que el ''MyPaint'' descargamos desde [http://al.chemy.org la página web], descomprimimos en <code>~/apps</code> y creamos un accso con ''Menulibre''.
 
-Un programa de capturas de pantalla.
+== Capturas de pantalla ==
 
-<pre>sudo apt install libgoo-canvas-perl
-sudo apt install shutter</pre>
+Resulta que ''Shutter'' ya no está disponible. Aunque hay algún método para instalarlo he preferido probar las alternativas ''flameshot'' y ''knips''.
+
+El ''flameshot'' cubre el 99% de mis necesidades: <code>sudo apt install flameshot</code>
+
+El ''ksnips'' por si tenemos que hacer una captura con retardo lo instalé con un ''appimage''.
+
 == dia ==
 
 Un programa para crear diagramas
@@ -1239,7 +1243,7 @@ Un programa para crear diagramas
 <pre>sudo apt install dia dia-shapes gsfonts-x11</pre>
 == Blender ==
 
-Bajamos el Blender linkado estáticamente de [https://www.blender.org la página web] y lo descomprimimos en <code>~/apps/blender</code>.
+Bajamos el Blender linkado estáticamente de [https://www.blender.org la página web] y lo descomprimimos en <code>~/apps/blender</code>. También me he bajado el ''appimage'' de la versión 2.80
 
 == Structure Synth ==
 
@@ -1252,7 +1256,7 @@ Descargamos el programa desde [https://heronanimation.brunolefevre.net/ su pági
 
 == Stopmotion ==
 
-Primero probamos el del repo.
+Primero probamos el del repo: <code>sudo apt install stopmotion</code>
 
 == Instalación del driver digiment para tabletas gráficas Huion ==
 
@@ -1268,5 +1272,151 @@ dkms status</pre>
 Referencia:
 
 * [https://davidrevoy.com/article331/setup-huion-giano-wh1409-tablet-on-linux-mint-18-1-ubuntu-16-04 Aquí]
+
+= Sound =
+
+== Spotify ==
+
+Spotify instalado desde las opciones de Linux Mint
+
+== Audacity ==
+
+Añadimos ppa:
+
+<pre>sudo add-apt-repository ppa:ubuntuhandbook1/audacity
+sudo apt-get update
+sudo apt install audacity</pre>
+Instalamos también el plugin [https://theaudacitytopodcast.com/chriss-dynamic-compressor-plugin-for-audacity/ Chris’s Dynamic Compressor plugin]
+
+== Clementine ==
+
+<pre>sudo add-apt-repository ppa:me-davidsansome/clementine
+sudo apt update
+sudo apt install clementine</pre>
+= Video =
+
+== Shotcut ==
+
+Nos bajamos la ''AppImage'' para Linux desde la [https://www.shotcut.org/ página web].
+
+La dejamos en <code>~/apps/shotcut</code> y:
+
+<pre>cd
+chmod 744 Shotcutxxxxxx.AppImage
+./Shotcutxxxxxx.AppImage</pre>
+Al ejecutarla la primera vez ya se encarga la propia aplicación de integrarse en nuestro sistema.
+
+== kdenlive ==
+
+Otra más en la que bajamos ''appimage'', como siempre descargamos en <code>~/app/kdenlive</code>, damos permisos de ejecución y lo probamos.
+
+Este paquete ''appimage'' no se integra en el sistema, tendremos que crear una entrada de menú con ''MenuLibre''.
+
+== Grabación de screencast ==
+
+=== Vokoscreen y Kazam ===
+
+Instalados desde los repos oficiales:
+
+<pre>sudo apt update
+sudo apt install vokoscreen kazam</pre>
+= Fotografía =
+
+== Rawtherapee ==
+
+Bajamos el AppImage desde la [http://rawtherapee.com/ página web] al directorio <code>~/apps/rawtherapee</code>.
+
+<pre>cd
+chmod 744 RawTherapeexxxxxx.AppImage
+./RawTherapeexxxxxx.AppImage</pre>
+Al ejecutarla la primera vez ya se encarga la propia aplicación de integrarse en nuestro sistema.
+
+== Darktable ==
+
+Instalamos ppa:
+
+<pre>sudo add-apt-repository ppa:pmjdebruijn/darktable-release
+
+sudo apt update &amp;&amp; sudo apt install darktable</pre>
+
+-----
+
+'''OJO''': Do not install a more recent version of Lensfun using another PPA as it will likely cause issues due the API changes. The lensfun package for Xenial on this PPA already has new lenses patched in.
+
+
+-----
+
+= Seguridad =
+
+== Autenticación en servidores por clave pública ==
+
+Generar contraseñas para conexión servidores remotos:
+
+<pre>cd ~
+ssh-keygen -b 4096 [-t dsa | ecdsa | ed25519 | rsa | rsa1]
+cat .ssh/</pre>
+Solo resta añadir nuestra clave pública en el fichero <code>authorized_keys</code> del servidor remoto.
+
+<pre>cat ~/.ssh/id_xxx.pub | ssh user@hostname 'cat &gt;&gt; .ssh/authorized_keys'</pre>
+[https://www.digitalocean.com/community/tutorials/understanding-the-ssh-encryption-and-connection-process ¿Cómo funciona esto?]
+
+== Claves gpg ==
+
+<code>gpg --gen-key</code> Para generar nuestra clave.
+
+* '''Siempre''' hay que ponerle una fecha de expiración, la puedes cambiar más tarde.
+* '''Siempre''' hay que escoger la máxima longitud posible
+
+== Seahorse ==
+
+Para manejar todas nuestras claves con comodidad:
+
+<code>sudo apt install seahorse</code>
+
+== Conexión a github con claves ssh ==
+
+Usando este método podemos conectarnos a github sin tener que teclear la contraseña en cada conexión.
+
+=== Claves ssh ===
+
+Podemos echar un ojo a nuestras claves desde <code>seahorse</code> la aplicación de gestión de claves que hemos instalado. También podemos ver las claves que tenemos generadas:
+
+<pre>ls -al ~/.ssh</pre>
+En las claves listadas nuestras claves públicas aparecerán con extensión <code>.pub</code>
+
+También podemos comprobar que claves hemos añadido ya a nuestro agente ssh con:
+
+<pre>ssh-add -l</pre>
+Para generar una nueva pareja de claves ssh:
+
+<pre>ssh-keygen -t rsa -b 4096 -C &quot;your_email@example.com&quot;</pre>
+Podremos dar un nombre distintivo a los ficheros de claves generados y poner una contraseña adecuada a la clave. Si algún dia queremos cambiar la contraseña:
+
+<pre>ssh-keygen -p</pre>
+Ahora tenemos que añadir nuestra clave ssh en nuestra cuenta de github, para ello editamos con nuestro editor de texto favorito el fichero <code>~/.ssh/id_rsa.pub</code> y copiamos el contenido integro. Después pegamos ese contenido en el cuadro de texto de la web de github.
+
+Para comprobar que las claves instaladas en github funcionan correctamente:
+
+<pre>ssh -T git@github.com
+Hi salvari! You've successfully authenticated, but GitHub does not provide shell access.</pre>
+Este mensaje indica que todo ha ido bien.
+
+Ahora en los repos donde queramos usar ssh debemos cambiar el remote:
+
+<pre>git remote set-url origin git@github.com:$USER/$REPONAME.git</pre>
+== Signal ==
+
+El procedimiento recomendado en la página oficial:
+
+<pre>curl -s https://updates.signal.org/desktop/apt/keys.asc | sudo apt-key add -
+echo &quot;deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main&quot; | sudo tee -a /etc/apt/sources.list.d/signal-xenial.list
+sudo apt update &amp;&amp; sudo apt install signal-desktop</pre>
+
+-----
+
+'''NOTA''': Parece que no funciona. Lo he instalado via ''flatpack''
+
+
+-----
 
 <references />

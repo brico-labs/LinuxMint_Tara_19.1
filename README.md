@@ -1534,12 +1534,21 @@ Desde el [github](https://github.com/mypaint/) tenemos disponible la
 
 ## Alchemy
 
-## Shutter
+Igual que el *MyPaint* descargamos desde [la página
+web](http://al.chemy.org), descomprimimos en `~/apps` y creamos un accso
+con *Menulibre*.
 
-Un programa de capturas de pantalla.
+## Capturas de pantalla
 
-    sudo apt install libgoo-canvas-perl
-    sudo apt install shutter
+Resulta que *Shutter* ya no está disponible. Aunque hay algún método
+para instalarlo he preferido probar las alternativas *flameshot* y
+*knips*.
+
+El *flameshot* cubre el 99% de mis necesidades: `sudo apt install
+flameshot`
+
+El *ksnips* por si tenemos que hacer una captura con retardo lo instalé
+con un *appimage*.
 
 ## dia
 
@@ -1551,6 +1560,7 @@ Un programa para crear diagramas
 
 Bajamos el Blender linkado estáticamente de [la página
 web](https://www.blender.org) y lo descomprimimos en `~/apps/blender`.
+También me he bajado el *appimage* de la versión 2.80
 
 ## Structure Synth
 
@@ -1566,7 +1576,7 @@ descomprimimos en `~/apps/heron`
 
 ## Stopmotion
 
-Primero probamos el del repo.
+Primero probamos el del repo: `sudo apt install stopmotion`
 
 ## Instalación del driver digiment para tabletas gráficas Huion
 
@@ -1585,7 +1595,185 @@ Referencia:
 
   - [Aquí](https://davidrevoy.com/article331/setup-huion-giano-wh1409-tablet-on-linux-mint-18-1-ubuntu-16-04)
 
-<!-- end list -->
+# Sound
+
+## Spotify
+
+Spotify instalado desde las opciones de Linux Mint
+
+## Audacity
+
+Añadimos ppa:
+
+    sudo add-apt-repository ppa:ubuntuhandbook1/audacity
+    sudo apt-get update
+    sudo apt install audacity
+
+Instalamos también el plugin [Chris’s Dynamic Compressor
+plugin](https://theaudacitytopodcast.com/chriss-dynamic-compressor-plugin-for-audacity/)
+
+## Clementine
+
+    sudo add-apt-repository ppa:me-davidsansome/clementine
+    sudo apt update
+    sudo apt install clementine
+
+# Video
+
+## Shotcut
+
+Nos bajamos la *AppImage* para Linux desde la [página
+web](https://www.shotcut.org/).
+
+La dejamos en `~/apps/shotcut` y:
+
+    cd
+    chmod 744 Shotcutxxxxxx.AppImage
+    ./Shotcutxxxxxx.AppImage
+
+Al ejecutarla la primera vez ya se encarga la propia aplicación de
+integrarse en nuestro sistema.
+
+## kdenlive
+
+Otra más en la que bajamos *appimage*, como siempre descargamos en
+`~/app/kdenlive`, damos permisos de ejecución y lo probamos.
+
+Este paquete *appimage* no se integra en el sistema, tendremos que crear
+una entrada de menú con *MenuLibre*.
+
+## Grabación de screencast
+
+### Vokoscreen y Kazam
+
+Instalados desde los repos oficiales:
+
+    sudo apt update
+    sudo apt install vokoscreen kazam
+
+# Fotografía
+
+## Rawtherapee
+
+Bajamos el AppImage desde la [página web](http://rawtherapee.com/) al
+directorio `~/apps/rawtherapee`.
+
+    cd
+    chmod 744 RawTherapeexxxxxx.AppImage
+    ./RawTherapeexxxxxx.AppImage
+
+Al ejecutarla la primera vez ya se encarga la propia aplicación de
+integrarse en nuestro sistema.
+
+## Darktable
+
+Instalamos ppa:
+
+    sudo add-apt-repository ppa:pmjdebruijn/darktable-release
+    
+    sudo apt update && sudo apt install darktable
+
+-----
+
+**OJO**: Do not install a more recent version of Lensfun using another
+PPA as it will likely cause issues due the API changes. The lensfun
+package for Xenial on this PPA already has new lenses patched in.
+
+-----
+
+# Seguridad
+
+## Autenticación en servidores por clave pública
+
+Generar contraseñas para conexión servidores remotos:
+
+    cd ~
+    ssh-keygen -b 4096 [-t dsa | ecdsa | ed25519 | rsa | rsa1]
+    cat .ssh/
+
+Solo resta añadir nuestra clave pública en el fichero `authorized_keys`
+del servidor remoto.
+
+    cat ~/.ssh/id_xxx.pub | ssh user@hostname 'cat >> .ssh/authorized_keys'
+
+[¿Cómo funciona
+esto?](https://www.digitalocean.com/community/tutorials/understanding-the-ssh-encryption-and-connection-process)
+
+## Claves gpg
+
+`gpg --gen-key` Para generar nuestra clave.
+
+  - **Siempre** hay que ponerle una fecha de expiración, la puedes
+    cambiar más tarde.
+  - **Siempre** hay que escoger la máxima longitud posible
+
+## Seahorse
+
+Para manejar todas nuestras claves con comodidad:
+
+`sudo apt install seahorse`
+
+## Conexión a github con claves ssh
+
+Usando este método podemos conectarnos a github sin tener que teclear la
+contraseña en cada conexión.
+
+### Claves ssh
+
+Podemos echar un ojo a nuestras claves desde `seahorse` la aplicación de
+gestión de claves que hemos instalado. También podemos ver las claves
+que tenemos generadas:
+
+    ls -al ~/.ssh
+
+En las claves listadas nuestras claves públicas aparecerán con extensión
+`.pub`
+
+También podemos comprobar que claves hemos añadido ya a nuestro agente
+ssh con:
+
+    ssh-add -l
+
+Para generar una nueva pareja de claves ssh:
+
+    ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+
+Podremos dar un nombre distintivo a los ficheros de claves generados y
+poner una contraseña adecuada a la clave. Si algún dia queremos cambiar
+la contraseña:
+
+    ssh-keygen -p
+
+Ahora tenemos que añadir nuestra clave ssh en nuestra cuenta de github,
+para ello editamos con nuestro editor de texto favorito el fichero
+`~/.ssh/id_rsa.pub` y copiamos el contenido integro. Después pegamos ese
+contenido en el cuadro de texto de la web de github.
+
+Para comprobar que las claves instaladas en github funcionan
+correctamente:
+
+    ssh -T git@github.com
+    Hi salvari! You've successfully authenticated, but GitHub does not provide shell access.
+
+Este mensaje indica que todo ha ido bien.
+
+Ahora en los repos donde queramos usar ssh debemos cambiar el remote:
+
+    git remote set-url origin git@github.com:$USER/$REPONAME.git
+
+## Signal
+
+El procedimiento recomendado en la página oficial:
+
+    curl -s https://updates.signal.org/desktop/apt/keys.asc | sudo apt-key add -
+    echo "deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main" | sudo tee -a /etc/apt/sources.list.d/signal-xenial.list
+    sudo apt update && sudo apt install signal-desktop
+
+-----
+
+**NOTA**: Parece que no funciona. Lo he instalado via *flatpack*
+
+-----
 
 1.  ya no incluye gksu pero tampoco es imprescindible
 
