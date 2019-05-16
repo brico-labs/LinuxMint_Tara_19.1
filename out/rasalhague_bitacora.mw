@@ -1468,10 +1468,14 @@ Creamos el fichero <code>/etc/apt/sources.list.d/josm.list</code> que contiene l
 Descargamos y añadimos la clave gpg:
 
 <pre>wget -q https://josm.openstreetmap.de/josm-apt.key -O- | sudo apt-key add -</pre>
+<pre>sudo add-apt-repository &quot;deb [arch=amd64] https://josm.openstreetmap.de/apt $(. /etc/os-release; echo &quot;$UBUNTU_CODENAME&quot;) universe&quot;</pre>
 Y ahora procedemos a la instalación:
 
 <pre>sudo apt update
-sudo apt install openjfx josm josm-latest</pre>
+sudo apt install openjfx josm </pre>
+También podemos instalar la versión “nightly” pero tendréis actualizaciones diarias:
+
+<pre>sudo apt josm-latest</pre>
 Ya estamos listos para editar Open Street Map offline.
 
 == MOBAC ==
@@ -1486,16 +1490,12 @@ Conviene bajarse wms adicionales para MOBAC y leerse [http://mobac.sourceforge.n
 
 == QGIS ==
 
-Hay un problema con la instalación de la última versión de QGIS (3.0) y Ubuntu Xenial. No he sido capaz de instalarla por más que lo he intentado.
-
-Para instalar la versión LTR 2.18
-
-Añadimos [https://trac.osgeo.org/ubuntugis/wiki/UbuntuGISRepository UbuntuGIS] a nuestras fuentes de software. Creamos el fichero <code>/etc/apt/sources.list.d/ubuntugis.list</code> que contiene la linea:
-
-<pre>deb https://qgis.org/ubuntugis/ xenial main</pre>
 Añadimos la clave gpg:
 
-<pre>sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys CAEB3DC3BDF7FB45</pre>
+<pre>wget -q  https://qgis.org/downloads/qgis-2017.gpg.key -O- | sudo apt-key add -</pre>
+Ejecutamos:
+
+<pre>sudo add-apt-repository &quot;deb [arch=amd64] https://qgis.org/debian $(. /etc/os-release; echo &quot;$UBUNTU_CODENAME&quot;) main&quot;</pre>
 E instalamos como siempre
 
 <pre>sudo apt update
