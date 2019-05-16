@@ -1419,4 +1419,147 @@ sudo apt update &amp;&amp; sudo apt install signal-desktop</pre>
 
 -----
 
+= Virtualizaciones y contenedores =
+
+== Instalación de ''virtualBox'' ==
+
+* Descargamos el paquete correspondiente (Ubuntu 18.04) desde [https://www.virtualbox.org/wiki/Linux_Downloads la página web].
+* Descargamos también el [https://www.virtualbox.org/wiki/Downloads VirtualBox Extension Pack]
+* Instalamos el paquete ''deb'' de VirtualBox con <code>sudo dpkg -i paquete</code>
+* Instalamos el ''Extension Pack'' desde la propia aplicación de virtualbox
+* Añadimos nuestro usuario (o usuarios) al grupo <code>vboxusers</code> con <code>sudo gpasswd -a user vboxusers</code>
+
+== Docker ==
+
+Tenemos que añadir el repositorio correspondiente a nuestra distribución:
+
+<pre># Be safe
+sudo apt remove docker docker-engine docker.io
+sudo apt update
+
+# Install pre-requisites
+sudo apt install apt-transport-https ca-certificates curl software-properties-common
+
+# Import the GPG key
+
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+# Next, point the package manager to the official Docker repository
+
+sudo add-apt-repository &quot;deb [arch=amd64] https://download.docker.com/linux/ubuntu $(. /etc/os-release; echo &quot;$UBUNTU_CODENAME&quot;) stable&quot;
+
+# Update the package database
+
+sudo apt update
+#
+
+apt-cache policy docker-ce
+
+sudo apt install docker-ce
+
+sudo gpasswd -a salvari docker</pre>
+= Utilidades para mapas y cartografía =
+
+== josm ==
+
+Creamos el fichero <code>/etc/apt/sources.list.d/josm.list</code> que contiene la linea:
+
+<pre>deb https://josm.openstreetmap.de/apt artful universe</pre>
+Descargamos y añadimos la clave gpg:
+
+<pre>wget -q https://josm.openstreetmap.de/josm-apt.key -O- | sudo apt-key add -</pre>
+Y ahora procedemos a la instalación:
+
+<pre>sudo apt update
+sudo apt install openjfx josm josm-latest</pre>
+Ya estamos listos para editar Open Street Map offline.
+
+== MOBAC ==
+
+Bajamos el paquete desde [http://mobac.sourceforge.net/ la página web] y descomprimimos en <code>~/apps/mobac</code> como de costumbre nos creamos una entrada de menú con ''MenuLibre''.
+
+Conviene bajarse wms adicionales para MOBAC y leerse [http://mobac.sourceforge.net/wiki/index.php/Custom_XML_Map_Sources la wiki]
+
+=== Referencias ===
+
+*[Cartografía digital] (https://digimapas.blogspot.com.es/2015/01/oruxmaps-vii-mapas-de-mobac.html)
+
+== QGIS ==
+
+Hay un problema con la instalación de la última versión de QGIS (3.0) y Ubuntu Xenial. No he sido capaz de instalarla por más que lo he intentado.
+
+Para instalar la versión LTR 2.18
+
+Añadimos [https://trac.osgeo.org/ubuntugis/wiki/UbuntuGISRepository UbuntuGIS] a nuestras fuentes de software. Creamos el fichero <code>/etc/apt/sources.list.d/ubuntugis.list</code> que contiene la linea:
+
+<pre>deb https://qgis.org/ubuntugis/ xenial main</pre>
+Añadimos la clave gpg:
+
+<pre>sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys CAEB3DC3BDF7FB45</pre>
+E instalamos como siempre
+
+<pre>sudo apt update
+sudo apt install qgis</pre>
+=== Referencias ===
+
+* [https://mappinggis.com/2015/09/como-conectar-con-servicios-wms-y-wfs-con-arcgis-qgis-y-gvsig/ Conectar WMS con QGIS]
+* [https://www.altergeosistemas.com/blog/2014/03/28/importando-datos-de-osm-en-qgis-2/ Importar OSM en QGIS]
+* [http://learnosm.org/es/osm-data/osm-in-qgis/ Learn OSM]
+* [http://www.qgistutorials.com/es/docs/downloading_osm_data.html QGIS Tutorials]
+
+= Recetas variadas =
+
+== Formatear memoria usb ==
+
+“The driver descriptor says the physical block size is 2048 bytes, but Linux says it is 512 bytes.”
+
+Este comando borró todas las particiones de la memoria:
+
+<code>sudo dd if=/dev/zero of=/dev/sdd bs=2048 count=32 &amp;&amp; sync</code>
+
+I’m assuming your using gparted.
+
+First delete whatever partitions you can…just keep pressing ignore.
+
+There will be one with a black outline…you will have to unmount it…just right click on it and unmount.
+
+Again you will have to click your way through ignore..if fix is an option choose it also.
+
+Once all this is done… you can select the device menu and choose new partition table.
+
+Select MSdos
+
+Apply and choose ignore again.
+
+Once it’s done it show it’s real size.
+
+Next you can format the drive to whichever file system you like.
+
+It’s a pain in the behind this way, but it’s the only way I get it done..I put live iso’s on sticks all the time and have to remove them. I get stuck going through this process every time.
+
+== Copiar la clave pública ssh en un servidor remoto ==
+
+<code>cat /home/tim/.ssh/id_rsa.pub | ssh tim@just.some.other.server 'cat &gt;&gt; .ssh/authorized_keys'</code>
+
+O también:
+
+<code>ssh-copy-id -i ~/.ssh/id_rsa.pub username@remote.server</code>
+
+== ssh access from termux ==
+
+https://linuxconfig.org/ssh-into-linux-your-computer-from-android-with-termux
+
+== SDR instalaciones varias ==
+
+Vamos a trastear con un dispositivo [https://www.rtl-sdr.com/ RTL-SDR.com].
+
+Tenemos un montón de información en el blog de [https://sdrgal.wordpress.com/ SDR Galicia] y tienen incluso una guia de instalación muy completa, pero yo voy a seguir una guía un poco menos ambiciosa, por lo menos hasta que pueda hacer el curso que imparten ellos mismos (SDR Galicia)
+
+La guía en cuestión la podemos encontrar [https://ranous.wordpress.com/rtl-sdr4linux/ aquí]
+
+Seguimos los pasos de instalación:
+
+* La instalación de <code>git</code>, <code>cmake</code> y <code>build-essential</code> ya la tengo hecha.
+
+<pre>sudo apt-get install libusb-1.0-0-dev</pre>
 <references />

@@ -2371,4 +2371,243 @@ sudo apt update && sudo apt install signal-desktop
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
+\hypertarget{virtualizaciones-y-contenedores}{%
+\section{Virtualizaciones y
+contenedores}\label{virtualizaciones-y-contenedores}}
+
+\hypertarget{instalaciuxf3n-de-virtualbox}{%
+\subsection{\texorpdfstring{Instalación de
+\emph{virtualBox}}{Instalación de virtualBox}}\label{instalaciuxf3n-de-virtualbox}}
+
+\begin{itemize}
+\tightlist
+\item
+  Descargamos el paquete correspondiente (Ubuntu 18.04) desde
+  \href{https://www.virtualbox.org/wiki/Linux_Downloads}{la página web}.
+\item
+  Descargamos también el
+  \href{https://www.virtualbox.org/wiki/Downloads}{VirtualBox Extension
+  Pack}
+\item
+  Instalamos el paquete \emph{deb} de VirtualBox con
+  \texttt{sudo\ dpkg\ -i\ paquete}
+\item
+  Instalamos el \emph{Extension Pack} desde la propia aplicación de
+  virtualbox
+\item
+  Añadimos nuestro usuario (o usuarios) al grupo \texttt{vboxusers} con
+  \texttt{sudo\ gpasswd\ -a\ user\ vboxusers}
+\end{itemize}
+
+\hypertarget{docker}{%
+\subsection{Docker}\label{docker}}
+
+Tenemos que añadir el repositorio correspondiente a nuestra
+distribución:
+
+\begin{verbatim}
+# Be safe
+sudo apt remove docker docker-engine docker.io
+sudo apt update
+
+# Install pre-requisites
+sudo apt install apt-transport-https ca-certificates curl software-properties-common
+
+# Import the GPG key
+
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+# Next, point the package manager to the official Docker repository
+
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(. /etc/os-release; echo "$UBUNTU_CODENAME") stable"
+
+# Update the package database
+
+sudo apt update
+#
+
+apt-cache policy docker-ce
+
+sudo apt install docker-ce
+
+sudo gpasswd -a salvari docker
+\end{verbatim}
+
+\hypertarget{utilidades-para-mapas-y-cartografuxeda}{%
+\section{Utilidades para mapas y
+cartografía}\label{utilidades-para-mapas-y-cartografuxeda}}
+
+\hypertarget{josm}{%
+\subsection{josm}\label{josm}}
+
+Creamos el fichero \texttt{/etc/apt/sources.list.d/josm.list} que
+contiene la linea:
+
+\begin{verbatim}
+deb https://josm.openstreetmap.de/apt artful universe
+\end{verbatim}
+
+Descargamos y añadimos la clave gpg:
+
+\begin{verbatim}
+wget -q https://josm.openstreetmap.de/josm-apt.key -O- | sudo apt-key add -
+\end{verbatim}
+
+Y ahora procedemos a la instalación:
+
+\begin{verbatim}
+sudo apt update
+sudo apt install openjfx josm josm-latest
+\end{verbatim}
+
+Ya estamos listos para editar Open Street Map offline.
+
+\hypertarget{mobac}{%
+\subsection{MOBAC}\label{mobac}}
+
+Bajamos el paquete desde \href{http://mobac.sourceforge.net/}{la página
+web} y descomprimimos en \texttt{\textasciitilde{}/apps/mobac} como de
+costumbre nos creamos una entrada de menú con \emph{MenuLibre}.
+
+Conviene bajarse wms adicionales para MOBAC y leerse
+\href{http://mobac.sourceforge.net/wiki/index.php/Custom_XML_Map_Sources}{la
+wiki}
+
+\hypertarget{referencias-1}{%
+\subsubsection{Referencias}\label{referencias-1}}
+
+*{[}Cartografía digital{]}
+(https://digimapas.blogspot.com.es/2015/01/oruxmaps-vii-mapas-de-mobac.html)
+
+\hypertarget{qgis}{%
+\subsection{QGIS}\label{qgis}}
+
+Hay un problema con la instalación de la última versión de QGIS (3.0) y
+Ubuntu Xenial. No he sido capaz de instalarla por más que lo he
+intentado.
+
+Para instalar la versión LTR 2.18
+
+Añadimos
+\href{https://trac.osgeo.org/ubuntugis/wiki/UbuntuGISRepository}{UbuntuGIS}
+a nuestras fuentes de software. Creamos el fichero
+\texttt{/etc/apt/sources.list.d/ubuntugis.list} que contiene la linea:
+
+\begin{verbatim}
+deb https://qgis.org/ubuntugis/ xenial main
+\end{verbatim}
+
+Añadimos la clave gpg:
+
+\begin{verbatim}
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys CAEB3DC3BDF7FB45
+\end{verbatim}
+
+E instalamos como siempre
+
+\begin{verbatim}
+sudo apt update
+sudo apt install qgis
+\end{verbatim}
+
+\hypertarget{referencias-2}{%
+\subsubsection{Referencias}\label{referencias-2}}
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://mappinggis.com/2015/09/como-conectar-con-servicios-wms-y-wfs-con-arcgis-qgis-y-gvsig/}{Conectar
+  WMS con QGIS}
+\item
+  \href{https://www.altergeosistemas.com/blog/2014/03/28/importando-datos-de-osm-en-qgis-2/}{Importar
+  OSM en QGIS}
+\item
+  \href{http://learnosm.org/es/osm-data/osm-in-qgis/}{Learn OSM}
+\item
+  \href{http://www.qgistutorials.com/es/docs/downloading_osm_data.html}{QGIS
+  Tutorials}
+\end{itemize}
+
+\hypertarget{recetas-variadas}{%
+\section{Recetas variadas}\label{recetas-variadas}}
+
+\hypertarget{formatear-memoria-usb}{%
+\subsection{Formatear memoria usb}\label{formatear-memoria-usb}}
+
+``The driver descriptor says the physical block size is 2048 bytes, but
+Linux says it is 512 bytes.''
+
+Este comando borró todas las particiones de la memoria:
+
+\texttt{sudo\ dd\ if=/dev/zero\ of=/dev/sdd\ bs=2048\ count=32\ \&\&\ sync}
+
+I'm assuming your using gparted.
+
+First delete whatever partitions you can\ldots just keep pressing
+ignore.
+
+There will be one with a black outline\ldots you will have to unmount
+it\ldots just right click on it and unmount.
+
+Again you will have to click your way through ignore..if fix is an
+option choose it also.
+
+Once all this is done\ldots{} you can select the device menu and choose
+new partition table.
+
+Select MSdos
+
+Apply and choose ignore again.
+
+Once it's done it show it's real size.
+
+Next you can format the drive to whichever file system you like.
+
+It's a pain in the behind this way, but it's the only way I get it
+done..I put live iso's on sticks all the time and have to remove them. I
+get stuck going through this process every time.
+
+\hypertarget{copiar-la-clave-puxfablica-ssh-en-un-servidor-remoto}{%
+\subsection{Copiar la clave pública ssh en un servidor
+remoto}\label{copiar-la-clave-puxfablica-ssh-en-un-servidor-remoto}}
+
+\texttt{cat\ /home/tim/.ssh/id\_rsa.pub\ \textbar{}\ ssh\ tim@just.some.other.server\ \textquotesingle{}cat\ \textgreater{}\textgreater{}\ .ssh/authorized\_keys\textquotesingle{}}
+
+O también:
+
+\texttt{ssh-copy-id\ -i\ \textasciitilde{}/.ssh/id\_rsa.pub\ username@remote.server}
+
+\hypertarget{ssh-access-from-termux}{%
+\subsection{ssh access from termux}\label{ssh-access-from-termux}}
+
+\url{https://linuxconfig.org/ssh-into-linux-your-computer-from-android-with-termux}
+
+\hypertarget{sdr-instalaciones-varias}{%
+\subsection{SDR instalaciones varias}\label{sdr-instalaciones-varias}}
+
+Vamos a trastear con un dispositivo
+\href{https://www.rtl-sdr.com/}{RTL-SDR.com}.
+
+Tenemos un montón de información en el blog de
+\href{https://sdrgal.wordpress.com/}{SDR Galicia} y tienen incluso una
+guia de instalación muy completa, pero yo voy a seguir una guía un poco
+menos ambiciosa, por lo menos hasta que pueda hacer el curso que
+imparten ellos mismos (SDR Galicia)
+
+La guía en cuestión la podemos encontrar
+\href{https://ranous.wordpress.com/rtl-sdr4linux/}{aquí}
+
+Seguimos los pasos de instalación:
+
+\begin{itemize}
+\tightlist
+\item
+  La instalación de \texttt{git}, \texttt{cmake} y
+  \texttt{build-essential} ya la tengo hecha.
+\end{itemize}
+
+\begin{verbatim}
+sudo apt-get install libusb-1.0-0-dev
+\end{verbatim}
+
 \end{document}
