@@ -1775,6 +1775,53 @@ El procedimiento recomendado en la página oficial:
 
 -----
 
+## Lector DNI electrónico
+
+Instalamos:
+
+    sudo apt-get install pcscd pcsc-tools libccid
+
+Como root ejecutamos pcsc\_scan:
+
+    root@rasalhague:~# pcsc_scan 
+    PC/SC device scanner
+    V 1.4.23 (c) 2001-2011, Ludovic Rousseau <ludovic.rousseau@free.fr>
+    Compiled with PC/SC lite version: 1.8.11
+    Using reader plug'n play mechanism
+    Scanning present readers...
+    Waiting for the first reader...
+
+Si insertamos el lector veremos algo como esto:
+
+    root@rasalhague:~# pcsc_scan 
+    PC/SC device scanner
+    V 1.4.23 (c) 2001-2011, Ludovic Rousseau <ludovic.rousseau@free.fr>
+    Compiled with PC/SC lite version: 1.8.11
+    Using reader plug'n play mechanism
+    Scanning present readers...
+    Waiting for the first reader...found one
+    Scanning present readers...
+    0: C3PO LTC31 v2 (11061005) 00 00
+    
+    Wed Jan 25 01:17:20 2017
+    Reader 0: C3PO LTC31 v2 (11061005) 00 00
+      Card state: Card removed,
+
+Si insertamos un DNI veremos que se lee la información de la tarjeta
+insertada:
+
+    Reader 0: C3PO LTC31 v2 (11061005) 00 00
+      Card state: Card inserted, 
+
+y mas rollo
+
+Instalamos ahora el modulo criptográfico desde [este
+enlace](https://www.dnielectronico.es/PortalDNIe/PRF1_Cons02.action?pag=REF_1112)
+
+Y además:
+
+    aptitude install pinentry-gtk2 opensc
+
 # Virtualizaciones y contenedores
 
 ## Instalación de *virtualBox*
