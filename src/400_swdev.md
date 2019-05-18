@@ -602,3 +602,8 @@ filetype plugin indent on
 syntax enable
 ~~~~
 
+## Firefox developer edition
+
+El rollo de siempre, descargar desde [la página
+web](https://www.mozilla.org/en-US/firefox/developer/) descomprimir en
+`~/apps` y crear un lanzador.

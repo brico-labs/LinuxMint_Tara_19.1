@@ -1239,6 +1239,12 @@ Solo hay que instalar uno de los dos o *dein* o *plug-vim*. Yo uso
     filetype plugin indent on
     syntax enable
 
+## Firefox developer edition
+
+El rollo de siempre, descargar desde [la página
+web](https://www.mozilla.org/en-US/firefox/developer/) descomprimir en
+`~/apps` y crear un lanzador.
+
 # Desarrollo hardware
 
 ## Arduino IDE
@@ -1934,6 +1940,11 @@ E instalamos como siempre
     Tutorials](http://www.qgistutorials.com/es/docs/downloading_osm_data.html)
 
 # Recetas variadas
+
+## Solucionar problemas de menús duplicados usando menulibre
+
+En el directorio `~/.config/menus/applications-merged` borramos todos
+los ficheros que haya.
 
 ## Formatear memoria usb
 

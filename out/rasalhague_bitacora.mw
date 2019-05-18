@@ -1011,6 +1011,10 @@ endif
 
 filetype plugin indent on
 syntax enable</pre>
+== Firefox developer edition ==
+
+El rollo de siempre, descargar desde [https://www.mozilla.org/en-US/firefox/developer/ la página web] descomprimir en <code>~/apps</code> y crear un lanzador.
+
 = Desarrollo hardware =
 
 == Arduino IDE ==
@@ -1548,6 +1552,10 @@ sudo apt install qgis</pre>
 * [http://www.qgistutorials.com/es/docs/downloading_osm_data.html QGIS Tutorials]
 
 = Recetas variadas =
+
+== Solucionar problemas de menús duplicados usando menulibre ==
+
+En el directorio <code>~/.config/menus/applications-merged</code> borramos todos los ficheros que haya.
 
 == Formatear memoria usb ==
 
