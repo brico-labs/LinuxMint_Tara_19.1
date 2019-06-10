@@ -1445,7 +1445,7 @@ de software.
 ### Ultimaker Cura
 
 Descargamos el *AppImage* desde la [página
-web](https://github.com/mypaint/mypaint/releases)
+web](https://github.com/Ultimaker/Cura/releases)
 
 ### Pronterface
 
