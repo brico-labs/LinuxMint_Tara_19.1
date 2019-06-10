@@ -1205,8 +1205,8 @@ Gimp ya estaba instalado, pero no es la última versión, prefiero tener la últ
 sudo add-apt-repository ppa:otto-kesselgulasch/gimp
 sudo apt update
 sudo apt upgrade
-sudo apt install gimp-texturize gimp-data-extras \
-gimp-gap gmic gimp-gmic gimp-python</pre>
+sudo apt install gimp gimp-data gimp-texturize \
+gimp-data-extras gimp-gap gmic gimp-gmic gimp-python</pre>
 === Plugins de Gimp ===
 
 ==== resynthesizer ====
@@ -1221,6 +1221,8 @@ Tenemos que asegurarnos que los fichero ''python'' son ejecutables:
 La versión disponible en orígenes de software está bastante por detrás de la disponible en la web. Basta con descargar el ''Appimage'' desde la [https://krita.org página web]
 
 Lo copiamos a <code>~/apps/krita</code> y creamos un lanzador con <code>Menulibre</code>
+
+Alternativamente también lo tenemos disponible por ppa en https://launchpad.net/~kritalime/+archive/ubuntu/ppa
 
 == MyPaint ==
 

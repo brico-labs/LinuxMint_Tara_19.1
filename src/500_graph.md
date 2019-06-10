@@ -45,8 +45,8 @@ sudo apt remove gimp gimp-data
 sudo add-apt-repository ppa:otto-kesselgulasch/gimp
 sudo apt update
 sudo apt upgrade
-sudo apt install gimp-texturize gimp-data-extras \
-gimp-gap gmic gimp-gmic gimp-python
+sudo apt install gimp gimp-data gimp-texturize \
+gimp-data-extras gimp-gap gmic gimp-gmic gimp-python
 ~~~~
 
 ### Plugins de Gimp
@@ -70,6 +70,9 @@ de la disponible en la web. Basta con descargar el _Appimage_ desde la
 [página web](https://krita.org)
 
 Lo copiamos a `~/apps/krita` y creamos un lanzador con `Menulibre`
+
+Alternativamente también lo tenemos disponible por ppa en
+<https://launchpad.net/~kritalime/+archive/ubuntu/ppa>
 
 ## MyPaint
 
