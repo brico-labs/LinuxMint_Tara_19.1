@@ -757,7 +757,7 @@ Melpa y Marmalade son paquetes de terceros. Tienen mucha más variedad
 pero con calidades dispares.
 
 Desde Melpa con el menú de gestión de paquetes de emacs, instalamos los
-siguientes paquetes:
+siguientes paquetes\[3\]:
 
   - *markdown-mode*
   - *pandoc-mode*
@@ -769,6 +769,7 @@ siguientes paquetes:
   - *flycheck-d-unittest*
   - *elpy*
   - *jedi*
+  - *auctex-latexmk*
 
 Después de probar *flymake* y *flycheck* al final me ha gustado más
 *flycheck* Hay una sección de configuración en el fichero `.emacs` para
@@ -1164,7 +1165,7 @@ Vamos a probar *neovim*:
     sudo apt-get update
     sudo apt-get install neovim
 
-Para instalar los módulos de python \[3\]:
+Para instalar los módulos de python \[4\]:
 
     sudo pip install --upgrade neovim
     sudo pip3 install --upgrade neovim
@@ -2024,4 +2025,7 @@ Seguimos los pasos de instalación:
 2.  puede que haya un *bug* que hace fallar el sensor de temperatura si
     el portatil no arranca frio
 
-3.  aun no lo hice
+3.  Mantenemos aquí la lista de paquetes instalados en emacs aunque no
+    todos son de desarrollo software
+
+4.  aun no lo hice

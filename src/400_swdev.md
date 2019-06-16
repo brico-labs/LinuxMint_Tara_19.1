@@ -80,7 +80,8 @@ Melpa y Marmalade son paquetes de terceros. Tienen mucha más variedad
 pero con calidades dispares.
 
 Desde Melpa con el menú de gestión de paquetes de emacs, instalamos
-los siguientes paquetes:
+los siguientes paquetes^[Mantenemos aquí la lista de paquetes
+instalados en emacs aunque no todos son de desarrollo software]:
 
 * _markdown-mode_
 * _pandoc-mode_
@@ -92,6 +93,7 @@ los siguientes paquetes:
 * _flycheck-d-unittest_
 * _elpy_
 * _jedi_
+* _auctex-latexmk_
 
 Después de probar _flymake_ y _flycheck_ al final me ha gustado más
 _flycheck_ Hay una sección de configuración en el fichero `.emacs` para

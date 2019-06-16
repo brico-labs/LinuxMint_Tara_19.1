@@ -595,7 +595,7 @@ GNU Elpa es el depósito oficial, tiene menos paquetes y son todos con licencia 
 
 Melpa y Marmalade son paquetes de terceros. Tienen mucha más variedad pero con calidades dispares.
 
-Desde Melpa con el menú de gestión de paquetes de emacs, instalamos los siguientes paquetes:
+Desde Melpa con el menú de gestión de paquetes de emacs, instalamos los siguientes paquetes<ref>Mantenemos aquí la lista de paquetes instalados en emacs aunque no todos son de desarrollo software</ref>:
 
 * ''markdown-mode''
 * ''pandoc-mode''
@@ -607,6 +607,7 @@ Desde Melpa con el menú de gestión de paquetes de emacs, instalamos los siguie
 * ''flycheck-d-unittest''
 * ''elpy''
 * ''jedi''
+* ''auctex-latexmk''
 
 Después de probar ''flymake'' y ''flycheck'' al final me ha gustado más ''flycheck'' Hay una sección de configuración en el fichero <code>.emacs</code> para cada uno de ellos, pero la de ''flymake'' está comentada.
 
