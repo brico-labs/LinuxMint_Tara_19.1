@@ -607,6 +607,10 @@ Desde Melpa con el menú de gestión de paquetes de emacs, instalamos los siguie
 * ''flycheck-d-unittest''
 * ''elpy''
 * ''jedi''
+* ''py_autopep8''
+* ''auctex''
+* ''smartparens''
+* ''yasnippets'' (se instala como dependencia)
 
 Después de probar ''flymake'' y ''flycheck'' al final me ha gustado más ''flycheck'' Hay una sección de configuración en el fichero <code>.emacs</code> para cada uno de ellos, pero la de ''flymake'' está comentada.
 

@@ -769,6 +769,10 @@ siguientes paquetes:
   - *flycheck-d-unittest*
   - *elpy*
   - *jedi*
+  - *py\_autopep8*
+  - *auctex*
+  - *smartparens*
+  - *yasnippets* (se instala como dependencia)
 
 Después de probar *flymake* y *flycheck* al final me ha gustado más
 *flycheck* Hay una sección de configuración en el fichero `.emacs` para
