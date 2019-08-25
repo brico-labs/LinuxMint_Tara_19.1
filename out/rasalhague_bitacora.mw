@@ -1252,9 +1252,9 @@ Igual que el ''MyPaint'' descargamos desde [http://al.chemy.org la página web],
 
 Resulta que ''Shutter'' ya no está disponible. Aunque hay algún método para instalarlo he preferido probar las alternativas ''flameshot'' y ''knips''.
 
-El ''flameshot'' cubre el 99% de mis necesidades: <code>sudo apt install flameshot</code>
+El [https://flameshot.js.org/#/ ''flameshot''] cubre el 99% de mis necesidades: <code>sudo apt install flameshot</code>
 
-El ''ksnips'' por si tenemos que hacer una captura con retardo lo instalé con un ''appimage''.
+El [https://github.com/DamirPorobic/ksnip ''ksnip''] por si tenemos que hacer una captura con retardo lo instalé con un ''appimage''.
 
 == dia ==
 

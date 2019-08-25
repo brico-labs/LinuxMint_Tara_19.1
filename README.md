@@ -1570,11 +1570,11 @@ Resulta que *Shutter* ya no está disponible. Aunque hay algún método
 para instalarlo he preferido probar las alternativas *flameshot* y
 *knips*.
 
-El *flameshot* cubre el 99% de mis necesidades: `sudo apt install
-flameshot`
+El [*flameshot*](https://flameshot.js.org/#/) cubre el 99% de mis
+necesidades: `sudo apt install flameshot`
 
-El *ksnips* por si tenemos que hacer una captura con retardo lo instalé
-con un *appimage*.
+El [*ksnip*](https://github.com/DamirPorobic/ksnip) por si tenemos que
+hacer una captura con retardo lo instalé con un *appimage*.
 
 ## dia
 

@@ -95,10 +95,11 @@ accso con _Menulibre_.
 Resulta que _Shutter_ ya no está disponible. Aunque hay algún método
 para instalarlo he preferido probar las alternativas _flameshot_ y _knips_.
 
-El _flameshot_ cubre el 99% de mis necesidades: `sudo apt install flameshot`
+El [_flameshot_](https://flameshot.js.org/#/) cubre el 99% de mis
+necesidades: `sudo apt install flameshot`
 
-El _ksnips_ por si tenemos que hacer una captura con retardo lo
-instalé con un _appimage_.
+El [_ksnip_](https://github.com/DamirPorobic/ksnip) por si tenemos que
+hacer una captura con retardo lo instalé con un _appimage_.
 
 
 ## dia
