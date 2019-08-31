@@ -239,3 +239,29 @@ git clone https://github.com/kliment/Printrun.git
 
 Y ya lo tenemos todo listo para ejecutar.
 
+## Cortadora de vinilos
+
+### Inkcut
+
+Instalado en un entorno virtual:
+
+~~~~{bash}
+mkvirtualenv -p `which python3` inkcut
+
+sudo apt install libxml2-dev libxslt-dev libcups2-dev
+
+pip install PyQt5
+
+pip install inkcut
+~~~~
+
+### Plugin para inkscape
+
+Instalamos dependencias:
+
+~~~~{bash}
+pip install python-usb
+~~~~
+
+Instalamos el fichero `.deb` desde la web
+<https://github.com/fablabnbg/inkscape-silhouette/releases>
