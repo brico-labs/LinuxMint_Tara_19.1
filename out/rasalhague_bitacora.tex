@@ -1704,6 +1704,29 @@ sudo apt update
 sudo apt install mariadb-server
 \end{verbatim}
 
+Falla al poner \emph{password} al usuario \texttt{root} así que
+tendremos que ponerla manualmente:
+
+Paramos el servicio con \texttt{sudo\ service\ mariadb\ stop}
+
+Arrancamos sin comprobación de usuarios
+
+\begin{verbatim}
+sudo mysqld_safe --skip-grant-tables --skip-networking &
+
+mariadb -u root
+\end{verbatim}
+
+Una vez en el \emph{prompt} de la base de datos ejecutamos:
+
+\begin{verbatim}
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'new_password';
+FLUSH PRIVILEGES;
+\end{verbatim}
+
+Ahora podemos reiniciar el ordenador y el usuario \texttt{root} ya
+tendrá la contraseña correcta en la base de datos.
+
 \hypertarget{desarrollo-hardware}{%
 \section{Desarrollo hardware}\label{desarrollo-hardware}}
 

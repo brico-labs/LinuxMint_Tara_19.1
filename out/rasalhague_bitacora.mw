@@ -1029,6 +1029,21 @@ sudo add-apt-repository 'deb [arch=amd64,arm64,ppc64el] http://ftp.icm.edu.pl/pu
 
 sudo apt update
 sudo apt install mariadb-server</pre>
+Falla al poner ''password'' al usuario <code>root</code> así que tendremos que ponerla manualmente:
+
+Paramos el servicio con <code>sudo service mariadb stop</code>
+
+Arrancamos sin comprobación de usuarios
+
+<pre>sudo mysqld_safe --skip-grant-tables --skip-networking &amp;
+
+mariadb -u root</pre>
+Una vez en el ''prompt'' de la base de datos ejecutamos:
+
+<pre>ALTER USER 'root'@'localhost' IDENTIFIED BY 'new_password';
+FLUSH PRIVILEGES;</pre>
+Ahora podemos reiniciar el ordenador y el usuario <code>root</code> ya tendrá la contraseña correcta en la base de datos.
+
 = Desarrollo hardware =
 
 == Arduino IDE ==

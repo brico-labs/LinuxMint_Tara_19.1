@@ -1262,6 +1262,25 @@ sudo apt update
 sudo apt install mariadb-server
 ```
 
+Falla al poner *password* al usuario `root` así que tendremos que
+ponerla manualmente:
+
+Paramos el servicio con `sudo service mariadb stop`
+
+Arrancamos sin comprobación de usuarios
+
+    sudo mysqld_safe --skip-grant-tables --skip-networking &
+    
+    mariadb -u root
+
+Una vez en el *prompt* de la base de datos ejecutamos:
+
+    ALTER USER 'root'@'localhost' IDENTIFIED BY 'new_password';
+    FLUSH PRIVILEGES;
+
+Ahora podemos reiniciar el ordenador y el usuario `root` ya tendrá la
+contraseña correcta en la base de datos.
+
 # Desarrollo hardware
 
 ## Arduino IDE
