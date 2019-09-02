@@ -4,6 +4,7 @@ i  acpi-support - scripts for handling many ACPI events
 i  acpid - Advanced Configuration and Power Interface event daemon
 i  add-apt-key - Command line tool to add GPG keys to the APT keyring
 i  adduser - add and remove users and groups
+i  adobe-flashplugin - Adobe Flash Player plugin
 i  adwaita-icon-theme - default icon theme of GNOME (small subset)
 i  alsa-base - ALSA driver configuration files
 i  alsa-utils - Utilities for configuring and using ALSA
@@ -15,6 +16,7 @@ i  apport - automatically generate crash reports for debugging
 i  appstream - Software component metadata management
 i  apt - commandline package manager
 i  apt-clone - Script to create state bundles
+i  apt-transport-https - transitional package for https support
 i  apt-utils - package management related utility programs
 i  aptdaemon - transaction based package management service
 i  aptdaemon-data - data files for clients
@@ -84,6 +86,7 @@ i  clang - C, C++ and Objective-C compiler (LLVM based)
 i  clementine - modern music player and library organizer
 i  cli-common - common files between all CLI packages
 i  cmake - cross-platform, open-source make system
+i  code - Code editing. Redefined.
 i  colord - system service to manage device colour profiles -- system daemon
 i  colord-data - system service to manage device colour profiles -- data files
 i  command-not-found - Suggest installation of packages in interactive bash sessions
@@ -97,6 +100,7 @@ i  compizconfig-settings-manager - Compiz configuration settings manager
 i  compton - compositor for X11, based on xcompmgr
 i  console-setup - console font and keymap setup program
 i  console-setup-linux - Linux specific part of console-setup
+i  containerd.io - An open and reliable container runtime
 i  coreutils - GNU core utilities
 i  cpio - GNU cpio -- a program to manage archives of files
 i  cpp - GNU C preprocessor (cpp)
@@ -143,6 +147,8 @@ i  deluge - bittorrent client written in Python/PyGTK
 i  desktop-file-utils - Utilities for .desktop files
 i  dfix - Tool for automatically upgrading D source code
 i  dfmt - D source code formatter
+i  dia - Diagram editor
+i  dia-shapes - Diagram editor (additional shapes)
 i  dialog - Displays user-friendly dialog boxes from shell scripts
 i  dictionaries-common - spelling dictionaries - common utilities
 i  diffstat - produces graph of changes introduced by a diff file
@@ -166,6 +172,8 @@ i  docbook-dsssl - modular DocBook DSSSL stylesheets, for print and HTML
 i  docbook-to-man - converter from DocBook SGML into roff man macros
 i  docbook-xml - standard XML documentation system for software and systems
 i  docbook-xsl - stylesheets for processing DocBook XML to various output formats
+i  docker-ce - Docker: the open-source application container engine
+i  docker-ce-cli - Docker CLI: the open-source application container engine
 i  dosfstools - utilities for making and checking MS-DOS FAT filesystems
 i  dpkg - Debian package management system
 i  dpkg-dev - Debian package development tools
@@ -179,8 +187,8 @@ i  ecryptfs-utils - ecryptfs cryptographic filesystem (utilities)
 i  ed - classic UNIX line editor
 i  efibootmgr - Interact with the EFI Boot Manager
 i  eject - ejects CDs and operates CD-Changers under Linux
-iB emacs26 - GNU Emacs editor (with GTK+ user interface)
-iB emacs26-el - GNU Emacs editor (uncompiled Elisp files)
+i  emacs26 - GNU Emacs editor (with GTK+ user interface)
+i  emacs26-el - GNU Emacs editor (uncompiled Elisp files)
 i  emacsen-common - Common facilities for all emacsen
 i  enchant - Wrapper for various spell checker engines (binary programs)
 i  engrampa - archive manager for MATE
@@ -202,6 +210,7 @@ i  findutils - utilities for finding files--find, xargs
 i  firefox - Safe and easy web browser from Mozilla
 i  firefox-locale-en - English language pack for Firefox
 i  flake8 - code checker using pycodestyle and pyflakes
+i  flameshot - Powerful yet simple-to-use screenshot software
 i  flatpak - Application deployment framework for desktop apps
 i  flex - fast lexical analyzer generator
 i  folder-color-switcher - Change a folder color
@@ -242,6 +251,7 @@ i  fonts-lohit-orya - Lohit TrueType font for Oriya Language
 i  fonts-lohit-taml - Lohit TrueType font for Tamil Language
 i  fonts-lohit-taml-classical - Lohit Tamil TrueType fonts for Tamil script
 i  fonts-lohit-telu - Lohit TrueType font for Telugu Language
+i  fonts-lyx - TrueType versions of some TeX fonts used by LyX
 i  fonts-mathjax - JavaScript display engine for LaTeX and MathML (fonts)
 i  fonts-mlym - Meta package to install all Malayalam fonts
 i  fonts-nakula - Free Unicode compliant Devanagari font
@@ -325,6 +335,7 @@ i  fwupd - Firmware update daemon
 i  fwupdate - Tools to manage UEFI firmware updates
 i  fwupdate-signed - Linux Firmware Updater EFI signed binary
 i  g++ - GNU C++ compiler
+i  g++-7 - GNU C++ compiler
 i  gawk - GNU awk, a pattern scanning and processing language
 i  gcc - GNU C compiler
 i  gcc-7 - GNU C compiler
@@ -341,6 +352,7 @@ i  gdebi - simple tool to view and install deb files - GNOME GUI
 i  gdebi-core - simple tool to install deb files
 i  gdisk - GPT fdisk text-mode partitioning tool
 i  gedit - official text editor of the GNOME desktop environment
+i  gedit-common - official text editor of the GNOME desktop environment (support files)
 i  genisoimage - Creates ISO-9660 CD-ROM filesystem images
 i  geoclue-2.0 - geoinformation service
 i  geoip-database - IP lookup command line tools that use the GeoIP library (country database)
@@ -352,8 +364,9 @@ i  gimp - GNU Image Manipulation Program
 i  gimp-data - Data files for GIMP
 i  gimp-data-extras - Extra brushes and patterns for GIMP
 i  gimp-gap - animation package for the GIMP
+i  gimp-gmic - GREYC's Magic for Image Computing - GIMP Plugin
 i  gimp-help-en - Documentation for the GIMP (English)
-i  gimp-plugin-registry - repository of optional extensions for GIMP
+i  gimp-python - Python scripting support for GIMP
 i  gimp-texturize - generates large textures from a small sample
 i  gir1.2-accountsservice-1.0 - GObject introspection data for AccountService
 i  gir1.2-appindicator3-0.1 - Typelib files for libappindicator3-1.
@@ -453,15 +466,20 @@ i  grub-pc-bin - GRand Unified Bootloader, version 2 (PC/BIOS binaries)
 i  grub2-common - GRand Unified Bootloader (common files for version 2)
 i  gsettings-desktop-schemas - GSettings desktop-wide schemas
 i  gsfonts - Fonts for the Ghostscript interpreter(s)
+i  gsfonts-x11 - Make Ghostscript fonts available to X11
 i  gstreamer1.0-alsa - GStreamer plugin for ALSA
 i  gstreamer1.0-clutter-3.0 - Clutter PLugin for GStreamer 1.0
 i  gstreamer1.0-gl - GStreamer plugins for GL
+i  gstreamer1.0-libav - libav plugin for GStreamer
 i  gstreamer1.0-packagekit - GStreamer plugin to install codecs using PackageKit
+i  gstreamer1.0-plugins-bad - GStreamer plugins from the "bad" set
 i  gstreamer1.0-plugins-base - GStreamer plugins from the "base" set
 i  gstreamer1.0-plugins-base-apps - GStreamer helper programs from the "base" set
 i  gstreamer1.0-plugins-good - GStreamer plugins from the "good" set
+i  gstreamer1.0-plugins-ugly - GStreamer plugins from the "ugly" set
 i  gstreamer1.0-pulseaudio - GStreamer plugin for PulseAudio
 i  gstreamer1.0-tools - Tools for use with GStreamer
+i  gstreamer1.0-vaapi - VA-API plugins for GStreamer
 i  gstreamer1.0-x - GStreamer plugins for X11 and Pango
 i  gthumb - image viewer and browser
 i  gtk-doc-tools - GTK+ documentation tools
@@ -556,6 +574,7 @@ i  iso-flag-png - ISO country flags in PNG format
 i  iw - tool for configuring Linux wireless devices
 i  java-common - Base package for Java runtimes
 i  jfsutils - utilities for managing the JFS filesystem
+i  josm - Editor for OpenStreetMap
 i  kazam - screencast and screenshot application created with design in mind
 i  kbd - Linux console font and keytable utilities
 i  keepass2 - Password manager
@@ -684,6 +703,7 @@ i  libcap-ng0 - An alternate POSIX capabilities library
 i  libcap2 - POSIX 1003.1e capabilities (library)
 i  libcap2-bin - POSIX 1003.1e capabilities (utilities)
 i  libcc1-0 - GCC cc1 plugin for GDB
+i  libccid - PC/SC driver for USB CCID smart card readers
 i  libccolamd2 - constrained column approximate library for sparse matrices
 i  libcdio-cdda2 - library to read and control digital audio CDs
 i  libcdio-paranoia2 - library to read digital audio CDs with error correction
@@ -767,6 +787,7 @@ i  libdv4 - software library for DV format digital video (runtime lib)
 i  libdw1 - library that provides access to the DWARF debug information
 i  libe-book-0.1-1 - library for reading and converting various  e-book formats
 i  libebackend-1.2-10 - Utility library for evolution data servers
+i  libebml4v5 - access library for the EBML format (shared library)
 i  libebook-1.2-19 - Client library for evolution address books
 i  libebook-contacts-1.2-2 - Client library for evolution contacts books
 i  libecal-1.2-19 - Client library for evolution calendars
@@ -798,6 +819,7 @@ i  libexempi3 - library to parse XMP metadata (Library)
 i  libexif12 - library to parse EXIF files
 i  libexiv2-14 - EXIF/IPTC/XMP metadata manipulation library
 i  libexpat1 - XML parsing C library - runtime library
+i  libexpat1-dev - XML parsing C library - development kit
 i  libexporter-tiny-perl - tiny exporter similar to Sub::Exporter
 i  libext2fs2 - ext2/ext3/ext4 file system libraries
 i  libexttextcat-2.0-0 - Language detection library
@@ -852,12 +874,12 @@ i  libgdk-pixbuf2.0-bin - GDK Pixbuf library (thumbnailer)
 i  libgdk-pixbuf2.0-common - GDK Pixbuf library - data files
 i  libgee-0.8-2 - GObject based collection and utility library
 i  libgegl-0.3-0 - Generic Graphics Library
+i  libgegl-0.4-0 - Generic Graphics Library
 i  libgeoclue-2-0 - convenience library to interact with geoinformation service
 i  libgeocode-glib0 - geocoding and reverse geocoding GLib library using Nominatim
 i  libgeoip1 - non-DNS IP-to-country resolver library
 i  libgfortran4 - Runtime library for GNU Fortran applications
 i  libgif7 - library for GIF images (library)
-i  libgimp2.0 - Libraries for the GNU Image Manipulation Program
 i  libgirepository-1.0-1 - Library for handling GObject introspection data (runtime library)
 i  libgl1 - Vendor neutral GL dispatch library -- legacy GL support
 i  libgl1-mesa-dri - free implementation of the OpenGL API -- DRI modules
@@ -972,6 +994,8 @@ i  libiec61883-0 - partial implementation of IEC 61883 (shared lib)
 i  libieee1284-3 - cross-platform library for parallel port access
 i  libijs-0.35 - IJS raster image transport protocol: shared library
 i  libilmbase12 - several utility libraries from ILM used by OpenEXR
+i  libimage-magick-perl - Perl interface to the ImageMagick graphics routines
+i  libimage-magick-q16-perl - Perl interface to the ImageMagick graphics routines -- Q16 version
 i  libimobiledevice-utils - Library for communicating with iPhone and iPod Touch devices
 i  libimobiledevice6 - Library for communicating with the iPhone and iPod Touch
 i  libindicator3-7 - panel indicator applet - shared library
@@ -1050,6 +1074,7 @@ i  liblzma5 - XZ-format compression library
 i  liblzo2-2 - data compression library
 i  libmagic-mgc - File type determination library using "magic" numbers (compiled magic file)
 i  libmagic1 - Recognize the type of data in a file using "magic" numbers - library
+i  libmagick++-6.q16-7 - C++ interface to ImageMagick -- quantum depth Q16
 i  libmagickcore-6.q16-3 - low-level image manipulation library -- quantum depth Q16
 i  libmagickwand-6.q16-3 - image manipulation library -- quantum depth Q16
 i  libmailtools-perl - Manipulate email in perl programs
@@ -1097,12 +1122,14 @@ i  libmpdec2 - library for decimal floating point arithmetic (runtime library)
 i  libmpfr6 - multiple precision floating-point computation
 i  libmpg123-0 - MPEG layer 1/2/3 audio decoder (shared library)
 i  libmpx2 - Intel memory protection extensions (runtime)
+i  libmspack0 - library for Microsoft compression formats (shared library)
 i  libmspub-0.1-1 - library for parsing the mspub file structure
 i  libmtdev1 - Multitouch Protocol Translation Library - shared library
 i  libmtp-common - Media Transfer Protocol (MTP) common files
 i  libmtp-runtime - Media Transfer Protocol (MTP) runtime tools
 i  libmtp9 - Media Transfer Protocol (MTP) library
 i  libmwaw-0.3-3 - import library for some old Mac text documents
+i  libmysofa0 - library to read HRTFs stored in the AES69-2015 SOFA format
 i  libmysqlclient20 - MySQL database client library
 i  libmythes-1.2-0 - simple thesaurus library
 i  libnatpmp1 - portable and fully compliant implementation of NAT-PMP
@@ -1205,6 +1232,7 @@ i  libperlio-gzip-perl - module providing a PerlIO layer to gzip/gunzip
 i  libphonenumber7 - parsing/formatting/validating phone numbers
 i  libpipeline1 - pipeline manipulation library
 i  libpixman-1-0 - pixel-manipulation library for X and cairo
+i  libpkcs11-dnietif - SmartCard library with support for dnietif card
 i  libpkcs11-helper1 - library that simplifies the interaction with PKCS#11
 i  libplist3 - Library for handling Apple binary and XML property lists
 i  libplymouth4 - graphical boot animation and logger - shared libraries
@@ -1216,6 +1244,7 @@ i  libpolkit-gobject-1-0 - PolicyKit Authorization API
 i  libpoppler-glib8 - PDF rendering library (GLib-based shared library)
 i  libpoppler73 - PDF rendering library
 i  libpopt0 - lib for parsing cmdline parameters
+i  libpq5 - PostgreSQL C client library
 i  libprocps6 - library for accessing process information from /proc
 i  libprotobuf10 - protocol buffers C++ library
 i  libproxy1-plugin-gsettings - automatic proxy configuration management library (GSettings plugin)
@@ -1229,22 +1258,32 @@ i  libpwquality-common - library for password quality checking and generation (d
 i  libpwquality1 - library for password quality checking and generation
 i  libpython-stdlib - interactive high-level object-oriented language (default python version)
 i  libpython2.7 - Shared Python runtime library (version 2.7)
+i  libpython2.7-dev - Header files and a static library for Python (v2.7)
 i  libpython2.7-minimal - Minimal subset of the Python language (version 2.7)
 i  libpython2.7-stdlib - Interactive high-level object-oriented language (standard library, version 2.7)
 i  libpython3-dev - header files and a static library for Python (default)
 i  libpython3-stdlib - interactive high-level object-oriented language (default python3 version)
 i  libpython3.6 - Shared Python runtime library (version 3.6)
+i  libpython3.6-dev - Header files and a static library for Python (v3.6)
 i  libpython3.6-minimal - Minimal subset of the Python language (version 3.6)
 i  libpython3.6-stdlib - Interactive high-level object-oriented language (standard library, version 3.6)
+i  libqgis-customwidgets - QGIS custom widgets for Qt Designer
 i  libqmi-glib5 - Support library to use the Qualcomm MSM Interface (QMI) protocol
 i  libqmi-proxy - Proxy to communicate with QMI ports
 i  libqpdf21 - runtime library for PDF transformation/inspection software
+i  libqt5concurrent5 - Qt 5 concurrent module
 i  libqt5core5a - Qt 5 core module
 i  libqt5dbus5 - Qt 5 D-Bus module
 i  libqt5gui5 - Qt 5 GUI module
 i  libqt5network5 - Qt 5 network module
+i  libqt5opengl5 - Qt 5 OpenGL module
+i  libqt5printsupport5 - Qt 5 print support module
+i  libqt5sql5 - Qt 5 SQL module
+i  libqt5sql5-sqlite - Qt 5 SQLite 3 database driver
 i  libqt5svg5 - Qt 5 SVG module
+i  libqt5test5 - Qt 5 test module
 i  libqt5widgets5 - Qt 5 widgets module
+i  libqt5xml5 - Qt 5 XML module
 i  libquadmath0 - GCC Quad-Precision Math Library
 i  libraptor2-0 - Raptor 2 RDF syntax library
 i  librarian0 - Documentation meta-data library (library package)
@@ -1412,6 +1451,7 @@ i  libvdpau1 - Video Decode and Presentation API for Unix (libraries)
 i  libvisio-0.1-1 - library for parsing the visio file structure
 i  libvisual-0.4-0 - audio visualization framework
 i  libvisual-0.4-plugins - audio visualization framework plugins
+i  libvlc-bin - tools for VLC's base library
 i  libvolume-key1 - Library for manipulating storage encryption keys and passphrases
 i  libvorbis0a - decoder library for Vorbis General Audio Compression Codec
 i  libvorbisenc2 - encoder library for Vorbis General Audio Compression Codec
@@ -1529,6 +1569,8 @@ i  libyaml-tiny-perl - Perl module for reading and writing YAML files
 i  libyelp0 - Library for the GNOME help browser
 i  libzeitgeist-2.0-0 - library to access Zeitgeist - shared library
 i  libzip4 - library for reading, creating, and modifying zip archives (runtime)
+i  libzipios++0v5 - small C++ library for reading zip files (library)
+i  libzmq5 - lightweight messaging kernel (shared library)
 i  libzstd1 - fast lossless compression algorithm
 i  libzvbi-common - Vertical Blanking Interval decoder (VBI) - common files
 i  libzvbi0 - Vertical Blanking Interval decoder (VBI) - runtime files
@@ -1607,6 +1649,7 @@ i  mate-user-guide - User documentation for MATE Desktop Environment
 i  mate-utils - MATE desktop utilities
 i  mate-utils-common - MATE desktop utilities (common files)
 i  mawk - a pattern scanning and text processing language
+i  mc - Midnight Commander - a powerful file manager
 i  media-player-info - Media player identification files
 i  memtest86+ - thorough real-mode memory tester
 i  menu-xdg - freedesktop.org menu compliant window manager scripts
@@ -1694,7 +1737,9 @@ i  onboard-common - Simple On-screen Keyboard (common files)
 i  openjade - Implementation of the DSSSL language
 i  openjdk-11-jre - OpenJDK Java runtime, using Hotspot JIT
 i  openjdk-11-jre-headless - OpenJDK Java runtime, using Hotspot JIT (headless)
+i  openjfx - JavaFX/OpenJFX - Rich client application platform for Java
 i  openprinting-ppds - OpenPrinting printer support - PostScript PPD files
+i  opensc - Smart card utilities with support for PKCS#15 compatible cards
 i  opensp - OpenJade group's SGML parsing tools
 i  openssh-client - secure shell (SSH) client, for secure access to remote machines
 i  openssl - Secure Sockets Layer toolkit - cryptographic utility
@@ -1715,12 +1760,15 @@ i  patch - Apply a diff file to an original
 i  patchutils - Utilities to work with patches
 i  pciutils - Linux PCI Utilities
 i  pcmciautils - PCMCIA utilities for Linux 2.6
+i  pcsc-tools - Some tools to use with smart cards and PC/SC
+i  pcscd - Middleware to access a smart card using PC/SC (daemon side)
 i  perl - Larry Wall's Practical Extraction and Report Language
 i  perl-base - minimal Perl system
 i  perl-modules-5.26 - Core Perl modules
 i  perl-openssl-defaults - version compatibility baseline for Perl OpenSSL packages
 i  pinentry-curses - curses-based PIN or pass-phrase entry dialog for GnuPG
 i  pinentry-gnome3 - GNOME 3 PIN or pass-phrase entry dialog for GnuPG
+i  pinentry-gtk2 - GTK+-2-based PIN or pass-phrase entry dialog for GnuPG
 i  pix - image viewer and browser
 i  pix-data - image viewer and browser - arch-independent files
 i  pix-dbg - image viewer and browser - debugging symbols
@@ -1771,6 +1819,7 @@ i  python-caja-common - Python binding for Caja components (common files)
 i  python-compizconfig - Compizconfig bindings for Python
 i  python-configobj - simple but powerful config file reader and writer for Python 2
 i  python-crypto - cryptographic algorithms and protocols for Python
+i  python-cryptography - Python library exposing cryptographic recipes and primitives (Python 2)
 i  python-dbus - simple interprocess messaging system (Python interface)
 i  python-flake8 - code checker using pycodestyle and pyflakes - Python 2.x
 i  python-funcsigs - function signatures from PEP362 - Python 2.7
@@ -1792,10 +1841,13 @@ i  python-setproctitle - Setproctitle implementation for Python 2
 i  python-six - Python 2 and 3 compatibility library (Python 2 interface)
 i  python-talloc - hierarchical pool based memory allocator - Python bindings
 i  python-tdb - Python bindings for TDB
+i  python-tk - Tkinter - Writing Tk applications with Python2
+i  python-urllib3 - HTTP library with thread-safe connection pooling for Python
 i  python-virtualenv - Python virtual environment creator
 i  python-xdg - Python 2 library to access freedesktop.org standards
 i  python-xlib - interface for Python to the X11 protocol
 i  python2.7 - Interactive high-level object-oriented language (version 2.7)
+i  python2.7-dev - Header files and a static library for Python (v2.7)
 i  python2.7-minimal - Minimal subset of the Python language (version 2.7)
 i  python3 - interactive high-level object-oriented language (default python3 version)
 i  python3-all-dev - package depending on all supported Python 3 development packages
@@ -1816,8 +1868,11 @@ i  python3-crypto - cryptographic algorithms and protocols for Python 3
 i  python3-cups - Python3 bindings for CUPS
 i  python3-cupshelpers - Python utility modules around the CUPS printing system
 i  python3-dbus - simple interprocess messaging system (Python 3 interface)
+i  python3-debconf - interact with debconf from Python 3
 i  python3-debian - Python 3 modules to work with Debian-related data formats
 i  python3-defer - Small framework for asynchronous programming (Python 3)
+i  python3-distupgrade - manage release upgrades
+i  python3-distutils - distutils package for Python 3.x
 i  python3-flake8 - code checker using pycodestyle and pyflakes - Python 3.x
 i  python3-gdbm - GNU dbm database support for Python 3.x
 i  python3-gi - Python 3 bindings for gobject-introspection libraries
@@ -1826,6 +1881,8 @@ i  python3-httplib2 - comprehensive HTTP client library written for Python3
 i  python3-icu - Python 3 extension wrapping the ICU C++ API
 i  python3-idna - Python IDNA2008 (RFC 5891) handling (Python 3)
 i  python3-jedi - autocompletion tool for Python 3
+i  python3-jinja2 - small but fast and easy to use stand-alone template engine
+i  python3-lib2to3 - Interactive high-level object-oriented language (2to3, version 3.6)
 i  python3-libxml2 - Python3 bindings for the GNOME XML library
 i  python3-louis - Python bindings for liblouis
 i  python3-mako - fast and lightweight templating for the Python 3 platform
@@ -1841,6 +1898,7 @@ i  python3-psutil - module providing convenience functions for managing processe
 i  python3-ptyprocess - Run a subprocess in a pseudo terminal from Python 3
 i  python3-pyatspi - Assistive Technology Service Provider Interface - Python3 bindings
 i  python3-pycurl - Python bindings to libcurl (Python 3)
+i  python3-qgis - Python bindings to QGIS
 i  python3-reportlab - ReportLab library to create PDF documents using Python3
 i  python3-reportlab-accel - C coded extension accelerator for the ReportLab Toolkit
 i  python3-requests - elegant and simple HTTP library for Python3, built for human beings
@@ -1859,7 +1917,9 @@ i  python3-xdg - Python 3 library to access freedesktop.org standards
 i  python3-xkit - library for the manipulation of xorg.conf files (Python 3)
 i  python3-yaml - YAML parser and emitter for Python3
 i  python3.6 - Interactive high-level object-oriented language (version 3.6)
+i  python3.6-dev - Header files and a static library for Python (v3.6)
 i  python3.6-minimal - Minimal subset of the Python language (version 3.6)
+i  qgis - Geographic Information System (GIS)
 i  qpdf - tools for transforming and inspecting PDF files
 i  qt5-gtk-platformtheme - Qt 5 GTK+ 3 platform theme
 i  qt5-style-plugins - Qt 5 extra widget styles
@@ -1903,8 +1963,10 @@ i  scribus-ng - Open Source Desktop Page Layout - 1.5.x branch
 i  scribus-ng-doc - Open Source Desktop Page Layout - documentation - 1.5.x branch
 i  scribus-template - additional scribus templates
 i  scrollkeeper - Transitional package for scrollkeeper
+i  seahorse - GNOME front end for GnuPG
 i  secureboot-db - Secure Boot updates for DB and DBX
 i  sed - GNU stream editor for filtering/transforming text
+i  segger-jlink-udev-rules - segger-jlink-udev-rules
 i  sensible-utils - Utilities for sensible alternative selection
 i  session-migration - Tool to migrate in user session settings
 i  sessioninstaller - APT based installer using PackageKit's session DBus API
@@ -1913,17 +1975,27 @@ i  sgml-data - common SGML and XML data
 i  shared-mime-info - FreeDesktop.org shared MIME database and spec
 i  shotwell - digital photo organizer
 i  simple-scan - Simple Scanning Utility
+i  skypeforlinux - Skype keeps the world talking, for free.
 i  slick-greeter - Slick-looking LightDM greeter
 i  smartmontools - control and monitor storage systems using S.M.A.R.T.
+i  software-properties-common - Transitional package
 i  sound-theme-freedesktop - freedesktop.org sound theme
 i  speech-dispatcher - Common interface to speech synthesizers
 i  speech-dispatcher-audio-plugins - Speech Dispatcher: Audio output plugins
 i  speech-dispatcher-espeak-ng - Speech Dispatcher: Espeak-ng output module
+i  spotify-client - Spotify streaming music client
 i  squashfs-tools - Tool to create and append to squashfs filesystems
 i  ssh-askpass-gnome - interactive X program to prompt users for a passphrase for ssh-add
 i  ssl-cert - simple debconf wrapper for OpenSSL
+i  st-stlink-server - stlinkserver
+i  st-stlink-udev-rules - st-stlink-udev-rules
+i  st-stm32cubeide-1.0.0 - IDE for STM32
+i  stopmotion - create stop-motion animations
 i  strace - System call tracer
+i  structure-synth - application for creating 3D structures
+i  sublime-text - Sublime Text is a sophisticated text editor for code, markup and prose
 i  sudo - Provide limited super user privileges to specific users
+i  sunflow - rendering system for photo-realistic image synthesis (GUI)
 i  synaptic - Graphical package manager
 i  syslinux - collection of bootloaders (DOS FAT and NTFS bootloader)
 i  syslinux-common - collection of bootloaders (common)
@@ -1965,6 +2037,7 @@ i  ubuntu-drivers-common - Detect and install additional Ubuntu driver packages
 i  ubuntu-keyring - GnuPG keys of the Ubuntu archive
 i  ubuntu-minimal - Minimal core of Ubuntu
 i  ubuntu-mono - Ubuntu Mono Icon theme
+i  ubuntu-release-upgrader-core - manage release upgrades
 i  ubuntu-system-adjustments - Adjustments to the Ubuntu package base
 i  ubuntu-system-service - Dbus service to set various system-wide configurations
 i  ucf - Update Configuration File(s): preserve user changes to config files
@@ -1976,6 +2049,7 @@ i  uno-libs3 - LibreOffice UNO runtime environment -- public shared libraries
 i  unrar - Unarchiver for .rar files (non-free version)
 i  unzip - De-archiver for .zip files
 i  update-inetd - inetd configuration file updater
+i  update-notifier-common - Files shared between update-notifier and other packages
 i  upower - abstraction for power management
 i  ure - LibreOffice UNO runtime environment
 i  ureadahead - Read required files in advance
@@ -1988,8 +2062,12 @@ i  util-linux - miscellaneous system utilities
 i  uuid-runtime - runtime components for the Universally Unique ID library
 i  vim-common - Vi IMproved - Common files
 i  vim-tiny - Vi IMproved - enhanced vi editor - compact version
+i  virtualbox-6.0 - Oracle VM VirtualBox
 i  virtualenv - Python virtual environment creator
 i  virtualenvwrapper - extension to virtualenv for managing multiple virtual Python environments
+i  vlc - multimedia player and streamer
+i  vlc-l10n - translations for VLC
+i  vlc-plugin-notify - LibNotify plugin for VLC
 i  vokoscreen - easy to use screencast creator
 i  wamerican - American English dictionary words for /usr/share/dict
 i  wbrazilian - Brazilian Portuguese wordlist

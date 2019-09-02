@@ -94,6 +94,11 @@ instalados en emacs aunque no todos son de desarrollo software]:
 * _elpy_
 * _jedi_
 * _auctex-latexmk_
+* _py_autopep8_
+* _auctex_
+* _smartparens_
+* _yasnippets_ (se instala como dependencia)
+
 
 Después de probar _flymake_ y _flycheck_ al final me ha gustado más
 _flycheck_ Hay una sección de configuración en el fichero `.emacs` para
@@ -609,3 +614,39 @@ syntax enable
 El rollo de siempre, descargar desde [la página
 web](https://www.mozilla.org/en-US/firefox/developer/) descomprimir en
 `~/apps` y crear un lanzador.
+
+
+## MariaDB
+
+Instalamos la última estable desde los repos oficiales:
+
+~~~~{bash}
+sudo apt-get install software-properties-common
+sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8
+sudo add-apt-repository 'deb [arch=amd64,arm64,ppc64el] http://ftp.icm.edu.pl/pub/unix/database/mariadb/repo/10.4/ubuntu bionic main'
+
+sudo apt update
+sudo apt install mariadb-server
+~~~~
+
+Falla al poner _password_ al usuario `root` así que tendremos que ponerla manualmente:
+
+Paramos el servicio con `sudo service mariadb stop`
+
+Arrancamos sin comprobación de usuarios
+
+~~~~
+sudo mysqld_safe --skip-grant-tables --skip-networking &
+
+mariadb -u root
+~~~~
+
+Una vez en el _prompt_ de la base de datos ejecutamos:
+
+~~~~
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'new_password';
+FLUSH PRIVILEGES;
+~~~~
+
+Ahora podemos reiniciar el ordenador y el usuario `root` ya tendrá la
+contraseña correcta en la base de datos.

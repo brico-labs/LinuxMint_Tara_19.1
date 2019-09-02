@@ -1129,6 +1129,14 @@ siguientes paquetes\footnote{Mantenemos aquí la lista de paquetes
   \emph{jedi}
 \item
   \emph{auctex-latexmk}
+\item
+  \emph{py\_autopep8}
+\item
+  \emph{auctex}
+\item
+  \emph{smartparens}
+\item
+  \emph{yasnippets} (se instala como dependencia)
 \end{itemize}
 
 Después de probar \emph{flymake} y \emph{flycheck} al final me ha
@@ -1684,6 +1692,43 @@ El rollo de siempre, descargar desde
 \href{https://www.mozilla.org/en-US/firefox/developer/}{la página web}
 descomprimir en \texttt{\textasciitilde{}/apps} y crear un lanzador.
 
+\hypertarget{mariadb}{%
+\subsection{MariaDB}\label{mariadb}}
+
+Instalamos la última estable desde los repos oficiales:
+
+\begin{verbatim}
+sudo apt-get install software-properties-common
+sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8
+sudo add-apt-repository 'deb [arch=amd64,arm64,ppc64el] http://ftp.icm.edu.pl/pub/unix/database/mariadb/repo/10.4/ubuntu bionic main'
+
+sudo apt update
+sudo apt install mariadb-server
+\end{verbatim}
+
+Falla al poner \emph{password} al usuario \texttt{root} así que
+tendremos que ponerla manualmente:
+
+Paramos el servicio con \texttt{sudo\ service\ mariadb\ stop}
+
+Arrancamos sin comprobación de usuarios
+
+\begin{verbatim}
+sudo mysqld_safe --skip-grant-tables --skip-networking &
+
+mariadb -u root
+\end{verbatim}
+
+Una vez en el \emph{prompt} de la base de datos ejecutamos:
+
+\begin{verbatim}
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'new_password';
+FLUSH PRIVILEGES;
+\end{verbatim}
+
+Ahora podemos reiniciar el ordenador y el usuario \texttt{root} ya
+tendrá la contraseña correcta en la base de datos.
+
 \hypertarget{desarrollo-hardware}{%
 \section{Desarrollo hardware}\label{desarrollo-hardware}}
 
@@ -1962,6 +2007,36 @@ git clone https://github.com/kliment/Printrun.git
 
 Y ya lo tenemos todo listo para ejecutar.
 
+\hypertarget{cortadora-de-vinilos}{%
+\subsection{Cortadora de vinilos}\label{cortadora-de-vinilos}}
+
+\hypertarget{inkcut}{%
+\subsubsection{Inkcut}\label{inkcut}}
+
+Instalado en un entorno virtual:
+
+\begin{verbatim}
+mkvirtualenv -p `which python3` inkcut
+
+sudo apt install libxml2-dev libxslt-dev libcups2-dev
+
+pip install PyQt5
+
+pip install inkcut
+\end{verbatim}
+
+\hypertarget{plugin-para-inkscape}{%
+\subsubsection{Plugin para inkscape}\label{plugin-para-inkscape}}
+
+Instalamos dependencias:
+
+\begin{verbatim}
+pip install python-usb
+\end{verbatim}
+
+Instalamos el fichero \texttt{.deb} desde la web
+\url{https://github.com/fablabnbg/inkscape-silhouette/releases}
+
 \hypertarget{aplicaciones-de-gruxe1ficos}{%
 \section{Aplicaciones de gráficos}\label{aplicaciones-de-gruxe1ficos}}
 
@@ -2072,11 +2147,12 @@ Resulta que \emph{Shutter} ya no está disponible. Aunque hay algún
 método para instalarlo he preferido probar las alternativas
 \emph{flameshot} y \emph{knips}.
 
-El \emph{flameshot} cubre el 99\% de mis necesidades:
-\texttt{sudo\ apt\ install\ flameshot}
+El \href{https://flameshot.js.org/\#/}{\emph{flameshot}} cubre el 99\%
+de mis necesidades: \texttt{sudo\ apt\ install\ flameshot}
 
-El \emph{ksnips} por si tenemos que hacer una captura con retardo lo
-instalé con un \emph{appimage}.
+El \href{https://github.com/DamirPorobic/ksnip}{\emph{ksnip}} por si
+tenemos que hacer una captura con retardo lo instalé con un
+\emph{appimage}.
 
 \hypertarget{dia}{%
 \subsection{dia}\label{dia}}

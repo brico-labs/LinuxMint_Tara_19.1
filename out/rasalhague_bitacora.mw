@@ -608,6 +608,10 @@ Desde Melpa con el menú de gestión de paquetes de emacs, instalamos los siguie
 * ''elpy''
 * ''jedi''
 * ''auctex-latexmk''
+* ''py_autopep8''
+* ''auctex''
+* ''smartparens''
+* ''yasnippets'' (se instala como dependencia)
 
 Después de probar ''flymake'' y ''flycheck'' al final me ha gustado más ''flycheck'' Hay una sección de configuración en el fichero <code>.emacs</code> para cada uno de ellos, pero la de ''flymake'' está comentada.
 
@@ -1016,6 +1020,31 @@ syntax enable</pre>
 
 El rollo de siempre, descargar desde [https://www.mozilla.org/en-US/firefox/developer/ la página web] descomprimir en <code>~/apps</code> y crear un lanzador.
 
+== MariaDB ==
+
+Instalamos la última estable desde los repos oficiales:
+
+<pre class="{bash}">sudo apt-get install software-properties-common
+sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8
+sudo add-apt-repository 'deb [arch=amd64,arm64,ppc64el] http://ftp.icm.edu.pl/pub/unix/database/mariadb/repo/10.4/ubuntu bionic main'
+
+sudo apt update
+sudo apt install mariadb-server</pre>
+Falla al poner ''password'' al usuario <code>root</code> así que tendremos que ponerla manualmente:
+
+Paramos el servicio con <code>sudo service mariadb stop</code>
+
+Arrancamos sin comprobación de usuarios
+
+<pre>sudo mysqld_safe --skip-grant-tables --skip-networking &amp;
+
+mariadb -u root</pre>
+Una vez en el ''prompt'' de la base de datos ejecutamos:
+
+<pre>ALTER USER 'root'@'localhost' IDENTIFIED BY 'new_password';
+FLUSH PRIVILEGES;</pre>
+Ahora podemos reiniciar el ordenador y el usuario <code>root</code> ya tendrá la contraseña correcta en la base de datos.
+
 = Desarrollo hardware =
 
 == Arduino IDE ==
@@ -1169,6 +1198,26 @@ Clonamos el repo:
 git clone https://github.com/kliment/Printrun.git</pre>
 Y ya lo tenemos todo listo para ejecutar.
 
+== Cortadora de vinilos ==
+
+=== Inkcut ===
+
+Instalado en un entorno virtual:
+
+<pre class="{bash}">mkvirtualenv -p `which python3` inkcut
+
+sudo apt install libxml2-dev libxslt-dev libcups2-dev
+
+pip install PyQt5
+
+pip install inkcut</pre>
+=== Plugin para inkscape ===
+
+Instalamos dependencias:
+
+<pre class="{bash}">pip install python-usb</pre>
+Instalamos el fichero <code>.deb</code> desde la web https://github.com/fablabnbg/inkscape-silhouette/releases
+
 = Aplicaciones de gráficos =
 
 == LibreCAD ==
@@ -1239,9 +1288,9 @@ Igual que el ''MyPaint'' descargamos desde [http://al.chemy.org la página web],
 
 Resulta que ''Shutter'' ya no está disponible. Aunque hay algún método para instalarlo he preferido probar las alternativas ''flameshot'' y ''knips''.
 
-El ''flameshot'' cubre el 99% de mis necesidades: <code>sudo apt install flameshot</code>
+El [https://flameshot.js.org/#/ ''flameshot''] cubre el 99% de mis necesidades: <code>sudo apt install flameshot</code>
 
-El ''ksnips'' por si tenemos que hacer una captura con retardo lo instalé con un ''appimage''.
+El [https://github.com/DamirPorobic/ksnip ''ksnip''] por si tenemos que hacer una captura con retardo lo instalé con un ''appimage''.
 
 == dia ==
 

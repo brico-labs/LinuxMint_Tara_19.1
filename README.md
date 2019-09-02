@@ -770,6 +770,10 @@ siguientes paquetes\[3\]:
   - *elpy*
   - *jedi*
   - *auctex-latexmk*
+  - *py\_autopep8*
+  - *auctex*
+  - *smartparens*
+  - *yasnippets* (se instala como dependencia)
 
 Después de probar *flymake* y *flycheck* al final me ha gustado más
 *flycheck* Hay una sección de configuración en el fichero `.emacs` para
@@ -1246,6 +1250,38 @@ El rollo de siempre, descargar desde [la página
 web](https://www.mozilla.org/en-US/firefox/developer/) descomprimir en
 `~/apps` y crear un lanzador.
 
+## MariaDB
+
+Instalamos la última estable desde los repos oficiales:
+
+``` {bash}
+sudo apt-get install software-properties-common
+sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8
+sudo add-apt-repository 'deb [arch=amd64,arm64,ppc64el] http://ftp.icm.edu.pl/pub/unix/database/mariadb/repo/10.4/ubuntu bionic main'
+
+sudo apt update
+sudo apt install mariadb-server
+```
+
+Falla al poner *password* al usuario `root` así que tendremos que
+ponerla manualmente:
+
+Paramos el servicio con `sudo service mariadb stop`
+
+Arrancamos sin comprobación de usuarios
+
+    sudo mysqld_safe --skip-grant-tables --skip-networking &
+    
+    mariadb -u root
+
+Una vez en el *prompt* de la base de datos ejecutamos:
+
+    ALTER USER 'root'@'localhost' IDENTIFIED BY 'new_password';
+    FLUSH PRIVILEGES;
+
+Ahora podemos reiniciar el ordenador y el usuario `root` ya tendrá la
+contraseña correcta en la base de datos.
+
 # Desarrollo hardware
 
 ## Arduino IDE
@@ -1467,6 +1503,33 @@ Clonamos el repo:
 
 Y ya lo tenemos todo listo para ejecutar.
 
+## Cortadora de vinilos
+
+### Inkcut
+
+Instalado en un entorno virtual:
+
+``` {bash}
+mkvirtualenv -p `which python3` inkcut
+
+sudo apt install libxml2-dev libxslt-dev libcups2-dev
+
+pip install PyQt5
+
+pip install inkcut
+```
+
+### Plugin para inkscape
+
+Instalamos dependencias:
+
+``` {bash}
+pip install python-usb
+```
+
+Instalamos el fichero `.deb` desde la web
+<https://github.com/fablabnbg/inkscape-silhouette/releases>
+
 # Aplicaciones de gráficos
 
 ## LibreCAD
@@ -1554,11 +1617,11 @@ Resulta que *Shutter* ya no está disponible. Aunque hay algún método
 para instalarlo he preferido probar las alternativas *flameshot* y
 *knips*.
 
-El *flameshot* cubre el 99% de mis necesidades: `sudo apt install
-flameshot`
+El [*flameshot*](https://flameshot.js.org/#/) cubre el 99% de mis
+necesidades: `sudo apt install flameshot`
 
-El *ksnips* por si tenemos que hacer una captura con retardo lo instalé
-con un *appimage*.
+El [*ksnip*](https://github.com/DamirPorobic/ksnip) por si tenemos que
+hacer una captura con retardo lo instalé con un *appimage*.
 
 ## dia
 
