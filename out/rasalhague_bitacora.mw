@@ -1292,6 +1292,14 @@ El [https://flameshot.js.org/#/ ''flameshot''] cubre el 99% de mis necesidades: 
 
 El [https://github.com/DamirPorobic/ksnip ''ksnip''] por si tenemos que hacer una captura con retardo lo instalé con un ''appimage''.
 
+== Reoptimizar imágenes ==
+
+=== ImageMagick ===
+
+=== Imagine ===
+
+Nos bajamos un ''AppImage'' desde el [https://github.com/meowtec/Imagine/releases github] de la aplicación
+
 == dia ==
 
 Un programa para crear diagramas
@@ -1662,4 +1670,41 @@ Seguimos los pasos de instalación:
 * La instalación de <code>git</code>, <code>cmake</code> y <code>build-essential</code> ya la tengo hecha.
 
 <pre>sudo apt-get install libusb-1.0-0-dev</pre>
+== Posible problema con modemmanager y micros programables ==
+
+Programando el ''Circuit Playground Express'' con el ''Arduino IDE'' tenía problemas continuos para hacer los ''uploads'', al parecer el servicio ''ModemManager'' es el culpable, se pasa todo el tiempo capturando los nuevos puertos serie por que considera que todo es un modem.
+
+Una prueba rápida para comprobarlo: <code>sudo systemctl stop ModemManager</code>
+
+Con esto funciona todo bien, pero en el siguiente arranque volvera a cargarse.
+
+Para dar una solución definitiva se puede programar una regla para impedir que el ''ModemManager'' capture el puerto con un dispositivo
+
+Creamos un fichero con permisos de <code>root</code> en el directorio <code>/etc/udev/rules.d</code> que llamaremos: <code>99-arduino.rules</code>
+
+Dentro de ese fichero especificamos los codigos VID/PID que se deben ignorar:
+
+<pre># for arduino brand, stop ModemManager grabbing port
+ATTRS{idVendor}==&quot;2a03&quot;, ENV{ID_MM_DEVICE_IGNORE}=&quot;1&quot;
+# for sparkfun brand, stop ModemManager grabbing port
+ATTRS{idVendor}==&quot;1b4f&quot;, ENV{ID_MM_DEVICE_IGNORE}=&quot;1&quot;</pre>
+Save the rules file (as root) and reboot the PC. Arduino IDE then works great with the Pro Micro.
+
+Ojo que si tienes SystemV no va a funcionar.
+
+https://starter-kit.nettigo.eu/2015/serial-port-busy-for-avrdude-on-ubuntu-with-arduino-leonardo-eth/
+
+https://www.codeproject.com/Tips/349002/Select-a-USB-Serial-Device-via-its-VID-PID
+
+== Programar los nanos con chip ch340 o ch341 ==
+
+Linux mapea el chip correctamente en un puerto <code>/dev/ttyUSB0</code> y con eso basta, que no te lien con el cuento de “drivers para linux”
+
+Todo lo que hace falta es configurar correctamente el ''Arduino IDE'', hay que escoger:
+
+<pre>Board: &quot;Arduino Nano&quot;
+Processor: &quot;ATmega168&quot;
+Port: &quot;/dev/ttyUSB0&quot;</pre>
+Y ya funciona todo.
+
 <references />

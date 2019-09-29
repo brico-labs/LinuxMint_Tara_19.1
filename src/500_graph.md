@@ -101,6 +101,15 @@ necesidades: `sudo apt install flameshot`
 El [_ksnip_](https://github.com/DamirPorobic/ksnip) por si tenemos que
 hacer una captura con retardo lo instalé con un _appimage_.
 
+## Reoptimizar imágenes
+
+### ImageMagick
+
+### Imagine
+
+Nos bajamos un _AppImage_ desde el
+[github](https://github.com/meowtec/Imagine/releases) de la aplicación
+
 
 ## dia
 

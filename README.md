@@ -1623,6 +1623,15 @@ necesidades: `sudo apt install flameshot`
 El [*ksnip*](https://github.com/DamirPorobic/ksnip) por si tenemos que
 hacer una captura con retardo lo instalé con un *appimage*.
 
+## Reoptimizar imágenes
+
+### ImageMagick
+
+### Imagine
+
+Nos bajamos un *AppImage* desde el
+[github](https://github.com/meowtec/Imagine/releases) de la aplicación
+
 ## dia
 
 Un programa para crear diagramas
@@ -2082,6 +2091,55 @@ Seguimos los pasos de instalación:
 <!-- end list -->
 
     sudo apt-get install libusb-1.0-0-dev
+
+## Posible problema con modemmanager y micros programables
+
+Programando el *Circuit Playground Express* con el *Arduino IDE* tenía
+problemas continuos para hacer los *uploads*, al parecer el servicio
+*ModemManager* es el culpable, se pasa todo el tiempo capturando los
+nuevos puertos serie por que considera que todo es un modem.
+
+Una prueba rápida para comprobarlo: `sudo systemctl stop ModemManager`
+
+Con esto funciona todo bien, pero en el siguiente arranque volvera a
+cargarse.
+
+Para dar una solución definitiva se puede programar una regla para
+impedir que el *ModemManager* capture el puerto con un dispositivo
+
+Creamos un fichero con permisos de `root` en el directorio
+`/etc/udev/rules.d` que llamaremos: `99-arduino.rules`
+
+Dentro de ese fichero especificamos los codigos VID/PID que se deben
+ignorar:
+
+    # for arduino brand, stop ModemManager grabbing port
+    ATTRS{idVendor}=="2a03", ENV{ID_MM_DEVICE_IGNORE}="1"
+    # for sparkfun brand, stop ModemManager grabbing port
+    ATTRS{idVendor}=="1b4f", ENV{ID_MM_DEVICE_IGNORE}="1"
+
+Save the rules file (as root) and reboot the PC. Arduino IDE then works
+great with the Pro Micro.
+
+Ojo que si tienes SystemV no va a funcionar.
+
+https://starter-kit.nettigo.eu/2015/serial-port-busy-for-avrdude-on-ubuntu-with-arduino-leonardo-eth/
+
+https://www.codeproject.com/Tips/349002/Select-a-USB-Serial-Device-via-its-VID-PID
+
+## Programar los nanos con chip ch340 o ch341
+
+Linux mapea el chip correctamente en un puerto `/dev/ttyUSB0` y con eso
+basta, que no te lien con el cuento de “drivers para linux”
+
+Todo lo que hace falta es configurar correctamente el *Arduino IDE*, hay
+que escoger:
+
+    Board: "Arduino Nano"
+    Processor: "ATmega168"
+    Port: "/dev/ttyUSB0"
+
+Y ya funciona todo.
 
 1.  ya no incluye gksu pero tampoco es imprescindible
 

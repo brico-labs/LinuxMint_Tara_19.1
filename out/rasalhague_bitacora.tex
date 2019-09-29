@@ -2154,6 +2154,19 @@ El \href{https://github.com/DamirPorobic/ksnip}{\emph{ksnip}} por si
 tenemos que hacer una captura con retardo lo instalé con un
 \emph{appimage}.
 
+\hypertarget{reoptimizar-imuxe1genes}{%
+\subsection{Reoptimizar imágenes}\label{reoptimizar-imuxe1genes}}
+
+\hypertarget{imagemagick}{%
+\subsubsection{ImageMagick}\label{imagemagick}}
+
+\hypertarget{imagine}{%
+\subsubsection{Imagine}\label{imagine}}
+
+Nos bajamos un \emph{AppImage} desde el
+\href{https://github.com/meowtec/Imagine/releases}{github} de la
+aplicación
+
 \hypertarget{dia}{%
 \subsection{dia}\label{dia}}
 
@@ -2767,5 +2780,64 @@ Seguimos los pasos de instalación:
 \begin{verbatim}
 sudo apt-get install libusb-1.0-0-dev
 \end{verbatim}
+
+\hypertarget{posible-problema-con-modemmanager-y-micros-programables}{%
+\subsection{Posible problema con modemmanager y micros
+programables}\label{posible-problema-con-modemmanager-y-micros-programables}}
+
+Programando el \emph{Circuit Playground Express} con el \emph{Arduino
+IDE} tenía problemas continuos para hacer los \emph{uploads}, al parecer
+el servicio \emph{ModemManager} es el culpable, se pasa todo el tiempo
+capturando los nuevos puertos serie por que considera que todo es un
+modem.
+
+Una prueba rápida para comprobarlo:
+\texttt{sudo\ systemctl\ stop\ ModemManager}
+
+Con esto funciona todo bien, pero en el siguiente arranque volvera a
+cargarse.
+
+Para dar una solución definitiva se puede programar una regla para
+impedir que el \emph{ModemManager} capture el puerto con un dispositivo
+
+Creamos un fichero con permisos de \texttt{root} en el directorio
+\texttt{/etc/udev/rules.d} que llamaremos: \texttt{99-arduino.rules}
+
+Dentro de ese fichero especificamos los codigos VID/PID que se deben
+ignorar:
+
+\begin{verbatim}
+# for arduino brand, stop ModemManager grabbing port
+ATTRS{idVendor}=="2a03", ENV{ID_MM_DEVICE_IGNORE}="1"
+# for sparkfun brand, stop ModemManager grabbing port
+ATTRS{idVendor}=="1b4f", ENV{ID_MM_DEVICE_IGNORE}="1"
+\end{verbatim}
+
+Save the rules file (as root) and reboot the PC. Arduino IDE then works
+great with the Pro Micro.
+
+Ojo que si tienes SystemV no va a funcionar.
+
+https://starter-kit.nettigo.eu/2015/serial-port-busy-for-avrdude-on-ubuntu-with-arduino-leonardo-eth/
+
+https://www.codeproject.com/Tips/349002/Select-a-USB-Serial-Device-via-its-VID-PID
+
+\hypertarget{programar-los-nanos-con-chip-ch340-o-ch341}{%
+\subsection{Programar los nanos con chip ch340 o
+ch341}\label{programar-los-nanos-con-chip-ch340-o-ch341}}
+
+Linux mapea el chip correctamente en un puerto \texttt{/dev/ttyUSB0} y
+con eso basta, que no te lien con el cuento de ``drivers para linux''
+
+Todo lo que hace falta es configurar correctamente el \emph{Arduino
+IDE}, hay que escoger:
+
+\begin{verbatim}
+Board: "Arduino Nano"
+Processor: "ATmega168"
+Port: "/dev/ttyUSB0"
+\end{verbatim}
+
+Y ya funciona todo.
 
 \end{document}
