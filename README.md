@@ -261,6 +261,7 @@ con el plugin para *virtualenvwrapper*.
     apt install python-all-dev
     apt install python3-all-dev
     apt install python-pip python-virtualenv virtualenv python3-pip
+    apt install virtualenvwrapper
 
 *zsh* viene por defecto en mi instalación, en caso contrario:
 
@@ -332,7 +333,19 @@ Y editamos el fichero `~/.zshrc` para que contenga:
     unalias rm
     alias rmi='rm -i'
 
-Antigen ya se encarga de descargar todos los plugins que queramos
+Para usar *virtualenvwrapper* hay que decidir en que directorio queremos
+salvar los entornos virtuales. El obvio seria `~/.virtualenvs` la
+alternativa sería `~/.local/share/virtualenvs`.
+
+El que escojamos lo tenemos que crear y añadirlo a nuestro `~/.profile`
+con las líneas:
+
+    # WORKON_HOME for virtualenvwrapper
+    if [ -d "$HOME/.local/share/virtualenvs" ] ; then
+        WORKON_HOME="$HOME/.local/share/virtualenvs"
+    fi
+
+*Antigen* ya se encarga de descargar todos los plugins que queramos
 utilizar en zsh. Todos el software se descarga en `~/.antigen`
 
 Para configurar el
@@ -340,6 +353,8 @@ Para configurar el
 inspiró el bash-git-prompt, he modificado el fichero `~/.zshrc` y el
 fichero del tema en
 `~/.antigen/bundles/robbyrussell/oh-my-zsh/themes/gnzh.zsh-theme`
+
+Después de seguir estos pasos basta con arrancar el *zsh*
 
 ### fish
 
@@ -1914,9 +1929,15 @@ Y además:
     Pack](https://www.virtualbox.org/wiki/Downloads)
   - Instalamos el paquete *deb* de VirtualBox con `sudo dpkg -i paquete`
   - Instalamos el *Extension Pack* desde la propia aplicación de
-    virtualbox
+    virtualbox (*File::Preferences::Extensions*)
   - Añadimos nuestro usuario (o usuarios) al grupo `vboxusers` con `sudo
     gpasswd -a user vboxusers`
+
+## qemu
+
+Instalamos desde el repo oficial:
+
+    sudo apt install qemu-kvm qemu virt-manager virt-viewer libvirt-bin
 
 ## Docker
 
@@ -1925,6 +1946,7 @@ distribución:
 
     # Be safe
     sudo apt remove docker docker-engine docker.io
+    sudo apt autoremove
     sudo apt update
     
     # Install pre-requisites

@@ -207,7 +207,8 @@ Nos adelantamos a los acontecimientos, pero conviene tener instaladas las herram
 
 <pre>apt install python-all-dev
 apt install python3-all-dev
-apt install python-pip python-virtualenv virtualenv python3-pip</pre>
+apt install python-pip python-virtualenv virtualenv python3-pip
+apt install virtualenvwrapper</pre>
 ''zsh'' viene por defecto en mi instalación, en caso contrario:
 
 <pre>apt install zsh</pre>
@@ -271,9 +272,19 @@ antigen apply
 # Correct rm alias from common-alias bundle
 unalias rm
 alias rmi='rm -i'</pre>
-Antigen ya se encarga de descargar todos los plugins que queramos utilizar en zsh. Todos el software se descarga en <code>~/.antigen</code>
+Para usar ''virtualenvwrapper'' hay que decidir en que directorio queremos salvar los entornos virtuales. El obvio seria <code>~/.virtualenvs</code> la alternativa sería <code>~/.local/share/virtualenvs</code>.
+
+El que escojamos lo tenemos que crear y añadirlo a nuestro <code>~/.profile</code> con las líneas:
+
+<pre># WORKON_HOME for virtualenvwrapper
+if [ -d &quot;$HOME/.local/share/virtualenvs&quot; ] ; then
+    WORKON_HOME=&quot;$HOME/.local/share/virtualenvs&quot;
+fi</pre>
+''Antigen'' ya se encarga de descargar todos los plugins que queramos utilizar en zsh. Todos el software se descarga en <code>~/.antigen</code>
 
 Para configurar el [https://github.com/olivierverdier/zsh-git-prompt zsh-git-prompt], que inspiró el bash-git-prompt, he modificado el fichero <code>~/.zshrc</code> y el fichero del tema en <code>~/.antigen/bundles/robbyrussell/oh-my-zsh/themes/gnzh.zsh-theme</code>
+
+Después de seguir estos pasos basta con arrancar el ''zsh''
 
 === fish ===
 
@@ -1530,15 +1541,21 @@ Y además:
 * Descargamos el paquete correspondiente (Ubuntu 18.04) desde [https://www.virtualbox.org/wiki/Linux_Downloads la página web].
 * Descargamos también el [https://www.virtualbox.org/wiki/Downloads VirtualBox Extension Pack]
 * Instalamos el paquete ''deb'' de VirtualBox con <code>sudo dpkg -i paquete</code>
-* Instalamos el ''Extension Pack'' desde la propia aplicación de virtualbox
+* Instalamos el ''Extension Pack'' desde la propia aplicación de virtualbox (''File::Preferences::Extensions'')
 * Añadimos nuestro usuario (o usuarios) al grupo <code>vboxusers</code> con <code>sudo gpasswd -a user vboxusers</code>
 
+== qemu ==
+
+Instalamos desde el repo oficial:
+
+<pre>sudo apt install qemu-kvm qemu virt-manager virt-viewer libvirt-bin</pre>
 == Docker ==
 
 Tenemos que añadir el repositorio correspondiente a nuestra distribución:
 
 <pre># Be safe
 sudo apt remove docker docker-engine docker.io
+sudo apt autoremove
 sudo apt update
 
 # Install pre-requisites

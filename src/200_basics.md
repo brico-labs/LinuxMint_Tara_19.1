@@ -276,8 +276,8 @@ _zsh_ con el plugin para _virtualenvwrapper_.
 apt install python-all-dev
 apt install python3-all-dev
 apt install python-pip python-virtualenv virtualenv python3-pip
+apt install virtualenvwrapper
 ~~~~
-
 
 _zsh_ viene por defecto en mi instalación, en caso contrario:
 
@@ -358,7 +358,21 @@ unalias rm
 alias rmi='rm -i'
 ~~~~
 
-Antigen ya se encarga de descargar todos los plugins que queramos
+Para usar _virtualenvwrapper_ hay que decidir en que directorio
+queremos salvar los entornos virtuales. El obvio seria
+`~/.virtualenvs` la alternativa sería `~/.local/share/virtualenvs`.
+
+El que escojamos lo tenemos que crear y añadirlo a nuestro
+`~/.profile` con las líneas:
+
+~~~~
+# WORKON_HOME for virtualenvwrapper
+if [ -d "$HOME/.local/share/virtualenvs" ] ; then
+    WORKON_HOME="$HOME/.local/share/virtualenvs"
+fi
+~~~~
+
+_Antigen_ ya se encarga de descargar todos los plugins que queramos
 utilizar en zsh. Todos el software se descarga en `~/.antigen`
 
 Para configurar el
@@ -366,6 +380,8 @@ Para configurar el
 que inspiró el bash-git-prompt, he modificado el fichero `~/.zshrc` y
 el fichero del tema en
 `~/.antigen/bundles/robbyrussell/oh-my-zsh/themes/gnzh.zsh-theme`
+
+Después de seguir estos pasos basta con arrancar el _zsh_
 
 ### fish
 

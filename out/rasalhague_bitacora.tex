@@ -426,6 +426,7 @@ las herramientas de entornos virtuales de python antes de instalar
 apt install python-all-dev
 apt install python3-all-dev
 apt install python-pip python-virtualenv virtualenv python3-pip
+apt install virtualenvwrapper
 \end{verbatim}
 
 \emph{zsh} viene por defecto en mi instalación, en caso contrario:
@@ -508,7 +509,22 @@ unalias rm
 alias rmi='rm -i'
 \end{verbatim}
 
-Antigen ya se encarga de descargar todos los plugins que queramos
+Para usar \emph{virtualenvwrapper} hay que decidir en que directorio
+queremos salvar los entornos virtuales. El obvio seria
+\texttt{\textasciitilde{}/.virtualenvs} la alternativa sería
+\texttt{\textasciitilde{}/.local/share/virtualenvs}.
+
+El que escojamos lo tenemos que crear y añadirlo a nuestro
+\texttt{\textasciitilde{}/.profile} con las líneas:
+
+\begin{verbatim}
+# WORKON_HOME for virtualenvwrapper
+if [ -d "$HOME/.local/share/virtualenvs" ] ; then
+    WORKON_HOME="$HOME/.local/share/virtualenvs"
+fi
+\end{verbatim}
+
+\emph{Antigen} ya se encarga de descargar todos los plugins que queramos
 utilizar en zsh. Todos el software se descarga en
 \texttt{\textasciitilde{}/.antigen}
 
@@ -517,6 +533,8 @@ Para configurar el
 que inspiró el bash-git-prompt, he modificado el fichero
 \texttt{\textasciitilde{}/.zshrc} y el fichero del tema en
 \texttt{\textasciitilde{}/.antigen/bundles/robbyrussell/oh-my-zsh/themes/gnzh.zsh-theme}
+
+Después de seguir estos pasos basta con arrancar el \emph{zsh}
 
 \hypertarget{fish}{%
 \subsubsection{fish}\label{fish}}
@@ -2554,11 +2572,20 @@ contenedores}\label{virtualizaciones-y-contenedores}}
   \texttt{sudo\ dpkg\ -i\ paquete}
 \item
   Instalamos el \emph{Extension Pack} desde la propia aplicación de
-  virtualbox
+  virtualbox (\emph{File::Preferences::Extensions})
 \item
   Añadimos nuestro usuario (o usuarios) al grupo \texttt{vboxusers} con
   \texttt{sudo\ gpasswd\ -a\ user\ vboxusers}
 \end{itemize}
+
+\hypertarget{qemu}{%
+\subsection{qemu}\label{qemu}}
+
+Instalamos desde el repo oficial:
+
+\begin{verbatim}
+sudo apt install qemu-kvm qemu virt-manager virt-viewer libvirt-bin
+\end{verbatim}
 
 \hypertarget{docker}{%
 \subsection{Docker}\label{docker}}
@@ -2569,6 +2596,7 @@ distribución:
 \begin{verbatim}
 # Be safe
 sudo apt remove docker docker-engine docker.io
+sudo apt autoremove
 sudo apt update
 
 # Install pre-requisites

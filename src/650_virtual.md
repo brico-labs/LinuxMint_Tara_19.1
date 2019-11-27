@@ -2,11 +2,24 @@
 
 ## Instalación de _virtualBox_
 
-* Descargamos el paquete correspondiente (Ubuntu 18.04) desde [la página web](https://www.virtualbox.org/wiki/Linux_Downloads).
-* Descargamos también el [VirtualBox Extension Pack ](https://www.virtualbox.org/wiki/Downloads)
+* Descargamos el paquete correspondiente (Ubuntu 18.04) desde [la
+  página web](https://www.virtualbox.org/wiki/Linux_Downloads).
+* Descargamos también el [VirtualBox Extension Pack
+  ](https://www.virtualbox.org/wiki/Downloads)
 * Instalamos el paquete _deb_ de VirtualBox con `sudo dpkg -i paquete`
-* Instalamos el _Extension Pack_ desde la propia aplicación de virtualbox
-* Añadimos nuestro usuario (o usuarios) al grupo `vboxusers` con `sudo gpasswd -a user vboxusers`
+* Instalamos el _Extension Pack_ desde la propia aplicación de
+  virtualbox (_File::Preferences::Extensions_)
+* Añadimos nuestro usuario (o usuarios) al grupo `vboxusers` con `sudo
+  gpasswd -a user vboxusers`
+  
+## qemu
+
+Instalamos desde el repo oficial:
+
+~~~~
+sudo apt install qemu-kvm qemu virt-manager virt-viewer libvirt-bin
+~~~~
+
 
 ## Docker
 
@@ -16,6 +29,7 @@ distribución:
 ~~~~
 # Be safe
 sudo apt remove docker docker-engine docker.io
+sudo apt autoremove
 sudo apt update
 
 # Install pre-requisites
