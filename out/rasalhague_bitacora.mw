@@ -917,9 +917,9 @@ No lo he instalado, pero en caso de instalación mejor lo instalamos a nivel de 
 <pre class="{bash}">pip install --user pipenv</pre>
 === Instalación de bpython y ptpython ===
 
-''bpython'' instalado desde repos <code>sudo apt install bpython bpython3</code>
+[https://bpython-interpreter.org/ ''bpython''] instalado desde repos <code>sudo apt install bpython bpython3</code>
 
-''ptpython'' instalado en un virtualenv para probarlo
+[https://github.com/prompt-toolkit/ptpython ''ptpython''] instalado en un virtualenv para probarlo
 
 === Emacs para programar python ===
 

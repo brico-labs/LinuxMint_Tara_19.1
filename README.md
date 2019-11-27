@@ -1135,9 +1135,11 @@ pip install --user pipenv
 
 ### Instalación de bpython y ptpython
 
-*bpython* instalado desde repos `sudo apt install bpython bpython3`
+[*bpython*](https://bpython-interpreter.org/) instalado desde repos
+`sudo apt install bpython bpython3`
 
-*ptpython* instalado en un virtualenv para probarlo
+[*ptpython*](https://github.com/prompt-toolkit/ptpython) instalado en un
+virtualenv para probarlo
 
 ### Emacs para programar python
 
