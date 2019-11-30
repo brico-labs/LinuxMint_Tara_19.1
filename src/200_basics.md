@@ -437,6 +437,9 @@ aprender a usarlo.
 sudo apt install tmux
 ~~~~
 
+[El tao de tmux](https://leanpub.com/the-tao-of-tmux/read)
+
+
 ## Utilidades
 
 _Agave_ y _pdftk_ ya no existen, nos pasamos a _gpick_ y _poppler-utils_:

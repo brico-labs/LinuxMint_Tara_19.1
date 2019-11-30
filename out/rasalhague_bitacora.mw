@@ -315,6 +315,8 @@ Para tener la info de git en el prompt de fish al estilo de [https://github.com/
 Esto no tiene mucho que ver con los shell, lo he instalado para aprender a usarlo.
 
 <pre>sudo apt install tmux</pre>
+[https://leanpub.com/the-tao-of-tmux/read El tao de tmux]
+
 == Utilidades ==
 
 ''Agave'' y ''pdftk'' ya no existen, nos pasamos a ''gpick'' y ''poppler-utils'':
