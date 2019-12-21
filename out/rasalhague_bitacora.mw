@@ -282,7 +282,7 @@ if [ -d &quot;$HOME/.local/share/virtualenvs&quot; ] ; then
 fi</pre>
 ''Antigen'' ya se encarga de descargar todos los plugins que queramos utilizar en zsh. Todos el software se descarga en <code>~/.antigen</code>
 
-Para configurar el [https://github.com/olivierverdier/zsh-git-prompt zsh-git-prompt], que inspiró el bash-git-prompt, he modificado el fichero <code>~/.zshrc</code> y el fichero del tema en <code>~/.antigen/bundles/robbyrussell/oh-my-zsh/themes/gnzh.zsh-theme</code>
+Para configurar el [https://github.com/olivierverdier/zsh-git-prompt zsh-git-prompt], que inspiró el bash-git-prompt, he modificado el fichero <code>zshrc.sh</code> de ''zsh-git-prompt'' y el fichero del tema ''gnzh'' en <code>~/.antigen/bundles/robbyrussell/oh-my-zsh/themes/gnzh.zsh-theme</code>
 
 Después de seguir estos pasos basta con arrancar el ''zsh''
 

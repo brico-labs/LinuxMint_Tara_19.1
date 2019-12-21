@@ -350,8 +350,8 @@ utilizar en zsh. Todos el software se descarga en `~/.antigen`
 
 Para configurar el
 [zsh-git-prompt](https://github.com/olivierverdier/zsh-git-prompt), que
-inspiró el bash-git-prompt, he modificado el fichero `~/.zshrc` y el
-fichero del tema en
+inspiró el bash-git-prompt, he modificado el fichero `zshrc.sh` de
+*zsh-git-prompt* y el fichero del tema *gnzh* en
 `~/.antigen/bundles/robbyrussell/oh-my-zsh/themes/gnzh.zsh-theme`
 
 Después de seguir estos pasos basta con arrancar el *zsh*
