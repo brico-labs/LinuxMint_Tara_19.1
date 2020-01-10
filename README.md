@@ -706,7 +706,8 @@ Y ahora funciona correctamente.
 Estos son los paquetes esenciales para empezar a desarrollar software en
 Linux.
 
-    sudo apt install build-essential checkinstall make automake cmake autoconf git git-core dpkg wget
+    sudo apt install build-essential checkinstall make automake cmake autoconf \
+    git git-core git-crypt dpkg wget
 
 ## Git
 

@@ -552,7 +552,8 @@ Y ahora funciona correctamente.
 
 Estos son los paquetes esenciales para empezar a desarrollar software en Linux.
 
-<pre>sudo apt install build-essential checkinstall make automake cmake autoconf git git-core dpkg wget</pre>
+<pre>sudo apt install build-essential checkinstall make automake cmake autoconf \
+git git-core git-crypt dpkg wget</pre>
 == Git ==
 
 Control de versiones distribuido. Imprescindible. Para ''Linux Mint'' viene instalado por defecto.
